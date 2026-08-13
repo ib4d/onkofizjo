@@ -1,0 +1,27 @@
+{
+  "project": "onkofizjo marketing and CRM interfaces",
+  "source": "assets/stitch_onkofizjo_marketing_crm_interfaces.zip",
+  "screens": [
+    "marketing_home_desktop",
+    "nasze_us_ugi_onkofizjo",
+    "lokalizacje_i_kontakt",
+    "crm_dashboard_desktop",
+    "crm_mobile_home",
+    "patient_profile_desktop",
+    "generador_de_dietas_desktop",
+    "generator_pdf_plan_ywieniowy",
+    "przestrze_ai_hermes",
+    "centrum_dokumentacji",
+    "dokumentacja_mobilna",
+    "baza_wiedzy_i_blog",
+    "logowanie_do_systemu"
+  ],
+  "languages": ["pl", "en"],
+  "productionRules": [
+    "marketing has no public contact, booking request or newsletter forms",
+    "all clinical data is authenticated and audited",
+    "AI output is a proposal until approved by Gosia",
+    "patient-facing language is Polish by default",
+    "care ecosystems remain separable in calendar and reporting"
+  ]
+}
