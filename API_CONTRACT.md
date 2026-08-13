@@ -18,6 +18,10 @@ sources and approval metadata.
 `GET /api/knowledge` returns demo knowledge items. Production must version
 internal rules separately from external evidence and retain source metadata.
 
+`POST /api/notes` creates a clinical note draft and automatically records an
+audit event. Production must validate the patient context, actor permission and
+required fields before allowing a signed clinical entry.
+
 ## Audit endpoint
 
 `POST /api/audit-events` records a demo event. Production events must include:

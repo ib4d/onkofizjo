@@ -22,6 +22,7 @@ ROUTES = {
     "/api/operations": "demo-operations.json",
     "/api/appointments": "demo-appointments.json",
     "/api/knowledge": "demo-knowledge.json",
+    "/api/notes": "demo-notes.json",
 }
 AUDIT_DB = ROOT / "data" / "dev-audit.sqlite3"
 
@@ -92,6 +93,11 @@ class Handler(BaseHTTPRequestHandler):
             result = {"demo": True, "recorded": True, "appointmentId": payload.get("appointmentId"), "status": status, "auditRequired": True}
             record_audit({"action": "UPDATE_APPOINTMENT_STATUS", "resourceId": payload.get("appointmentId"), "status": status, "actor": payload.get("actor", "unknown")})
             self._send(result, 200)
+            return
+        if route == "/api/notes":
+            note = {"demo": True, "id": "demo-note-created", "status": "DRAFT", "humanReviewRequired": True, "payload": payload}
+            record_audit({"action": "CREATE_CLINICAL_NOTE_DRAFT", "resourceId": note["id"], "actor": payload.get("author", "unknown")})
+            self._send(note, 201)
             return
         if route != "/api/audit-events":
             self._send({"error": "not_found", "demo": True}, 404)
