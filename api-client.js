@@ -2,7 +2,7 @@
 (function (global) {
   async function get(path, fallbackPath) {
     try {
-      const response = await fetch(`http://127.0.0.1:8790${path}`, { headers: { Accept: 'application/json' } });
+      const response = await fetch(`http://127.0.0.1:8791${path}`, { headers: { Accept: 'application/json' } });
       if (response.ok) return { data: await response.json(), source: 'development-api' };
     } catch (error) { console.warn('Development API unavailable', error); }
     const fallback = await fetch(fallbackPath);

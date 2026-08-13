@@ -53,13 +53,15 @@ class Handler(BaseHTTPRequestHandler):
         length = int(self.headers.get("Content-Length", "0"))
         payload = json.loads(self.rfile.read(length) or b"{}")
         if route == "/api/diet-plans":
-            self._send({
+            result = {
                 "demo": True,
                 "id": "demo-plan-created",
                 "status": "ASSISTANT_PROPOSED",
                 "humanApprovalRequired": True,
                 "payload": payload,
-            }, 201)
+            }
+            AUDIT_EVENTS.append({"demo": True, "recorded": True, "payload": {"action": "CREATE_DIET_PROPOSAL", "resourceId": result["id"], "actor": payload.get("requestedBy", "unknown")}})
+            self._send(result, 201)
             return
         if route == "/api/appointments":
             self._send({"demo": True, "id": "demo-appt-created", "status": "SCHEDULED", "humanConfirmationRequired": True, "payload": payload}, 201)
@@ -70,7 +72,9 @@ class Handler(BaseHTTPRequestHandler):
             if status not in allowed:
                 self._send({"error": "invalid_status", "allowed": sorted(allowed), "demo": True}, 422)
                 return
-            self._send({"demo": True, "recorded": True, "appointmentId": payload.get("appointmentId"), "status": status, "auditRequired": True}, 200)
+            result = {"demo": True, "recorded": True, "appointmentId": payload.get("appointmentId"), "status": status, "auditRequired": True}
+            AUDIT_EVENTS.append({"demo": True, "recorded": True, "payload": {"action": "UPDATE_APPOINTMENT_STATUS", "resourceId": payload.get("appointmentId"), "status": status, "actor": payload.get("actor", "unknown")}})
+            self._send(result, 200)
             return
         if route != "/api/audit-events":
             self._send({"error": "not_found", "demo": True}, 404)
