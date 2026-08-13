@@ -1,0 +1,12 @@
+{
+  "demo": true,
+  "documents": [
+    {"id":"doc-001","type":"Treatment consent","patient":"Anna Kowalska","language":"pl","status":"PENDING_SIGNATURE"},
+    {"id":"doc-002","type":"Meal plan","patient":"Anna Kowalska","language":"pl","status":"DRAFT"},
+    {"id":"doc-003","type":"Photography consent","patient":"Anna Kowalska","language":"pl","status":"NOT_COLLECTED"}
+  ],
+  "payments": [
+    {"id":"pay-001","patient":"Anna Kowalska","amount":150,"currency":"PLN","method":"CARD","receiptOrInvoice":"RECEIPT","status":"PAID"},
+    {"id":"pay-002","patient":"Maria Nowak","amount":220,"currency":"PLN","method":"CASH","receiptOrInvoice":"INVOICE","status":"INVOICE_REQUIRED"}
+  ]
+}
