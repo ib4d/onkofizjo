@@ -37,6 +37,10 @@ authenticated actor, validate patient context and create an audit event.
 `SCHEDULED` and `humanConfirmationRequired: true`. It is intentionally not a
 public booking endpoint.
 
+`POST /api/appointments/status` accepts only the official lifecycle values and
+returns `auditRequired: true`. Production must validate the current state and
+the actor's permission before applying a transition.
+
 ## Production gate
 
 This API must not receive real patient data until authentication, authorization,

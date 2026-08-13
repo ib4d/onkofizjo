@@ -60,6 +60,14 @@ class Handler(BaseHTTPRequestHandler):
         if route == "/api/appointments":
             self._send({"demo": True, "id": "demo-appt-created", "status": "SCHEDULED", "humanConfirmationRequired": True, "payload": payload}, 201)
             return
+        if route == "/api/appointments/status":
+            allowed = {"SCHEDULED", "CONFIRMED", "TIME_BLOCKED", "CANCELLED_BY_PATIENT", "NO_SHOW", "COMPLETED", "VACATION", "BLOCKED"}
+            status = payload.get("status")
+            if status not in allowed:
+                self._send({"error": "invalid_status", "allowed": sorted(allowed), "demo": True}, 422)
+                return
+            self._send({"demo": True, "recorded": True, "appointmentId": payload.get("appointmentId"), "status": status, "auditRequired": True}, 200)
+            return
         if route != "/api/audit-events":
             self._send({"error": "not_found", "demo": True}, 404)
             return
