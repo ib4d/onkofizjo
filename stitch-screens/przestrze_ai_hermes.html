@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+
+<html lang="pl"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Hermes AI Workspace - OnkoFizjo</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config -->
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-tertiary-fixed-variant": "#5b4224",
+                      "primary-container": "#1a2f23",
+                      "on-primary-fixed": "#0a2014",
+                      "surface-container-high": "#ebe7e4",
+                      "ink": "#0D1410",
+                      "on-secondary": "#ffffff",
+                      "on-secondary-fixed": "#2e1410",
+                      "on-surface-variant": "#424843",
+                      "inverse-primary": "#b4ccbb",
+                      "primary-fixed-dim": "#b4ccbb",
+                      "tertiary-container": "#3b260b",
+                      "on-error-container": "#93000a",
+                      "secondary-fixed": "#ffdad4",
+                      "on-tertiary": "#ffffff",
+                      "outline-variant": "#c2c8c2",
+                      "inverse-on-surface": "#f4f0ec",
+                      "tertiary-fixed-dim": "#e4c099",
+                      "warning-muted": "#E29578",
+                      "background": "#fdf9f5",
+                      "on-secondary-fixed-variant": "#5f3e39",
+                      "sand": "#D9D1C7",
+                      "on-background": "#1c1c19",
+                      "surface-dim": "#ddd9d6",
+                      "secondary-fixed-dim": "#eabcb4",
+                      "on-primary-container": "#809787",
+                      "primary-fixed": "#d0e9d6",
+                      "error-container": "#ffdad6",
+                      "on-primary": "#ffffff",
+                      "success-muted": "#4F6F52",
+                      "on-secondary-container": "#7a5650",
+                      "surface-container-lowest": "#ffffff",
+                      "surface-tint": "#4d6355",
+                      "on-error": "#ffffff",
+                      "clinical-white": "#FFFFFF",
+                      "secondary-container": "#ffcfc7",
+                      "surface-container-low": "#f7f3ef",
+                      "tertiary-fixed": "#ffddb9",
+                      "inverse-surface": "#31302e",
+                      "on-tertiary-fixed": "#2a1701",
+                      "surface-container": "#f1ede9",
+                      "gold-leaf": "#BD9B60",
+                      "tertiary": "#231200",
+                      "outline": "#737973",
+                      "on-tertiary-container": "#ac8c69",
+                      "error": "#ba1a1a",
+                      "surface-variant": "#e6e2de",
+                      "surface-container-highest": "#e6e2de",
+                      "on-primary-fixed-variant": "#364c3e",
+                      "primary": "#051a0f",
+                      "on-surface": "#1c1c19",
+                      "surface-bright": "#fdf9f5",
+                      "surface": "#fdf9f5",
+                      "secondary": "#79564f"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "gutter": "24px",
+                      "margin-mobile": "16px",
+                      "margin-desktop": "64px",
+                      "unit": "8px",
+                      "section-padding": "120px",
+                      "container-max-width": "1280px"
+              },
+              "fontFamily": {
+                      "headline-md": [
+                              "literata", "serif"
+                      ],
+                      "display-xl": [
+                              "literata", "serif"
+                      ],
+                      "clinical-data": [
+                              "inter", "sans-serif"
+                      ],
+                      "body-lg": [
+                              "inter", "sans-serif"
+                      ],
+                      "headline-md-mobile": [
+                              "literata", "serif"
+                      ],
+                      "label-caps": [
+                              "inter", "sans-serif"
+                      ],
+                      "body-md": [
+                              "inter", "sans-serif"
+                      ],
+                      "title-lg": [
+                              "inter", "sans-serif"
+                      ],
+                      "display-lg": [
+                              "literata", "serif"
+                      ]
+              },
+              "fontSize": {
+                      "headline-md": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "display-xl": [
+                              "64px",
+                              {
+                                      "lineHeight": "72px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "clinical-data": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "letterSpacing": "0.02em",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-md-mobile": [
+                              "28px",
+                              {
+                                      "lineHeight": "36px",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "label-caps": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.08em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "title-lg": [
+                              "20px",
+                              {
+                                      "lineHeight": "28px",
+                                      "letterSpacing": "0.01em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "display-lg": [
+                              "48px",
+                              {
+                                      "lineHeight": "56px",
+                                      "fontWeight": "400"
+                              }
+                      ]
+              }
+            }
+          }
+        }
+    </script>
+<style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Literata:opsz,wght@7..72,400;500&display=swap');
+    </style>
+</head>
+<body class="bg-background text-primary font-body-md antialiased overflow-x-hidden selection:bg-primary selection:text-white">
+<!-- Mobile Navigation Shell (BottomNavBar) -->
+<nav class="md:hidden bg-clinical-white/80 dark:bg-inverse-surface/90 backdrop-blur-md fixed bottom-0 w-full z-50 rounded-t-full border-t border-sand dark:border-outline-variant shadow-lg fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-margin-mobile pb-4 pt-2">
+<a class="flex flex-col items-center justify-center text-on-surface-variant/60 active:bg-surface-variant p-2 rounded-lg" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">home</span>
+<span class="font-label-caps text-[10px] mt-1">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant/60 active:bg-surface-variant p-2 rounded-lg" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">person_search</span>
+<span class="font-label-caps text-[10px] mt-1">Patients</span>
+</a>
+<a class="flex flex-col items-center justify-center text-primary dark:text-primary-fixed active:bg-surface-variant p-2 rounded-lg" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+<span class="font-label-caps text-[10px] mt-1">Hermes</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant/60 active:bg-surface-variant p-2 rounded-lg" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">account_circle</span>
+<span class="font-label-caps text-[10px] mt-1">Profile</span>
+</a>
+</nav>
+<!-- Desktop Navigation Shell (SideNavBar) -->
+<aside class="bg-surface-container-low dark:bg-primary-container text-primary dark:text-primary-fixed h-screen w-64 hidden md:flex flex-col left-0 fixed border-r border-sand dark:border-primary flex flex-col h-full p-4 z-40">
+<div class="mb-8 px-4 py-2">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-variant flex items-center justify-center overflow-hidden border border-sand">
+<img class="object-cover w-full h-full" data-alt="A minimalist line-art logo of a clinic, elegant and understated, in dark green ink on a warm cream background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA5b7RitTzrjaBW2nCTKO_-jpye5gJj5LpoKQN7sURosZl73e8kaKCCOxlaCCkhkB2MPdthZRHNtCXVueBIlDGJEEalKprdxzODKcGCeO9erWIqXn6wuTDZuY1Fy65BDRXrm5dGMl69u9PLOGywt7kvFudrTKN6_Q0SJMYcsomlCKpKVhnQRn2yroFoaByuBzqp8ShUkn5SYPmy4ntsx0Hdn7cQUKVvmQNrVEguXl9f04P69VBZdx_n"/>
+</div>
+<div>
+<h1 class="font-headline-md text-[20px] leading-tight text-gold-leaf tracking-tight">OnkoFizjo</h1>
+<p class="font-label-caps text-on-surface-variant">Oncology Rehab</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-variant hover:bg-surface-container-high transition-all group" href="#">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors" style="font-variation-settings: 'FILL' 0;">dashboard</span>
+<span class="font-label-caps">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-variant hover:bg-surface-container-high transition-all group" href="#">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors" style="font-variation-settings: 'FILL' 0;">group</span>
+<span class="font-label-caps">Patients</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-variant hover:bg-surface-container-high transition-all group" href="#">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors" style="font-variation-settings: 'FILL' 0;">healing</span>
+<span class="font-label-caps">Care Plans</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-variant hover:bg-surface-container-high transition-all group" href="#">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors" style="font-variation-settings: 'FILL' 0;">insights</span>
+<span class="font-label-caps">Analytics</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg bg-primary-container dark:bg-primary-fixed-dim text-on-primary-container dark:text-on-primary-fixed font-semibold scale-95 duration-150 transition-all group" href="#">
+<span class="material-symbols-outlined text-on-primary-container" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+<span class="font-label-caps">Hermes AI</span>
+</a>
+</nav>
+<div class="mt-auto space-y-1 pt-4 border-t border-sand">
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-variant transition-all" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">settings</span>
+<span class="font-label-caps">Settings</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-variant transition-all" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">help</span>
+<span class="font-label-caps">Support</span>
+</a>
+<div class="px-2 mt-4">
+<button class="w-full bg-primary text-white font-label-caps py-3 rounded-lg hover:bg-primary-container hover:text-on-primary-container transition-colors">
+                    Book Appointment
+                </button>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="md:ml-64 min-h-screen pb-24 md:pb-8 pt-8 px-margin-mobile md:px-margin-desktop">
+<!-- Header -->
+<header class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
+<div>
+<p class="font-label-caps text-on-surface-variant mb-2">CENTRUM STEROWANIA</p>
+<h1 class="font-display-lg text-primary tracking-tight">Przestrzeń AI Hermes</h1>
+</div>
+<div class="flex items-center gap-3">
+<button class="flex items-center gap-2 px-4 py-2 border border-sand rounded-full text-primary hover:bg-surface-variant transition-colors">
+<span class="material-symbols-outlined text-[20px]">history</span>
+<span class="font-label-caps">Historia Analiz</span>
+</button>
+<button class="flex items-center gap-2 px-5 py-2 bg-primary text-white rounded-full hover:bg-primary/90 transition-colors">
+<span class="material-symbols-outlined text-[20px]">add</span>
+<span class="font-label-caps">Nowe Zapytanie</span>
+</button>
+</div>
+</header>
+<!-- Bento Grid -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-6 auto-rows-min">
+<!-- Quality Control & Transparency (Spans 8 cols) -->
+<section class="md:col-span-8 bg-clinical-white border border-sand rounded-xl p-6 flex flex-col relative overflow-hidden">
+<div class="absolute top-0 right-0 p-6 pointer-events-none opacity-10">
+<span class="material-symbols-outlined text-[120px]">visibility</span>
+</div>
+<div class="flex justify-between items-start mb-6 z-10">
+<div>
+<h2 class="font-title-lg text-primary mb-1">Panel Kontroli Jakości</h2>
+<p class="font-body-md text-on-surface-variant max-w-md">Przejrzysty wgląd w procesy decyzyjne agentów AI. Weryfikuj źródła i zatwierdzaj sugestie kliniczne.</p>
+</div>
+<div class="bg-surface-container px-3 py-1 rounded-full border border-sand flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-success-muted animate-pulse"></span>
+<span class="font-clinical-data text-xs text-primary">System Stabilny</span>
+</div>
+</div>
+<div class="space-y-4 z-10">
+<!-- Evidence Item 1 -->
+<div class="border border-sand rounded-lg p-4 bg-background/50 hover:bg-background transition-colors group">
+<div class="flex justify-between items-start mb-3">
+<div class="flex items-center gap-2">
+<span class="bg-secondary-container text-on-secondary-container p-1.5 rounded-md flex items-center justify-center">
+<span class="material-symbols-outlined text-[16px]">restaurant_menu</span>
+</span>
+<span class="font-label-caps text-on-surface-variant">Dietetic Agent</span>
+</div>
+<span class="font-clinical-data text-sm text-gold-leaf bg-surface-container px-2 py-0.5 rounded-md border border-sand">Pewność: 94%</span>
+</div>
+<h3 class="font-body-lg text-primary mb-2">Sugerowana modyfikacja planu żywieniowego (P. Nowak)</h3>
+<p class="font-body-md text-on-surface-variant mb-4">Wykryto spadek wagi. Sugerowane zwiększenie podaży białka o 15% (izolat serwatki) w posiłkach potreningowych.</p>
+<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 pt-4 border-t border-sand border-dashed">
+<button class="flex items-center gap-1.5 text-secondary hover:text-primary transition-colors text-sm font-medium">
+<span class="material-symbols-outlined text-[18px]">menu_book</span>
+                                Zobacz badanie źródłowe
+                            </button>
+<div class="flex gap-2 w-full sm:w-auto">
+<button class="flex-1 sm:flex-none px-4 py-1.5 border border-sand rounded-md font-label-caps text-primary hover:bg-surface-variant transition-colors">Odrzuć</button>
+<button class="flex-1 sm:flex-none px-4 py-1.5 bg-primary text-white rounded-md font-label-caps hover:bg-primary-container hover:text-on-primary-container transition-colors">Zatwierdź</button>
+</div>
+</div>
+</div>
+<!-- Evidence Item 2 -->
+<div class="border border-sand rounded-lg p-4 bg-background/50 hover:bg-background transition-colors group">
+<div class="flex justify-between items-start mb-3">
+<div class="flex items-center gap-2">
+<span class="bg-primary-fixed text-on-primary-fixed-variant p-1.5 rounded-md flex items-center justify-center">
+<span class="material-symbols-outlined text-[16px]">biotech</span>
+</span>
+<span class="font-label-caps text-on-surface-variant">Research Agent</span>
+</div>
+<span class="font-clinical-data text-sm text-success-muted bg-surface-container px-2 py-0.5 rounded-md border border-sand">Pewność: 98%</span>
+</div>
+<h3 class="font-body-lg text-primary mb-2">Nowe wytyczne dot. rehabilitacji po mastektomii</h3>
+<p class="font-body-md text-on-surface-variant mb-4">Opublikowano metaanalizę wskazującą na korzyści wczesnej mobilizacji obręczy barkowej (tydzień 2 zamiast 3).</p>
+<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 pt-4 border-t border-sand border-dashed">
+<button class="flex items-center gap-1.5 text-secondary hover:text-primary transition-colors text-sm font-medium">
+<span class="material-symbols-outlined text-[18px]">library_books</span>
+                                Czytaj abstrakt
+                            </button>
+<div class="flex gap-2 w-full sm:w-auto">
+<button class="flex-1 sm:flex-none px-4 py-1.5 border border-sand rounded-md font-label-caps text-primary hover:bg-surface-variant transition-colors">Ignoruj</button>
+<button class="flex-1 sm:flex-none px-4 py-1.5 border border-primary text-primary rounded-md font-label-caps hover:bg-primary hover:text-white transition-colors">Aktualizuj Baze</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Active Agents (Spans 4 cols) -->
+<section class="md:col-span-4 flex flex-col gap-6">
+<div class="bg-clinical-white border border-sand rounded-xl p-6">
+<h2 class="font-label-caps text-on-surface-variant mb-4 border-b border-sand pb-2">STATUS AGENTÓW</h2>
+<div class="space-y-4">
+<!-- Buzz -->
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">smart_toy</span>
+</div>
+<div>
+<p class="font-clinical-data text-primary">Buzz</p>
+<p class="text-xs text-on-surface-variant">Ogólny asystent</p>
+</div>
+</div>
+<span class="text-xs font-semibold text-success-muted bg-success-muted/10 px-2 py-1 rounded">Aktywny</span>
+</div>
+<!-- Dietetic -->
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">local_dining</span>
+</div>
+<div>
+<p class="font-clinical-data text-primary">Dietetic</p>
+<p class="text-xs text-on-surface-variant">Analiza żywienia</p>
+</div>
+</div>
+<span class="text-xs font-semibold text-warning-muted bg-warning-muted/10 px-2 py-1 rounded flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] animate-spin">sync</span> Przetwarza
+                            </span>
+</div>
+<!-- Research -->
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-variant text-on-surface-variant flex items-center justify-center">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">science</span>
+</div>
+<div>
+<p class="font-clinical-data text-primary">Research</p>
+<p class="text-xs text-on-surface-variant">Wyszukiwanie badań</p>
+</div>
+</div>
+<span class="text-xs font-semibold text-outline bg-surface-variant px-2 py-1 rounded">Uśpiony</span>
+</div>
+</div>
+</div>
+<!-- Automated Reminders (Gosia) -->
+<div class="bg-surface-container-low border border-sand rounded-xl p-6 flex-1 flex flex-col">
+<div class="flex items-center justify-between mb-4 border-b border-sand pb-2">
+<h2 class="font-label-caps text-on-surface-variant">ZADANIA DLA: GOSIA</h2>
+<span class="material-symbols-outlined text-gold-leaf text-[18px]">notifications_active</span>
+</div>
+<ul class="space-y-3 flex-1">
+<li class="flex items-start gap-3">
+<div class="mt-0.5 w-4 h-4 rounded-sm border border-outline-variant flex-shrink-0"></div>
+<div>
+<p class="font-clinical-data text-primary text-sm leading-tight">Kontakt z p. Anną K.</p>
+<p class="text-xs text-on-surface-variant mt-0.5">Brak potwierdzenia wizyty na jutro.</p>
+</div>
+</li>
+<li class="flex items-start gap-3">
+<div class="mt-0.5 w-4 h-4 rounded-sm border border-outline-variant flex-shrink-0"></div>
+<div>
+<p class="font-clinical-data text-primary text-sm leading-tight">Uzupełnienie ankiety (ID: 4092)</p>
+<p class="text-xs text-on-surface-variant mt-0.5">System zgłasza braki w wywiadzie żywieniowym.</p>
+</div>
+</li>
+</ul>
+<button class="mt-4 w-full text-center text-sm font-medium text-secondary hover:text-primary transition-colors py-2 border border-dashed border-sand rounded-lg">Zobacz wszystkie</button>
+</div>
+</section>
+<!-- Bottom Row: Active Clinical Research (Spans 12 cols) -->
+<section class="md:col-span-12 bg-clinical-white border border-sand rounded-xl p-6 overflow-x-auto">
+<div class="flex items-center justify-between mb-6">
+<div>
+<h2 class="font-title-lg text-primary mb-1">Aktywne Badania Kliniczne (Śledzone)</h2>
+<p class="font-body-md text-on-surface-variant text-sm">Agent Research monitoruje postępy w wybranych obszarach onkologii.</p>
+</div>
+<button class="flex items-center gap-1 text-sm font-label-caps text-primary border border-sand px-3 py-1.5 rounded-full hover:bg-surface-variant transition-colors">
+                        Zarządzaj Listą <span class="material-symbols-outlined text-[16px]">tune</span>
+</button>
+</div>
+<table class="w-full text-left min-w-[800px]">
+<thead>
+<tr class="border-b border-sand text-on-surface-variant font-label-caps">
+<th class="pb-3 font-medium">Temat Badania</th>
+<th class="pb-3 font-medium">Faza</th>
+<th class="pb-3 font-medium">Ostatnia Akt.</th>
+<th class="pb-3 font-medium">Wpływ na wytyczne</th>
+<th class="pb-3 font-medium text-right">Akcja</th>
+</tr>
+</thead>
+<tbody class="text-sm font-clinical-data text-primary">
+<tr class="border-b border-surface-variant hover:bg-background/50 transition-colors">
+<td class="py-4">Wpływ prehabilitacji na czas rekonwalescencji po resekcji jelita</td>
+<td class="py-4"><span class="bg-surface-variant px-2 py-1 rounded text-xs">Faza III</span></td>
+<td class="py-4 text-on-surface-variant">2 dni temu</td>
+<td class="py-4">
+<div class="flex items-center gap-2">
+<div class="w-16 h-1.5 bg-surface-variant rounded-full overflow-hidden">
+<div class="bg-success-muted w-[75%] h-full"></div>
+</div>
+<span class="text-xs text-on-surface-variant">Wysoki</span>
+</div>
+</td>
+<td class="py-4 text-right">
+<button class="text-secondary hover:text-primary"><span class="material-symbols-outlined text-[20px]">open_in_new</span></button>
+</td>
+</tr>
+<tr class="hover:bg-background/50 transition-colors">
+<td class="py-4">Suplementacja Omega-3 w kacheksji nowotworowej (Płuca)</td>
+<td class="py-4"><span class="bg-surface-variant px-2 py-1 rounded text-xs">Metaanaliza</span></td>
+<td class="py-4 text-on-surface-variant">1 tydzień temu</td>
+<td class="py-4">
+<div class="flex items-center gap-2">
+<div class="w-16 h-1.5 bg-surface-variant rounded-full overflow-hidden">
+<div class="bg-warning-muted w-[40%] h-full"></div>
+</div>
+<span class="text-xs text-on-surface-variant">Średni</span>
+</div>
+</td>
+<td class="py-4 text-right">
+<button class="text-secondary hover:text-primary"><span class="material-symbols-outlined text-[20px]">open_in_new</span></button>
+</td>
+</tr>
+</tbody>
+</table>
+</section>
+</div>
+</main>
+</body></html>

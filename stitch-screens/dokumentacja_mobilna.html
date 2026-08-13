@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Clinical Documentation Center</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,500;0,7..72,600;1,7..72,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-secondary-fixed-variant": "#5f3e39",
+                    "on-tertiary": "#ffffff",
+                    "on-tertiary-fixed": "#2a1701",
+                    "surface-container-high": "#ebe7e4",
+                    "surface-container": "#f1ede9",
+                    "tertiary": "#231200",
+                    "on-primary-fixed-variant": "#364c3e",
+                    "ink": "#0D1410",
+                    "surface-dim": "#ddd9d6",
+                    "surface-variant": "#e6e2de",
+                    "on-error": "#ffffff",
+                    "secondary-container": "#ffcfc7",
+                    "on-primary-container": "#809787",
+                    "on-background": "#1c1c19",
+                    "warning-muted": "#E29578",
+                    "inverse-surface": "#31302e",
+                    "on-primary-fixed": "#0a2014",
+                    "on-tertiary-fixed-variant": "#5b4224",
+                    "surface-container-lowest": "#ffffff",
+                    "on-secondary": "#ffffff",
+                    "primary-fixed": "#d0e9d6",
+                    "on-surface": "#1c1c19",
+                    "clinical-white": "#FFFFFF",
+                    "error-container": "#ffdad6",
+                    "on-secondary-fixed": "#2e1410",
+                    "gold-leaf": "#BD9B60",
+                    "on-surface-variant": "#424843",
+                    "surface-container-low": "#f7f3ef",
+                    "on-secondary-container": "#7a5650",
+                    "primary-fixed-dim": "#b4ccbb",
+                    "tertiary-container": "#3b260b",
+                    "success-muted": "#4F6F52",
+                    "surface": "#fdf9f5",
+                    "secondary-fixed": "#ffdad4",
+                    "outline-variant": "#c2c8c2",
+                    "primary-container": "#1a2f23",
+                    "sand": "#D9D1C7",
+                    "primary": "#051a0f",
+                    "surface-container-highest": "#e6e2de",
+                    "error": "#ba1a1a",
+                    "tertiary-fixed": "#ffddb9",
+                    "background": "#fdf9f5",
+                    "surface-tint": "#4d6355",
+                    "inverse-primary": "#b4ccbb",
+                    "secondary": "#79564f",
+                    "on-error-container": "#93000a",
+                    "surface-bright": "#fdf9f5",
+                    "on-primary": "#ffffff",
+                    "outline": "#737973",
+                    "secondary-fixed-dim": "#eabcb4",
+                    "tertiary-fixed-dim": "#e4c099",
+                    "inverse-on-surface": "#f4f0ec",
+                    "on-tertiary-container": "#ac8c69"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "section-padding": "120px",
+                    "margin-desktop": "64px",
+                    "gutter": "24px",
+                    "container-max-width": "1280px",
+                    "margin-mobile": "16px",
+                    "unit": "8px"
+            },
+            "fontFamily": {
+                    "display-xl": ["literata"],
+                    "body-lg": ["inter"],
+                    "title-lg": ["inter"],
+                    "clinical-data": ["inter"],
+                    "headline-md-mobile": ["literata"],
+                    "label-caps": ["inter"],
+                    "body-md": ["inter"],
+                    "display-lg": ["literata"],
+                    "headline-md": ["literata"]
+            },
+            "fontSize": {
+                    "display-xl": ["64px", {"lineHeight": "72px", "letterSpacing": "-0.02em", "fontWeight": "400"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "title-lg": ["20px", {"lineHeight": "28px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                    "clinical-data": ["14px", {"lineHeight": "20px", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                    "headline-md-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "500"}],
+                    "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.08em", "fontWeight": "700"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "fontWeight": "400"}],
+                    "headline-md": ["32px", {"lineHeight": "40px", "fontWeight": "500"}]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        body {
+            background-color: theme('colors.background');
+            color: theme('colors.on-background');
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="antialiased pb-24 lg:pb-0">
+<!-- TopNav - CRM Minimal Mobile -->
+<header class="bg-background/80 dark:bg-primary/90 backdrop-blur-md text-primary dark:text-on-primary text-body-md font-body-md docked full-width top-0 border-b border-outline-variant dark:border-outline/20 flat no shadows fixed top-0 left-0 w-full z-50 flex justify-between items-center px-margin-mobile md:px-margin-desktop h-20">
+<div class="text-title-lg font-title-lg tracking-tight text-primary dark:text-on-primary">
+            onkofizjo
+        </div>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-gold-leaf" data-icon="search" data-weight="fill" style="font-variation-settings: 'FILL' 1;">search</span>
+</div>
+</header>
+<!-- SideNav (Desktop Only) -->
+<nav class="bg-surface-container-low dark:bg-primary-container text-primary dark:text-on-primary-fixed text-clinical-data font-clinical-data h-screen w-64 hidden lg:flex flex-col border-r border-outline-variant flat no shadows fixed left-0 top-0 h-full z-40 py-6 px-4 pt-24">
+<div class="flex flex-col gap-2 mt-4 flex-grow">
+<a class="text-on-surface-variant dark:text-on-primary-container/70 hover:bg-surface-variant/50 hover:translate-x-1 transition-transform p-3 rounded-lg flex items-center gap-3" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+                Dashboard
+            </a>
+<a class="bg-clinical-white dark:bg-surface text-primary font-bold shadow-sm rounded-xl hover:translate-x-1 transition-transform p-3 flex items-center gap-3 Active: scale-95 duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+                Patients
+            </a>
+<a class="text-on-surface-variant dark:text-on-primary-container/70 hover:bg-surface-variant/50 hover:translate-x-1 transition-transform p-3 rounded-lg flex items-center gap-3" href="#">
+<span class="material-symbols-outlined" data-icon="calendar_today">calendar_today</span>
+                Calendar
+            </a>
+<a class="text-on-surface-variant dark:text-on-primary-container/70 hover:bg-surface-variant/50 hover:translate-x-1 transition-transform p-3 rounded-lg flex items-center gap-3" href="#">
+<span class="material-symbols-outlined" data-icon="restaurant_menu">restaurant_menu</span>
+                Diet Plan
+            </a>
+<a class="text-on-surface-variant dark:text-on-primary-container/70 hover:bg-surface-variant/50 hover:translate-x-1 transition-transform p-3 rounded-lg flex items-center gap-3" href="#">
+<span class="material-symbols-outlined" data-icon="smart_toy">smart_toy</span>
+                AI Assistant
+            </a>
+</div>
+<div class="mt-auto flex flex-col gap-2">
+<a class="text-on-surface-variant dark:text-on-primary-container/70 hover:bg-surface-variant/50 hover:translate-x-1 transition-transform p-3 rounded-lg flex items-center gap-3" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+                Settings
+            </a>
+<a class="text-on-surface-variant dark:text-on-primary-container/70 hover:bg-surface-variant/50 hover:translate-x-1 transition-transform p-3 rounded-lg flex items-center gap-3" href="#">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+                Support
+            </a>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="pt-24 lg:pl-72 px-margin-mobile lg:px-margin-desktop w-full max-w-container-max-width mx-auto">
+<!-- Header Section -->
+<header class="mb-8 flex justify-between items-end">
+<div>
+<p class="text-label-caps font-label-caps text-on-surface-variant mb-2">CURRENT PATIENT</p>
+<h1 class="text-headline-md-mobile md:text-headline-md font-headline-md-mobile md:font-headline-md text-primary">Kowalska, Anna</h1>
+<p class="text-clinical-data font-clinical-data text-on-surface-variant">ID: #84920 • Post-Op Day 14</p>
+</div>
+<button class="bg-primary text-clinical-white px-4 py-2 rounded-full text-clinical-data font-clinical-data flex items-center gap-2 shadow-sm">
+<span class="material-symbols-outlined" data-icon="check_circle">check_circle</span>
+                Done
+            </button>
+</header>
+<!-- Action Grid (One-handed focus) -->
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+<button class="bg-clinical-white border border-sand rounded-xl p-4 flex flex-col items-center justify-center gap-3 aspect-square active:scale-95 transition-transform shadow-sm">
+<div class="w-12 h-12 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container">
+<span class="material-symbols-outlined" data-icon="mic" data-weight="fill" style="font-variation-settings: 'FILL' 1;">mic</span>
+</div>
+<span class="text-clinical-data font-clinical-data text-ink text-center">Voice Note</span>
+</button>
+<button class="bg-clinical-white border border-sand rounded-xl p-4 flex flex-col items-center justify-center gap-3 aspect-square active:scale-95 transition-transform shadow-sm">
+<div class="w-12 h-12 rounded-full bg-primary-fixed flex items-center justify-center text-on-primary-fixed">
+<span class="material-symbols-outlined" data-icon="photo_camera" data-weight="fill" style="font-variation-settings: 'FILL' 1;">photo_camera</span>
+</div>
+<span class="text-clinical-data font-clinical-data text-ink text-center">Clinical Photo</span>
+</button>
+<button class="bg-clinical-white border border-sand rounded-xl p-4 flex flex-col items-center justify-center gap-3 aspect-square active:scale-95 transition-transform shadow-sm">
+<div class="w-12 h-12 rounded-full bg-surface-variant flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="assignment" data-weight="fill" style="font-variation-settings: 'FILL' 1;">assignment</span>
+</div>
+<span class="text-clinical-data font-clinical-data text-ink text-center">Form / Survey</span>
+</button>
+<button class="bg-clinical-white border border-sand rounded-xl p-4 flex flex-col items-center justify-center gap-3 aspect-square active:scale-95 transition-transform shadow-sm">
+<div class="w-12 h-12 rounded-full bg-tertiary-fixed flex items-center justify-center text-on-tertiary-fixed">
+<span class="material-symbols-outlined" data-icon="edit_document" data-weight="fill" style="font-variation-settings: 'FILL' 1;">edit_document</span>
+</div>
+<span class="text-clinical-data font-clinical-data text-ink text-center">Consent</span>
+</button>
+</div>
+<!-- Recent Activity & AI Summary -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- AI Summary Card -->
+<div class="md:col-span-1 bg-surface-container-low rounded-xl p-5 border border-secondary-fixed-dim/50 shadow-sm relative overflow-hidden">
+<div class="absolute top-0 right-0 p-3 opacity-20 pointer-events-none">
+<span class="material-symbols-outlined text-6xl" data-icon="psychology">psychology</span>
+</div>
+<h3 class="text-label-caps font-label-caps text-secondary mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-sm" data-icon="auto_awesome">auto_awesome</span>
+                    HERMES SUMMARY
+                </h3>
+<p class="text-body-md font-body-md text-ink mb-4 leading-relaxed">
+                    Patient reports reduced tension in left pectoral region following yesterday's manual therapy. Scar mobility improved by ~15%. Mild edema persists in upper arm.
+                </p>
+<div class="text-clinical-data font-clinical-data text-on-surface-variant border-t border-outline-variant/30 pt-3 flex justify-between items-center">
+<span>Generated from last 3 notes</span>
+<button class="text-gold-leaf flex items-center gap-1 hover:underline">
+                        Review <span class="material-symbols-outlined text-sm" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Recent Documents -->
+<div class="md:col-span-2 space-y-4">
+<h3 class="text-label-caps font-label-caps text-on-surface-variant">TODAY'S UPLOADS</h3>
+<!-- Audio Entry -->
+<div class="bg-clinical-white border border-sand rounded-xl p-4 flex items-center justify-between shadow-sm">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-surface-variant flex items-center justify-center text-on-surface-variant shrink-0">
+<span class="material-symbols-outlined" data-icon="graphic_eq">graphic_eq</span>
+</div>
+<div>
+<p class="text-clinical-data font-clinical-data text-ink font-semibold">Post-Session Audio Note</p>
+<p class="text-label-caps font-label-caps text-on-surface-variant mt-1">10:42 AM • 1m 24s</p>
+</div>
+</div>
+<button class="text-primary hover:bg-surface-container p-2 rounded-full transition-colors">
+<span class="material-symbols-outlined" data-icon="play_arrow" data-weight="fill" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</button>
+</div>
+<!-- Photo Entry -->
+<div class="bg-clinical-white border border-sand rounded-xl p-4 flex items-start gap-4 shadow-sm">
+<div class="w-20 h-20 rounded-lg bg-surface-variant shrink-0 overflow-hidden relative border border-outline-variant/50">
+<img class="w-full h-full object-cover" data-alt="A macro clinical photograph showing a healing surgical scar on light skin. The image is evenly lit with neutral white clinical lighting to accurately capture skin tone and texture. The aesthetic is purely medical and objective, focusing on the details of the incision line and surrounding tissue. The background is a stark, sterile white to ensure focus remains on the dermatological subject." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCRvdM4O0k5ZEI_glhDk8REmJ0pSWm3NdDK7u70YoWCYEPJyrF9runimreDXNqd5KjXXsVLGPgXmFmH_1g7iG5BRJMZruKTIz5gKOeU48kIS1zaDiL7w_44A8e7inNEH6alpHb8bMBcTrLFHG_T2NruAz_J612n3U6bxASdkSMF90zxcboBU_hj1AQX6vVbsI-VG2MU3OEl8iTu_NygYvH6RcVR5Fa8Jmi0L3whP276hQHyA5oUXym1"/>
+<div class="absolute bottom-1 right-1 bg-ink/70 rounded px-1 flex items-center">
+<span class="material-symbols-outlined text-[10px] text-clinical-white" data-icon="lock">lock</span>
+</div>
+</div>
+<div class="flex-grow">
+<div class="flex justify-between items-start">
+<div>
+<p class="text-clinical-data font-clinical-data text-ink font-semibold">Incision Site - Left Axillary</p>
+<p class="text-label-caps font-label-caps text-on-surface-variant mt-1">09:15 AM • Annotated</p>
+</div>
+<button class="text-on-surface-variant hover:text-primary">
+<span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+</button>
+</div>
+<p class="text-clinical-data font-clinical-data text-on-surface-variant mt-2 text-sm line-clamp-2">
+                            Signs of proper healing. No erythema. Patient confirms pain level 2/10 during palpation.
+                        </p>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="bg-background/90 dark:bg-primary/95 backdrop-blur-xl text-primary dark:text-primary-fixed text-label-caps font-label-caps docked full-width bottom-0 lg:hidden rounded-t-full border-t border-outline-variant dark:border-outline/10 shadow-lg fixed bottom-0 left-0 w-full z-50 flex justify-around items-center h-16 pb-safe">
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant active:bg-surface-container py-2 px-4 rounded-xl" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+            Home
+        </a>
+<a class="flex flex-col items-center justify-center text-gold-leaf active:bg-surface-container py-2 px-4 rounded-xl Active: scale-110 transition-all duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="person" data-weight="fill" style="font-variation-settings: 'FILL' 1;">person</span>
+            Patient
+        </a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant active:bg-surface-container py-2 px-4 rounded-xl" href="#">
+<span class="material-symbols-outlined" data-icon="event">event</span>
+            Schedule
+        </a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant active:bg-surface-container py-2 px-4 rounded-xl" href="#">
+<span class="material-symbols-outlined" data-icon="psychology">psychology</span>
+            Hermes
+        </a>
+</nav>
+</body></html>

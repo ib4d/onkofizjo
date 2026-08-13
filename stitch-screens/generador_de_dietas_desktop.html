@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+
+<html lang="pl"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>OnkoFizjo - Meal Plan Builder</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Literata:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-fixed-variant": "#5b4224",
+                        "primary-container": "#1a2f23",
+                        "on-primary-fixed": "#0a2014",
+                        "surface-container-high": "#ebe7e4",
+                        "ink": "#0D1410",
+                        "on-secondary": "#ffffff",
+                        "on-secondary-fixed": "#2e1410",
+                        "on-surface-variant": "#424843",
+                        "inverse-primary": "#b4ccbb",
+                        "primary-fixed-dim": "#b4ccbb",
+                        "tertiary-container": "#3b260b",
+                        "on-error-container": "#93000a",
+                        "secondary-fixed": "#ffdad4",
+                        "on-tertiary": "#ffffff",
+                        "outline-variant": "#c2c8c2",
+                        "inverse-on-surface": "#f4f0ec",
+                        "tertiary-fixed-dim": "#e4c099",
+                        "warning-muted": "#E29578",
+                        "background": "#fdf9f5",
+                        "on-secondary-fixed-variant": "#5f3e39",
+                        "sand": "#D9D1C7",
+                        "on-background": "#1c1c19",
+                        "surface-dim": "#ddd9d6",
+                        "secondary-fixed-dim": "#eabcb4",
+                        "on-primary-container": "#809787",
+                        "primary-fixed": "#d0e9d6",
+                        "error-container": "#ffdad6",
+                        "on-primary": "#ffffff",
+                        "success-muted": "#4F6F52",
+                        "on-secondary-container": "#7a5650",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-tint": "#4d6355",
+                        "on-error": "#ffffff",
+                        "clinical-white": "#FFFFFF",
+                        "secondary-container": "#ffcfc7",
+                        "surface-container-low": "#f7f3ef",
+                        "tertiary-fixed": "#ffddb9",
+                        "inverse-surface": "#31302e",
+                        "on-tertiary-fixed": "#2a1701",
+                        "surface-container": "#f1ede9",
+                        "gold-leaf": "#BD9B60",
+                        "tertiary": "#231200",
+                        "outline": "#737973",
+                        "on-tertiary-container": "#ac8c69",
+                        "error": "#ba1a1a",
+                        "surface-variant": "#e6e2de",
+                        "surface-container-highest": "#e6e2de",
+                        "on-primary-fixed-variant": "#364c3e",
+                        "primary": "#051a0f",
+                        "on-surface": "#1c1c19",
+                        "surface-bright": "#fdf9f5",
+                        "surface": "#fdf9f5",
+                        "secondary": "#79564f"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "margin-mobile": "16px",
+                        "margin-desktop": "64px",
+                        "unit": "8px",
+                        "section-padding": "120px",
+                        "container-max-width": "1280px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Literata", "serif"],
+                        "display-xl": ["Literata", "serif"],
+                        "clinical-data": ["Inter", "sans-serif"],
+                        "body-lg": ["Inter", "sans-serif"],
+                        "headline-md-mobile": ["Literata", "serif"],
+                        "label-caps": ["Inter", "sans-serif"],
+                        "body-md": ["Inter", "sans-serif"],
+                        "title-lg": ["Inter", "sans-serif"],
+                        "display-lg": ["Literata", "serif"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["32px", { "lineHeight": "40px", "fontWeight": "500" }],
+                        "display-xl": ["64px", { "lineHeight": "72px", "letterSpacing": "-0.02em", "fontWeight": "400" }],
+                        "clinical-data": ["14px", { "lineHeight": "20px", "letterSpacing": "0.02em", "fontWeight": "500" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "headline-md-mobile": ["28px", { "lineHeight": "36px", "fontWeight": "500" }],
+                        "label-caps": ["12px", { "lineHeight": "16px", "letterSpacing": "0.08em", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "title-lg": ["20px", { "lineHeight": "28px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen flex flex-col md:flex-row">
+<!-- Desktop Sidebar -->
+<nav class="bg-surface-container-low h-screen w-64 hidden md:flex flex-col left-0 fixed border-r border-sand">
+<div class="p-4 flex flex-col h-full">
+<div class="mb-8 px-4 py-2">
+<h1 class="font-headline-md text-headline-md text-gold-leaf tracking-tight">OnkoFizjo</h1>
+<p class="font-label-caps text-label-caps text-on-surface-variant">Oncology Rehab</p>
+</div>
+<div class="flex-grow space-y-2">
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-variant transition-all font-label-caps text-label-caps" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span>Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-variant transition-all font-label-caps text-label-caps" href="#">
+<span class="material-symbols-outlined">group</span>
+<span>Patients</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg bg-primary-container text-on-primary-container font-semibold transition-all font-label-caps text-label-caps" href="#">
+<span class="material-symbols-outlined">healing</span>
+<span>Care Plans</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-variant transition-all font-label-caps text-label-caps" href="#">
+<span class="material-symbols-outlined">insights</span>
+<span>Analytics</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-variant transition-all font-label-caps text-label-caps" href="#">
+<span class="material-symbols-outlined">auto_awesome</span>
+<span>Hermes AI</span>
+</a>
+</div>
+<div class="mt-auto space-y-4 pt-4 border-t border-sand">
+<button class="w-full py-2 bg-primary text-on-primary font-label-caps text-label-caps rounded flex items-center justify-center gap-2 hover:bg-on-primary-fixed-variant transition-colors">
+                    Book Appointment
+                </button>
+<div class="space-y-2">
+<a class="flex items-center gap-3 px-4 py-2 rounded-lg text-on-surface-variant hover:bg-surface-variant transition-all font-label-caps text-label-caps" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span>Settings</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 rounded-lg text-on-surface-variant hover:bg-surface-variant transition-all font-label-caps text-label-caps" href="#">
+<span class="material-symbols-outlined">help</span>
+<span>Support</span>
+</a>
+</div>
+</div>
+</div>
+</nav>
+<!-- Mobile Top App Bar (Transactional intent - simplified) -->
+<header class="md:hidden bg-background w-full px-margin-mobile py-4 flex justify-between items-center border-b border-sand sticky top-0 z-40">
+<div class="flex items-center gap-2">
+<button class="text-primary p-2 -ml-2">
+<span class="material-symbols-outlined">arrow_back</span>
+</button>
+<h1 class="font-headline-md-mobile text-headline-md-mobile text-primary tracking-tight">Kreator Diety</h1>
+</div>
+<div class="flex items-center gap-4 text-primary">
+<span class="material-symbols-outlined">smart_toy</span>
+<span class="material-symbols-outlined">notifications</span>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-1 md:ml-64 p-margin-mobile md:p-margin-desktop max-w-container-max-width mx-auto w-full">
+<!-- Desktop Header -->
+<header class="hidden md:flex justify-between items-end mb-12 border-b border-sand pb-4">
+<div>
+<p class="font-label-caps text-label-caps text-on-surface-variant mb-2">Anna Kowalska • Plan Opieki</p>
+<h1 class="font-display-lg text-display-lg text-primary tracking-tight">Kreator Planu Żywieniowego</h1>
+</div>
+<div class="flex gap-4">
+<button class="px-6 py-2 border border-sand text-primary rounded hover:bg-surface-variant transition-colors font-label-caps text-label-caps">
+                    Zapisz Szkic
+                </button>
+<button class="px-6 py-2 bg-primary text-clinical-white rounded hover:bg-on-primary-fixed-variant transition-colors font-label-caps text-label-caps">
+                    Zatwierdź Plan
+                </button>
+</div>
+</header>
+<!-- Stepper -->
+<div class="mb-12 flex items-center justify-between relative max-w-3xl mx-auto">
+<div class="absolute left-0 top-1/2 w-full h-px bg-sand -z-10 transform -translate-y-1/2"></div>
+<div class="flex flex-col items-center gap-2 bg-background px-4">
+<div class="w-8 h-8 rounded-full bg-success-muted text-clinical-white flex items-center justify-center border border-success-muted">
+<span class="material-symbols-outlined" style="font-size: 16px;">check</span>
+</div>
+<span class="font-label-caps text-label-caps text-success-muted">Strategia</span>
+</div>
+<div class="flex flex-col items-center gap-2 bg-background px-4">
+<div class="w-8 h-8 rounded-full bg-primary text-clinical-white flex items-center justify-center border border-primary">
+<span class="font-clinical-data">2</span>
+</div>
+<span class="font-label-caps text-label-caps text-primary">Hermes Draft</span>
+</div>
+<div class="flex flex-col items-center gap-2 bg-background px-4">
+<div class="w-8 h-8 rounded-full bg-surface-variant text-on-surface-variant flex items-center justify-center border border-sand">
+<span class="font-clinical-data">3</span>
+</div>
+<span class="font-label-caps text-label-caps text-on-surface-variant">Przegląd</span>
+</div>
+<div class="flex flex-col items-center gap-2 bg-background px-4">
+<div class="w-8 h-8 rounded-full bg-surface-variant text-on-surface-variant flex items-center justify-center border border-sand">
+<span class="font-clinical-data">4</span>
+</div>
+<span class="font-label-caps text-label-caps text-on-surface-variant">Akceptacja</span>
+</div>
+</div>
+<div class="grid grid-cols-1 xl:grid-cols-12 gap-gutter">
+<!-- Left Column: Context & Warnings -->
+<div class="xl:col-span-4 flex flex-col gap-unit">
+<!-- Clinical Context Card -->
+<div class="bg-clinical-white border border-sand p-6 rounded">
+<h2 class="font-label-caps text-label-caps text-on-surface-variant mb-6 border-b border-sand pb-2 uppercase">Kontekst Kliniczny</h2>
+<div class="space-y-4">
+<div class="grid grid-cols-2 gap-4">
+<div>
+<p class="text-xs text-on-surface-variant mb-1">Typ Nowotworu</p>
+<p class="font-clinical-data text-ink">Rak Piersi (ER+)</p>
+</div>
+<div>
+<p class="text-xs text-on-surface-variant mb-1">Faza Leczenia</p>
+<p class="font-clinical-data text-ink">W trakcie radioterapii</p>
+</div>
+</div>
+<div>
+<p class="text-xs text-on-surface-variant mb-1">Aktualne BMI</p>
+<p class="font-clinical-data text-ink">21.5 (Prawidłowe)</p>
+</div>
+</div>
+</div>
+<!-- Safety Warnings -->
+<div class="bg-[#fdf3f2] border border-[#f8d7da] p-6 rounded mt-4">
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-warning-muted mt-1">warning</span>
+<div>
+<h3 class="font-title-lg text-title-lg text-[#721c24] mb-2">Ostrzeżenia Żywieniowe</h3>
+<ul class="font-clinical-data text-[#721c24] space-y-2 list-disc list-inside opacity-90">
+<li>Wysokie ryzyko nudności po sesjach RT. Zalecono posiłki chłodne, bezwonne.</li>
+<li>Bezwzględny zakaz suplementacji antyoksydantów w trakcie radioterapii.</li>
+<li>Zwiększone zapotrzebowanie białkowe (1.5g/kg m.c.).</li>
+</ul>
+</div>
+</div>
+</div>
+<!-- Diet Strategy Selection -->
+<div class="bg-clinical-white border border-sand p-6 rounded mt-4 flex-1">
+<h2 class="font-label-caps text-label-caps text-on-surface-variant mb-6 border-b border-sand pb-2 uppercase">Strategia Bazy</h2>
+<div class="space-y-3">
+<label class="flex items-center gap-3 p-3 border border-primary bg-surface-container-low rounded cursor-pointer">
+<input checked="" class="text-primary focus:ring-primary h-4 w-4" name="strategy" type="radio"/>
+<span class="font-clinical-data text-ink">Wsparcie Radioterapii (Lekka)</span>
+</label>
+<label class="flex items-center gap-3 p-3 border border-sand hover:border-outline-variant rounded cursor-pointer transition-colors">
+<input class="text-primary focus:ring-primary h-4 w-4" name="strategy" type="radio"/>
+<span class="font-clinical-data text-ink">Wysokobiałkowa (Rekonwalescencja)</span>
+</label>
+<label class="flex items-center gap-3 p-3 border border-sand hover:border-outline-variant rounded cursor-pointer transition-colors">
+<input class="text-primary focus:ring-primary h-4 w-4" name="strategy" type="radio"/>
+<span class="font-clinical-data text-ink">Przeciwzapalna (Śródziemnomorska)</span>
+</label>
+</div>
+</div>
+</div>
+<!-- Right Column: AI Generation & Comparison -->
+<div class="xl:col-span-8 flex flex-col gap-unit">
+<!-- AI Assistant Banner -->
+<div class="bg-surface-container-low border border-sand p-6 rounded relative overflow-hidden">
+<div class="absolute right-0 top-0 opacity-10 transform translate-x-4 -translate-y-4">
+<span class="material-symbols-outlined text-9xl">auto_awesome</span>
+</div>
+<div class="relative z-10 flex flex-col md:flex-row gap-6 items-start md:items-center justify-between">
+<div>
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-gold-leaf">auto_awesome</span>
+<h3 class="font-headline-md text-headline-md text-primary">Hermes AI Draft</h3>
+</div>
+<p class="font-body-md text-on-surface-variant max-w-xl">
+                                Wygenerowano plan z uwzględnieniem wykluczenia antyoksydantów i wsparcia przy nudnościach. Źródło wytycznych: ESPEN 2021.
+                            </p>
+</div>
+<button class="flex-shrink-0 px-4 py-2 border border-sand text-primary rounded flex items-center gap-2 hover:bg-clinical-white transition-colors bg-background">
+<span class="material-symbols-outlined" style="font-size: 18px;">refresh</span>
+<span class="font-label-caps text-label-caps">Generuj Ponownie</span>
+</button>
+</div>
+</div>
+<!-- Comparison View -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+<!-- Current Diet -->
+<div class="bg-surface-variant/30 border border-sand p-6 rounded opacity-70">
+<h4 class="font-label-caps text-label-caps text-on-surface-variant mb-4 uppercase text-center">Obecne Nawyki</h4>
+<div class="space-y-4">
+<div class="p-3 border-l-2 border-sand bg-background">
+<p class="text-xs text-on-surface-variant">Śniadanie</p>
+<p class="font-clinical-data text-ink">Kanapki z szynką, gorąca kawa</p>
+</div>
+<div class="p-3 border-l-2 border-sand bg-background">
+<p class="text-xs text-on-surface-variant">Obiad</p>
+<p class="font-clinical-data text-ink">Zupa pomidorowa, smażony kurczak</p>
+</div>
+<div class="mt-6 pt-4 border-t border-sand flex justify-between font-clinical-data text-on-surface-variant">
+<span>Kcal: ~1800</span>
+<span>Białko: 50g</span>
+</div>
+</div>
+</div>
+<!-- Proposed Diet -->
+<div class="bg-clinical-white border-2 border-gold-leaf/50 p-6 rounded shadow-sm relative">
+<div class="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-gold-leaf text-clinical-white px-3 py-1 rounded-full font-label-caps text-[10px] tracking-widest uppercase">
+                            Propozycja
+                        </div>
+<h4 class="font-label-caps text-label-caps text-primary mb-4 uppercase text-center">Dzień 1: Wsparcie RT</h4>
+<div class="space-y-4">
+<div class="p-3 border-l-2 border-success-muted bg-surface-container-lowest group cursor-pointer hover:border-l-4 transition-all">
+<div class="flex justify-between items-start mb-1">
+<p class="text-xs text-success-muted font-semibold">Śniadanie (Chłodne)</p>
+<span class="material-symbols-outlined text-outline-variant opacity-0 group-hover:opacity-100 transition-opacity" style="font-size: 16px;">edit</span>
+</div>
+<p class="font-clinical-data text-ink">Biały ser z oliwą z oliwek, chłodna owsianka na wodzie</p>
+<div class="flex gap-2 mt-2">
+<span class="px-2 py-1 bg-surface-variant rounded text-[10px] font-medium">Delikatne</span>
+<span class="px-2 py-1 bg-surface-variant rounded text-[10px] font-medium">Białko: 15g</span>
+</div>
+</div>
+<div class="p-3 border-l-2 border-success-muted bg-surface-container-lowest group cursor-pointer hover:border-l-4 transition-all">
+<div class="flex justify-between items-start mb-1">
+<p class="text-xs text-success-muted font-semibold">Obiad</p>
+<span class="material-symbols-outlined text-outline-variant opacity-0 group-hover:opacity-100 transition-opacity" style="font-size: 16px;">edit</span>
+</div>
+<p class="font-clinical-data text-ink">Dorsz na parze z pure ziemniaczanym i rozgotowaną marchewką</p>
+<div class="flex flex-wrap gap-2 mt-2">
+<span class="px-2 py-1 bg-surface-variant rounded text-[10px] font-medium">Lekkostrawne</span>
+<span class="px-2 py-1 bg-surface-variant rounded text-[10px] font-medium text-warning-muted border border-warning-muted bg-transparent">Odrzucono: Smażenie</span>
+</div>
+</div>
+<div class="mt-6 pt-4 border-t border-sand flex justify-between font-clinical-data text-primary font-medium">
+<span>Kcal: 2100</span>
+<span>Białko: 95g (Cel: 90g)</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Action Bar -->
+<div class="mt-8 flex justify-end">
+<button class="px-8 py-3 bg-primary text-clinical-white rounded font-title-lg text-title-lg hover:bg-on-primary-fixed-variant transition-colors shadow-md flex items-center gap-2">
+                        Przejdź do Przeglądu
+                        <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+</main>
+<!-- Mobile Bottom Nav (Suppressed due to transactional intent of builder, but included structure if needed for context shift) -->
+<!-- <nav class="md:hidden fixed bottom-0 w-full z-50 rounded-t-full bg-clinical-white/80 backdrop-blur-md border-t border-sand shadow-lg flex justify-around items-center px-margin-mobile pb-4 pt-2"> ... </nav> -->
+</body></html>

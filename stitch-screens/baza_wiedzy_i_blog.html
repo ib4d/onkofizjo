@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Onkofizjo - Blog &amp; Knowledge Base</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts: Literata (Serif) & Inter (Sans) -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Literata:opsz,wght@7..72,400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-secondary-fixed-variant": "#5f3e39",
+                      "on-tertiary": "#ffffff",
+                      "on-tertiary-fixed": "#2a1701",
+                      "surface-container-high": "#ebe7e4",
+                      "surface-container": "#f1ede9",
+                      "tertiary": "#231200",
+                      "on-primary-fixed-variant": "#364c3e",
+                      "ink": "#0D1410",
+                      "surface-dim": "#ddd9d6",
+                      "surface-variant": "#e6e2de",
+                      "on-error": "#ffffff",
+                      "secondary-container": "#ffcfc7",
+                      "on-primary-container": "#809787",
+                      "on-background": "#1c1c19",
+                      "warning-muted": "#E29578",
+                      "inverse-surface": "#31302e",
+                      "on-primary-fixed": "#0a2014",
+                      "on-tertiary-fixed-variant": "#5b4224",
+                      "surface-container-lowest": "#ffffff",
+                      "on-secondary": "#ffffff",
+                      "primary-fixed": "#d0e9d6",
+                      "on-surface": "#1c1c19",
+                      "clinical-white": "#FFFFFF",
+                      "error-container": "#ffdad6",
+                      "on-secondary-fixed": "#2e1410",
+                      "gold-leaf": "#BD9B60",
+                      "on-surface-variant": "#424843",
+                      "surface-container-low": "#f7f3ef",
+                      "on-secondary-container": "#7a5650",
+                      "primary-fixed-dim": "#b4ccbb",
+                      "tertiary-container": "#3b260b",
+                      "success-muted": "#4F6F52",
+                      "surface": "#fdf9f5",
+                      "secondary-fixed": "#ffdad4",
+                      "outline-variant": "#c2c8c2",
+                      "primary-container": "#1a2f23",
+                      "sand": "#D9D1C7",
+                      "primary": "#051a0f",
+                      "surface-container-highest": "#e6e2de",
+                      "error": "#ba1a1a",
+                      "tertiary-fixed": "#ffddb9",
+                      "background": "#fdf9f5",
+                      "surface-tint": "#4d6355",
+                      "inverse-primary": "#b4ccbb",
+                      "secondary": "#79564f",
+                      "on-error-container": "#93000a",
+                      "surface-bright": "#fdf9f5",
+                      "on-primary": "#ffffff",
+                      "outline": "#737973",
+                      "secondary-fixed-dim": "#eabcb4",
+                      "tertiary-fixed-dim": "#e4c099",
+                      "inverse-on-surface": "#f4f0ec",
+                      "on-tertiary-container": "#ac8c69"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "section-padding": "120px",
+                      "margin-desktop": "64px",
+                      "gutter": "24px",
+                      "container-max-width": "1280px",
+                      "margin-mobile": "16px",
+                      "unit": "8px"
+              },
+              "fontFamily": {
+                      "display-xl": [
+                              "literata"
+                      ],
+                      "body-lg": [
+                              "inter"
+                      ],
+                      "title-lg": [
+                              "inter"
+                      ],
+                      "clinical-data": [
+                              "inter"
+                      ],
+                      "headline-md-mobile": [
+                              "literata"
+                      ],
+                      "label-caps": [
+                              "inter"
+                      ],
+                      "body-md": [
+                              "inter"
+                      ],
+                      "display-lg": [
+                              "literata"
+                      ],
+                      "headline-md": [
+                              "literata"
+                      ]
+              },
+              "fontSize": {
+                      "display-xl": [
+                              "64px",
+                              {
+                                      "lineHeight": "72px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "title-lg": [
+                              "20px",
+                              {
+                                      "lineHeight": "28px",
+                                      "letterSpacing": "0.01em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "clinical-data": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "letterSpacing": "0.02em",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "headline-md-mobile": [
+                              "28px",
+                              {
+                                      "lineHeight": "36px",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "label-caps": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.08em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "display-lg": [
+                              "48px",
+                              {
+                                      "lineHeight": "56px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-md": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "fontWeight": "500"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+          font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background antialiased min-h-screen flex flex-col pt-20">
+<!-- TopNavBar (Shared Component) -->
+<nav class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-margin-mobile md:px-margin-desktop h-20 bg-background/80 dark:bg-primary/90 backdrop-blur-md border-b border-outline-variant dark:border-outline/20">
+<div class="flex items-center">
+<span class="text-title-lg font-title-lg tracking-tight text-primary dark:text-on-primary">onkofizjo</span>
+</div>
+<div class="hidden md:flex items-center gap-8">
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-gold-leaf transition-colors text-body-md font-body-md" href="#">About</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-gold-leaf transition-colors text-body-md font-body-md" href="#">Services</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-gold-leaf transition-colors text-body-md font-body-md" href="#">Locations</a>
+<a class="text-gold-leaf font-bold border-b-2 border-gold-leaf pb-1 text-body-md font-body-md" href="#">Blog</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-gold-leaf transition-colors text-body-md font-body-md" href="#">Contact</a>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-gold-leaf underline text-body-md font-body-md hover:bg-surface-container-low transition-all px-2 py-1 rounded">Book by phone</button>
+<span class="text-on-surface-variant text-body-md font-body-md">EN/PL</span>
+</div>
+</nav>
+<!-- Main Content -->
+<main class="flex-grow w-full max-w-container-max-width mx-auto px-margin-mobile md:px-margin-desktop py-12 md:py-24">
+<!-- Header -->
+<header class="mb-16 md:mb-section-padding text-center md:text-left">
+<h1 class="font-display-xl text-display-xl text-primary mb-6">Knowledge Base</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">Expert insights on oncology recovery, nutrition during chemotherapy, and specialized physiotherapy techniques designed to support your healing journey.</p>
+</header>
+<!-- Categories / Filters -->
+<div class="flex flex-wrap gap-4 mb-12">
+<button class="px-6 py-2 rounded-full border-2 border-gold-leaf bg-surface-container-low text-primary font-clinical-data text-clinical-data hover:bg-gold-leaf hover:text-clinical-white transition-colors">All Articles</button>
+<button class="px-6 py-2 rounded-full border border-sand text-on-surface-variant font-clinical-data text-clinical-data hover:border-gold-leaf transition-colors">Diet &amp; Nutrition</button>
+<button class="px-6 py-2 rounded-full border border-sand text-on-surface-variant font-clinical-data text-clinical-data hover:border-gold-leaf transition-colors">Rehabilitation</button>
+<button class="px-6 py-2 rounded-full border border-sand text-on-surface-variant font-clinical-data text-clinical-data hover:border-gold-leaf transition-colors">Patient Stories</button>
+</div>
+<!-- Featured Post Hero -->
+<article class="mb-section-padding bg-clinical-white border border-sand rounded-xl overflow-hidden group cursor-pointer hover:shadow-lg transition-shadow duration-300">
+<div class="grid grid-cols-1 md:grid-cols-2">
+<div class="h-64 md:h-full relative overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" data-alt="A serene, brightly lit physiotherapy room with large windows letting in natural sunlight. A physical therapist gently guiding a patient's arm during a rehabilitation session. The color palette features calm earth tones, muted greens, and soft white light, reflecting a boutique, high-end clinical aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCcJHBxtASGAMyGqYRN5CQnVRqY3o2TCfjGf1KWHqGgaRAXz5TNnWp5GrIcaRMirWxsJ6qH9ntozcv_Mz8ziMWDs1zGh2YJHNvXuw7npy9HGreLyCpEjoj0dHc6g-ioJTPu8y2oa8_W1Sh8W89Tq_7dKrRZ7VW_gt1fkiQW3bmJOGFhB3NrcxE_8DBdPSyDs6lcYFnO8Byln6m0x-YkgFVg6cLirNF3XR4IELvAUsWQZCQV7z49rT-K"/>
+</div>
+<div class="p-8 md:p-12 flex flex-col justify-center">
+<span class="text-gold-leaf font-label-caps text-label-caps tracking-widest uppercase mb-4 block">Featured • Rehabilitation</span>
+<h2 class="font-headline-md text-headline-md md:font-display-lg md:text-display-lg text-primary mb-6 group-hover:text-gold-leaf transition-colors">Restoring Mobility After Surgery: A Gentle Approach</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-8 line-clamp-3">Understanding the delicate balance between rest and movement is crucial in the initial phases of post-operative oncology care. Learn how micro-movements can accelerate recovery.</p>
+<div class="flex items-center justify-between mt-auto">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Close up portrait of a compassionate female physiotherapist wearing a neat white clinical uniform. She has a warm, reassuring smile. The background is a soft, out of focus clinical setting with muted cream and sand tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA8KygYBI5xjbaJWgyLwt_E8o2g5lWxAP2p_LBmgkJSqGTJbAHDTLmH_6BIzp5c3K_B_-3acLQ2m9_cCuHSJ2wed94JTSiWKl_eSWVKUSgLfpjyZErXurei4_TaGTAdy26iCgRXCJc7bSNma13rXtJvBQ8eOTG7nmdYbSws6J6v4MJyRVkzTQJ5EPFg4SQAHqHIk1w1LfHZH9D8wixiHE2ZpNslJHW5G54-xi5ipvDPdrKKlzgC7bMH"/>
+</div>
+<div>
+<p class="font-clinical-data text-clinical-data text-primary">Dr. Anna Kowalska</p>
+<p class="text-sm text-on-surface-variant">5 min read</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-gold-leaf" data-icon="arrow_forward">arrow_forward</span>
+</div>
+</div>
+</div>
+</article>
+<!-- Editorial Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
+<!-- Article Card 1 -->
+<article class="bg-clinical-white border border-sand rounded-xl overflow-hidden group cursor-pointer hover:shadow-md transition-all duration-300 flex flex-col">
+<div class="h-48 overflow-hidden relative">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A beautifully arranged, highly nutritious meal on a ceramic plate set on a light oak table. The meal features vibrant greens, roasted sweet potatoes, and lean protein, designed for an oncology diet. Soft, natural daylight highlights the textures, creating a calming and appetizing scene." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDZBX7WUBWWdYx4O0wlLlfVboS39clcpJkYKYDfUj59whtbSgxmLhMTHTt68dS3cYvuMO1A5mSRdYssFdKjIP1utY5oaQCVck4vK2TwqhhQyInq5bTDtkyPOEx3NG8QZpkGfsPhXsJAdDuXKVYRs3NOWLxFnHjPgT881EzwjeiLoYhacf_8_7NLWQ8o7BtDmYDh6FfpFG78LBaUAuWQh_E8hzRh3veMpfW5FTmSnKNlusC4Xz3YkpXa"/>
+</div>
+<div class="p-6 flex flex-col flex-grow">
+<span class="text-primary-container font-label-caps text-label-caps mb-3 block">Diet &amp; Nutrition</span>
+<h3 class="font-title-lg text-title-lg text-primary mb-3 group-hover:text-gold-leaf transition-colors">Managing Nausea: Nutritional Strategies During Chemo</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6 line-clamp-2">Practical advice on adjusting your meal plan to maintain strength when side effects peak.</p>
+<div class="mt-auto flex justify-between items-center border-t border-surface-variant pt-4">
+<span class="font-clinical-data text-clinical-data text-on-surface-variant">Oct 12, 2024</span>
+<span class="material-symbols-outlined text-outline-variant group-hover:text-gold-leaf transition-colors" data-icon="bookmark_border">bookmark_border</span>
+</div>
+</div>
+</article>
+<!-- Article Card 2 -->
+<article class="bg-clinical-white border border-sand rounded-xl overflow-hidden group cursor-pointer hover:shadow-md transition-all duration-300 flex flex-col">
+<div class="h-48 overflow-hidden relative">
+<div class="bg-cover bg-center w-full h-full group-hover:scale-105 transition-transform duration-500" data-alt="Abstract macro shot of human skin and soft, draped linen fabric. The lighting is warm and intimate, focusing on textures that evoke touch, comfort, and somatic therapy. The color palette is composed of muted sand, cream, and soft powder rose." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBt18GTkq2FVZhPYANUzKial-x6C2ZzfnUGNxiugfBiHWyfmFZXTaZcTo8DmkO4jWrlDE1sbrCxXtx0FJkMkL276EVk87-sUZADbjo7AxNWo9JDHpsbsEaO-4MTJkbvn-nZZsr8Lb2OD9k4_-MsP40HsaY3bcUEZP5ukwv8DzAZwkpD1sufQdynFT3U6rP3GH5_E0EMmsXpu0v78HWtOYTSC--rZvjeTxqBCN9AmOR9qIGtbgil8jG7')"></div>
+</div>
+<div class="p-6 flex flex-col flex-grow">
+<span class="text-primary-container font-label-caps text-label-caps mb-3 block">Rehabilitation</span>
+<h3 class="font-title-lg text-title-lg text-primary mb-3 group-hover:text-gold-leaf transition-colors">The Role of Scar Tissue Massage</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6 line-clamp-2">Why addressing surgical scars early can prevent long-term mobility issues and reduce discomfort.</p>
+<div class="mt-auto flex justify-between items-center border-t border-surface-variant pt-4">
+<span class="font-clinical-data text-clinical-data text-on-surface-variant">Oct 05, 2024</span>
+<span class="material-symbols-outlined text-outline-variant group-hover:text-gold-leaf transition-colors" data-icon="bookmark_border">bookmark_border</span>
+</div>
+</div>
+</article>
+<!-- Article Card 3 -->
+<article class="bg-clinical-white border border-sand rounded-xl overflow-hidden group cursor-pointer hover:shadow-md transition-all duration-300 flex flex-col">
+<div class="h-48 overflow-hidden relative">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A thoughtful patient sitting by a large window overlooking a serene garden. They are holding a warm cup of tea, appearing calm and reflective. The environment is minimalist and clinical yet deeply comforting, using warm whites and subtle green accents." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDnHqyLF-ToIsdoBEkw1ANblcqbxmjlKh3CuthdkufTKlFlWN7O0Ts7pa20x5HOWWirPgTNJYxjMR3jI9S1Q_tWU45DOcW50DHoSb1TypM8rlNM5eDeRuRQyax5yAm6Si161QRWeFSNBkg07gcAg6xhdLwSoPns0Ns0ctI_cs6OtBejhp_9cUkvOwaRoWPyeJGfkg-bA7zhrfXc9Ak_FdeQDkDOcOSqSSeFLj0O2CRWwenLJHV7D4rC"/>
+</div>
+<div class="p-6 flex flex-col flex-grow">
+<span class="text-primary-container font-label-caps text-label-caps mb-3 block">Patient Stories</span>
+<h3 class="font-title-lg text-title-lg text-primary mb-3 group-hover:text-gold-leaf transition-colors">Finding Rhythm: Marek's Recovery Journey</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6 line-clamp-2">How personalized physiotherapy helped Marek return to his daily routine after months of intensive treatment.</p>
+<div class="mt-auto flex justify-between items-center border-t border-surface-variant pt-4">
+<span class="font-clinical-data text-clinical-data text-on-surface-variant">Sep 28, 2024</span>
+<span class="material-symbols-outlined text-outline-variant group-hover:text-gold-leaf transition-colors" data-icon="bookmark_border">bookmark_border</span>
+</div>
+</div>
+</article>
+</div>
+<!-- Pagination -->
+<div class="mt-16 flex justify-center items-center gap-4">
+<button class="w-10 h-10 rounded-full border border-sand flex items-center justify-center text-on-surface-variant hover:border-gold-leaf hover:text-gold-leaf transition-colors">
+<span class="material-symbols-outlined" data-icon="chevron_left">chevron_left</span>
+</button>
+<span class="font-clinical-data text-clinical-data text-primary">1 / 4</span>
+<button class="w-10 h-10 rounded-full border border-sand flex items-center justify-center text-on-surface-variant hover:border-gold-leaf hover:text-gold-leaf transition-colors">
+<span class="material-symbols-outlined" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+</main>
+<!-- Footer (Shared Component) -->
+<footer class="w-full mt-section-padding bg-primary dark:bg-ink py-16 px-margin-mobile md:px-margin-desktop grid grid-cols-1 md:grid-cols-4 gap-gutter text-on-primary dark:text-surface-variant">
+<div class="col-span-1 md:col-span-1">
+<span class="text-headline-md font-headline-md text-gold-leaf mb-4 block">onkofizjo</span>
+<p class="text-body-md font-body-md text-surface-variant/80">© 2024 onkofizjo. Nie jesteś kolejnym terminem.</p>
+</div>
+<div class="col-span-1 md:col-span-3 flex flex-wrap gap-8 md:justify-end items-center">
+<a class="text-surface-variant/80 hover:text-on-primary transition-opacity text-body-md font-body-md" href="#">Privacy Policy</a>
+<a class="text-surface-variant/80 hover:text-on-primary transition-opacity text-body-md font-body-md" href="#">Medical Terms</a>
+<a class="text-surface-variant/80 hover:text-on-primary transition-opacity text-body-md font-body-md" href="#">Certificates</a>
+<a class="text-surface-variant/80 hover:text-on-primary transition-opacity text-body-md font-body-md" href="#">Locations</a>
+</div>
+</footer>
+<!-- BottomNavBar (Mobile Only - Suppressed per rules: Contextual rendering - Blog is top level but we are showing Top Nav, keeping mobile consistent with instructions if needed, but rules say use Top Nav on Web. Providing BottomNav for md:hidden) -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center h-16 pb-safe bg-background/90 dark:bg-primary/95 backdrop-blur-xl border-t border-outline-variant dark:border-outline/10 shadow-lg md:hidden rounded-t-full">
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant active:bg-surface-container w-16 h-full rounded-full transition-all" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="home">home</span>
+<span class="text-label-caps font-label-caps">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant active:bg-surface-container w-16 h-full rounded-full transition-all" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="person">person</span>
+<span class="text-label-caps font-label-caps">Patient</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant active:bg-surface-container w-16 h-full rounded-full transition-all" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="event">event</span>
+<span class="text-label-caps font-label-caps">Schedule</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant active:bg-surface-container w-16 h-full rounded-full transition-all" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="psychology">psychology</span>
+<span class="text-label-caps font-label-caps">Hermes</span>
+</a>
+</nav>
+<script>
+        // Simple script to handle Material Symbols injection safely
+        document.addEventListener('DOMContentLoaded', () => {
+            const icons = document.querySelectorAll('[data-icon]');
+            icons.forEach(icon => {
+                if(icon.classList.contains('material-symbols-outlined')){
+                    icon.textContent = icon.getAttribute('data-icon');
+                }
+            });
+        });
+    </script>
+</body></html>

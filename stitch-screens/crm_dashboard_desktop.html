@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>CRM Dashboard - OnkoFizjo</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,500;1,7..72,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-fixed-variant": "#5b4224",
+                        "primary-container": "#1a2f23",
+                        "on-primary-fixed": "#0a2014",
+                        "surface-container-high": "#ebe7e4",
+                        "ink": "#0D1410",
+                        "on-secondary": "#ffffff",
+                        "on-secondary-fixed": "#2e1410",
+                        "on-surface-variant": "#424843",
+                        "inverse-primary": "#b4ccbb",
+                        "primary-fixed-dim": "#b4ccbb",
+                        "tertiary-container": "#3b260b",
+                        "on-error-container": "#93000a",
+                        "secondary-fixed": "#ffdad4",
+                        "on-tertiary": "#ffffff",
+                        "outline-variant": "#c2c8c2",
+                        "inverse-on-surface": "#f4f0ec",
+                        "tertiary-fixed-dim": "#e4c099",
+                        "warning-muted": "#E29578",
+                        "background": "#fdf9f5",
+                        "on-secondary-fixed-variant": "#5f3e39",
+                        "sand": "#D9D1C7",
+                        "on-background": "#1c1c19",
+                        "surface-dim": "#ddd9d6",
+                        "secondary-fixed-dim": "#eabcb4",
+                        "on-primary-container": "#809787",
+                        "primary-fixed": "#d0e9d6",
+                        "error-container": "#ffdad6",
+                        "on-primary": "#ffffff",
+                        "success-muted": "#4F6F52",
+                        "on-secondary-container": "#7a5650",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-tint": "#4d6355",
+                        "on-error": "#ffffff",
+                        "clinical-white": "#FFFFFF",
+                        "secondary-container": "#ffcfc7",
+                        "surface-container-low": "#f7f3ef",
+                        "tertiary-fixed": "#ffddb9",
+                        "inverse-surface": "#31302e",
+                        "on-tertiary-fixed": "#2a1701",
+                        "surface-container": "#f1ede9",
+                        "gold-leaf": "#BD9B60",
+                        "tertiary": "#231200",
+                        "outline": "#737973",
+                        "on-tertiary-container": "#ac8c69",
+                        "error": "#ba1a1a",
+                        "surface-variant": "#e6e2de",
+                        "surface-container-highest": "#e6e2de",
+                        "on-primary-fixed-variant": "#364c3e",
+                        "primary": "#051a0f",
+                        "on-surface": "#1c1c19",
+                        "surface-bright": "#fdf9f5",
+                        "surface": "#fdf9f5",
+                        "secondary": "#79564f"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "margin-mobile": "16px",
+                        "margin-desktop": "64px",
+                        "unit": "8px",
+                        "section-padding": "120px",
+                        "container-max-width": "1280px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Literata", "serif"],
+                        "display-xl": ["Literata", "serif"],
+                        "clinical-data": ["Inter", "sans-serif"],
+                        "body-lg": ["Inter", "sans-serif"],
+                        "headline-md-mobile": ["Literata", "serif"],
+                        "label-caps": ["Inter", "sans-serif"],
+                        "body-md": ["Inter", "sans-serif"],
+                        "title-lg": ["Inter", "sans-serif"],
+                        "display-lg": ["Literata", "serif"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["32px", { "lineHeight": "40px", "fontWeight": "500" }],
+                        "display-xl": ["64px", { "lineHeight": "72px", "letterSpacing": "-0.02em", "fontWeight": "400" }],
+                        "clinical-data": ["14px", { "lineHeight": "20px", "letterSpacing": "0.02em", "fontWeight": "500" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "headline-md-mobile": ["28px", { "lineHeight": "36px", "fontWeight": "500" }],
+                        "label-caps": ["12px", { "lineHeight": "16px", "letterSpacing": "0.08em", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "title-lg": ["20px", { "lineHeight": "28px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "fontWeight": "400" }]
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.6s ease-out forwards',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(10px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .stagger-1 { animation-delay: 100ms; }
+        .stagger-2 { animation-delay: 200ms; }
+        .stagger-3 { animation-delay: 300ms; }
+        .stagger-4 { animation-delay: 400ms; }
+        
+        /* Minimalist Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #D9D1C7;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #737973;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md antialiased flex h-screen overflow-hidden selection:bg-primary-fixed selection:text-on-primary-fixed">
+<!-- Desktop Sidebar (Hidden on mobile) -->
+<aside class="h-screen w-64 hidden md:flex flex-col left-0 fixed border-r border-sand dark:border-primary bg-surface-container-low dark:bg-primary-container z-40">
+<div class="flex flex-col h-full p-4">
+<!-- Brand -->
+<div class="mb-10 px-4 pt-4">
+<h1 class="font-headline-md text-headline-md text-gold-leaf tracking-tight">OnkoFizjo</h1>
+<p class="font-clinical-data text-clinical-data text-on-surface-variant uppercase tracking-widest mt-1">Oncology Rehab</p>
+</div>
+<!-- Navigation -->
+<nav class="flex-1 space-y-2">
+<a class="flex items-center gap-4 px-4 py-3 bg-primary-container dark:bg-primary-fixed-dim text-on-primary-container dark:text-on-primary-fixed font-semibold rounded-lg scale-95 duration-150 transition-all" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+<span class="font-label-caps text-label-caps">Dashboard</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 text-on-surface-variant hover:bg-surface-variant rounded-lg hover:bg-surface-container-high transition-all" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="font-label-caps text-label-caps">Patients</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 text-on-surface-variant hover:bg-surface-variant rounded-lg hover:bg-surface-container-high transition-all" href="#">
+<span class="material-symbols-outlined">healing</span>
+<span class="font-label-caps text-label-caps">Care Plans</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 text-on-surface-variant hover:bg-surface-variant rounded-lg hover:bg-surface-container-high transition-all" href="#">
+<span class="material-symbols-outlined">insights</span>
+<span class="font-label-caps text-label-caps">Analytics</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 text-on-surface-variant hover:bg-surface-variant rounded-lg hover:bg-surface-container-high transition-all" href="#">
+<span class="material-symbols-outlined text-gold-leaf">auto_awesome</span>
+<span class="font-label-caps text-label-caps text-gold-leaf">Hermes AI</span>
+</a>
+</nav>
+<!-- Bottom Actions -->
+<div class="mt-auto space-y-4 pt-6 border-t border-sand/50">
+<button class="w-full py-3 bg-primary text-white rounded-lg font-label-caps text-label-caps hover:bg-primary/90 transition-colors flex justify-center items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">add</span>
+                    Book Appointment
+                </button>
+<div class="flex flex-col space-y-1">
+<a class="flex items-center gap-4 px-4 py-2 text-on-surface-variant hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">settings</span>
+<span class="font-label-caps text-label-caps">Settings</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-2 text-on-surface-variant hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">help</span>
+<span class="font-label-caps text-label-caps">Support</span>
+</a>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 md:ml-64 flex flex-col h-screen overflow-hidden">
+<!-- Top App Bar -->
+<header class="flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop py-4 max-w-container-max-width mx-auto border-b border-outline-variant dark:border-outline bg-background dark:bg-background z-30 shrink-0">
+<div class="flex items-center gap-4 md:hidden">
+<h1 class="font-display-lg text-[24px] leading-tight text-primary dark:text-inverse-primary tracking-tight">OnkoFizjo</h1>
+</div>
+<div class="hidden md:flex items-center gap-8">
+<!-- Top Nav Links (Contextual) -->
+<nav class="flex gap-6">
+<a class="text-primary font-bold border-b-2 border-gold-leaf pb-1 font-body-md text-body-md opacity-80 transition-opacity" href="#">Overview</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors duration-200 font-body-md text-body-md pb-1" href="#">Calendar</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors duration-200 font-body-md text-body-md pb-1" href="#">Clinical Records</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative hidden sm:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="pl-10 pr-4 py-2 bg-surface-container-low border border-sand rounded-full font-clinical-data text-clinical-data focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary w-64 transition-all" placeholder="Search patients..." type="text"/>
+</div>
+<button class="p-2 text-on-surface-variant hover:text-primary transition-colors rounded-full hover:bg-surface-container-low relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-1.5 right-1.5 w-2 h-2 bg-warning-muted rounded-full border border-background"></span>
+</button>
+<div class="w-10 h-10 rounded-full bg-surface-container-high border border-sand overflow-hidden cursor-pointer shrink-0">
+<img alt="Therapist Profile" class="w-full h-full object-cover" data-alt="Close up portrait of a professional female physiotherapist in a bright clinical setting wearing a subtle smile and a minimalist white uniform." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB1NgKaBmWg0Gm4maCqpTz3CWHpRJ9Le7pI43d0NTjmSgxLPNq-U90ATTosWLYv84CTu_XuqDvdQ7v44SASytdZOaTYl_5Fwjra_7sppD7QfRi9QMbA2vgS7GnQ3Ez0T4fQrDiL1eBA8m5oulU97LL0dCQ6nQJXXT19twAhgMebZQhPw9LOhkjDSy2LBr6WkiLjYmFYI01h1F2j229JwFN_bedF9iJl8C2apICa2fJ-S3NotLHz9Ke4"/>
+</div>
+</div>
+</header>
+<!-- Scrollable Canvas -->
+<div class="flex-1 overflow-y-auto px-margin-mobile md:px-margin-desktop py-8 md:py-12 pb-32 md:pb-12">
+<div class="max-w-container-max-width mx-auto">
+<!-- Page Header -->
+<div class="mb-8 md:mb-12 opacity-0 animate-fade-in-up">
+<p class="font-label-caps text-label-caps text-on-surface-variant mb-2">THURSDAY, 24 OCTOBER</p>
+<h2 class="font-headline-md-mobile md:font-headline-md text-headline-md-mobile md:text-headline-md text-primary">Good morning, Gosia.</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-2 max-w-2xl">You have 5 appointments today and 2 pending care plan reviews. The clinic is running on schedule.</p>
+</div>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+<!-- Left Column: Next Patient & Schedule -->
+<div class="md:col-span-8 flex flex-col gap-6">
+<!-- Next Patient Card (Premium Highlight) -->
+<div class="bg-clinical-white border border-sand rounded-xl p-6 md:p-8 relative overflow-hidden opacity-0 animate-fade-in-up stagger-1 group">
+<!-- Subtle Background Accent -->
+<div class="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl -mr-20 -mt-20 pointer-events-none"></div>
+<div class="flex justify-between items-start mb-6 relative z-10">
+<div>
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-warning-muted/10 text-warning-muted font-label-caps text-[10px] mb-3 border border-warning-muted/20">
+<span class="w-1.5 h-1.5 rounded-full bg-warning-muted animate-pulse"></span>
+                                        NEXT APPOINTMENT • 10:00 AM
+                                    </span>
+<h3 class="font-title-lg text-title-lg text-primary">Anna Kowalska</h3>
+<p class="font-clinical-data text-clinical-data text-on-surface-variant">Post-operative Lymphatic Drainage (45m)</p>
+</div>
+<div class="w-16 h-16 rounded-full bg-surface-container-low border border-sand flex items-center justify-center text-primary-container overflow-hidden">
+<span class="material-symbols-outlined text-[32px]">face_3</span>
+</div>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8 border-t border-b border-sand/50 py-4 relative z-10">
+<div>
+<p class="font-label-caps text-[10px] text-on-surface-variant mb-1">CANCER TYPE</p>
+<p class="font-clinical-data text-sm text-ink">Breast (ER+)</p>
+</div>
+<div>
+<p class="font-label-caps text-[10px] text-on-surface-variant mb-1">SIDE</p>
+<p class="font-clinical-data text-sm text-ink">Right</p>
+</div>
+<div>
+<p class="font-label-caps text-[10px] text-on-surface-variant mb-1">SCAR STATUS</p>
+<p class="font-clinical-data text-sm text-ink flex items-center gap-1">Healing <span class="material-symbols-outlined text-[14px] text-success-muted">check_circle</span></p>
+</div>
+<div>
+<p class="font-label-caps text-[10px] text-on-surface-variant mb-1">LATEST NOTE</p>
+<p class="font-clinical-data text-sm text-ink truncate" title="Slight tenderness reported...">Slight tenderness...</p>
+</div>
+</div>
+<div class="flex gap-3 relative z-10">
+<button class="flex-1 bg-primary text-white py-2.5 rounded-lg font-label-caps text-label-caps hover:bg-primary-container transition-colors">Begin Session</button>
+<button class="px-4 py-2.5 rounded-lg border border-sand text-primary font-label-caps text-label-caps hover:bg-surface-container-low transition-colors flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">history</span>
+</button>
+</div>
+</div>
+<!-- Today's Schedule -->
+<div class="bg-clinical-white border border-sand rounded-xl p-6 opacity-0 animate-fade-in-up stagger-2">
+<div class="flex justify-between items-center mb-6">
+<h3 class="font-title-lg text-title-lg text-primary">Today's Schedule</h3>
+<button class="text-on-surface-variant hover:text-primary text-sm font-clinical-data flex items-center gap-1 transition-colors">
+                                    View Calendar <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+</div>
+<div class="space-y-0">
+<!-- Appointment Item (Past) -->
+<div class="flex gap-4 py-4 border-b border-sand/30 opacity-60">
+<div class="w-16 text-right shrink-0 pt-1">
+<p class="font-clinical-data text-sm text-on-surface-variant">08:30</p>
+</div>
+<div class="w-1 h-auto bg-surface-variant rounded-full"></div>
+<div class="flex-1">
+<p class="font-clinical-data text-clinical-data text-ink">Marek Nowak</p>
+<p class="font-body-md text-sm text-on-surface-variant">Initial Consultation</p>
+</div>
+<div class="shrink-0">
+<span class="material-symbols-outlined text-success-muted">check</span>
+</div>
+</div>
+<!-- Appointment Item (Current) -->
+<div class="flex gap-4 py-4 border-b border-sand/30 relative">
+<!-- Current Time Indicator -->
+<div class="absolute left-[72px] top-1/2 -translate-y-1/2 w-3 h-3 bg-primary rounded-full border-2 border-white z-10"></div>
+<div class="w-16 text-right shrink-0 pt-1">
+<p class="font-clinical-data text-sm font-bold text-primary">10:00</p>
+</div>
+<div class="w-1 h-auto bg-primary rounded-full relative z-0"></div>
+<div class="flex-1 bg-primary/5 rounded-lg p-3 -mt-2">
+<div class="flex justify-between">
+<p class="font-clinical-data text-clinical-data font-bold text-primary">Anna Kowalska</p>
+<span class="px-2 py-0.5 rounded text-[10px] font-label-caps bg-primary/10 text-primary">ONCOLOGY</span>
+</div>
+<p class="font-body-md text-sm text-on-surface-variant mt-1">Post-operative Lymphatic Drainage</p>
+</div>
+</div>
+<!-- Appointment Item (Future) -->
+<div class="flex gap-4 py-4 border-b border-sand/30 hover:bg-surface-container-low transition-colors rounded-lg -mx-2 px-2 cursor-pointer">
+<div class="w-16 text-right shrink-0 pt-1">
+<p class="font-clinical-data text-sm text-on-surface-variant">12:15</p>
+</div>
+<div class="w-1 h-auto bg-tertiary-fixed-dim/50 rounded-full"></div>
+<div class="flex-1">
+<div class="flex justify-between">
+<p class="font-clinical-data text-clinical-data text-ink">Piotr Wiśniewski</p>
+<span class="px-2 py-0.5 rounded text-[10px] font-label-caps bg-tertiary-fixed-dim/20 text-tertiary-container">DIETETICS</span>
+</div>
+<p class="font-body-md text-sm text-on-surface-variant">Meal Plan Adjustment</p>
+</div>
+</div>
+<!-- Appointment Item (Future) -->
+<div class="flex gap-4 py-4 hover:bg-surface-container-low transition-colors rounded-lg -mx-2 px-2 cursor-pointer">
+<div class="w-16 text-right shrink-0 pt-1">
+<p class="font-clinical-data text-sm text-on-surface-variant">14:00</p>
+</div>
+<div class="w-1 h-auto bg-secondary-fixed-dim/50 rounded-full"></div>
+<div class="flex-1">
+<div class="flex justify-between">
+<p class="font-clinical-data text-clinical-data text-ink">Ewa Dąbrowska</p>
+<span class="px-2 py-0.5 rounded text-[10px] font-label-caps bg-secondary-fixed-dim/20 text-secondary">PHYSIOTHERAPY</span>
+</div>
+<p class="font-body-md text-sm text-on-surface-variant">Scar Mobilization</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: AI Insights & Tasks -->
+<div class="md:col-span-4 flex flex-col gap-6">
+<!-- Hermes AI Insight Panel -->
+<div class="bg-surface-container-low border border-sand rounded-xl p-6 opacity-0 animate-fade-in-up stagger-3">
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-gold-leaf">auto_awesome</span>
+<h3 class="font-title-lg text-title-lg text-ink">Hermes Insights</h3>
+</div>
+<div class="bg-clinical-white rounded-lg p-4 shadow-sm border border-sand/50 mb-4">
+<p class="font-body-md text-sm text-on-surface-variant mb-3 leading-relaxed">
+                                    Based on recent notes, <strong class="text-ink font-medium">Anna Kowalska</strong> has reported persistent mild fatigue. Consider adjusting the intensity of today's drainage and reviewing her current hydration levels.
+                                </p>
+<div class="flex gap-2">
+<button class="text-[12px] font-label-caps px-3 py-1.5 bg-primary/5 text-primary rounded hover:bg-primary/10 transition-colors">Add to Session Notes</button>
+</div>
+</div>
+<div class="flex items-center justify-between text-xs font-clinical-data text-on-surface-variant/60">
+<span>AI-Generated Analysis</span>
+<a class="flex items-center gap-1 hover:text-primary transition-colors" href="#">Verify Source <span class="material-symbols-outlined text-[14px]">open_in_new</span></a>
+</div>
+</div>
+<!-- Pending Tasks / Documents -->
+<div class="bg-clinical-white border border-sand rounded-xl p-6 opacity-0 animate-fade-in-up stagger-4">
+<h3 class="font-title-lg text-title-lg text-ink mb-4">Pending Tasks</h3>
+<ul class="space-y-3">
+<li class="flex items-start gap-3 p-3 rounded-lg border border-sand/50 hover:border-primary/30 transition-colors group cursor-pointer">
+<div class="mt-0.5">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">description</span>
+</div>
+<div class="flex-1">
+<p class="font-clinical-data text-sm text-ink group-hover:text-primary transition-colors">Review Diet Plan</p>
+<p class="text-[12px] font-clinical-data text-on-surface-variant">Piotr Wiśniewski • Due Today</p>
+</div>
+<div class="w-2 h-2 rounded-full bg-warning-muted mt-1.5"></div>
+</li>
+<li class="flex items-start gap-3 p-3 rounded-lg border border-sand/50 hover:border-primary/30 transition-colors group cursor-pointer">
+<div class="mt-0.5">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">fact_check</span>
+</div>
+<div class="flex-1">
+<p class="font-clinical-data text-sm text-ink group-hover:text-primary transition-colors">Sign Consultation Notes</p>
+<p class="text-[12px] font-clinical-data text-on-surface-variant">Marek Nowak</p>
+</div>
+</li>
+</ul>
+<button class="w-full mt-4 py-2 border border-sand rounded-lg text-sm font-label-caps text-on-surface-variant hover:bg-surface-container-low transition-colors">View All (4)</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Mobile Bottom Nav Bar (Hidden on md+) -->
+<nav class="md:hidden fixed bottom-0 w-full z-50 rounded-t-xl border-t border-sand dark:border-outline-variant shadow-[0_-4px_20px_rgba(0,0,0,0.05)] bg-clinical-white/95 dark:bg-inverse-surface/95 backdrop-blur-md pb-safe">
+<div class="flex justify-around items-center px-margin-mobile pb-4 pt-3">
+<a class="flex flex-col items-center justify-center text-primary dark:text-primary-fixed gap-1" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">home</span>
+<span class="font-label-caps text-[10px]">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant/60 hover:text-primary transition-colors gap-1" href="#">
+<span class="material-symbols-outlined">person_search</span>
+<span class="font-label-caps text-[10px]">Patients</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant/60 hover:text-primary transition-colors gap-1" href="#">
+<span class="material-symbols-outlined">auto_awesome</span>
+<span class="font-label-caps text-[10px]">Hermes</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant/60 hover:text-primary transition-colors gap-1" href="#">
+<span class="material-symbols-outlined">account_circle</span>
+<span class="font-label-caps text-[10px]">Profile</span>
+</a>
+</div>
+</nav>
+</body></html>

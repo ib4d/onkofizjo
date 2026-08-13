@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Services | onkofizjo</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-secondary-fixed-variant": "#5f3e39",
+                      "on-tertiary": "#ffffff",
+                      "on-tertiary-fixed": "#2a1701",
+                      "surface-container-high": "#ebe7e4",
+                      "surface-container": "#f1ede9",
+                      "tertiary": "#231200",
+                      "on-primary-fixed-variant": "#364c3e",
+                      "ink": "#0D1410",
+                      "surface-dim": "#ddd9d6",
+                      "surface-variant": "#e6e2de",
+                      "on-error": "#ffffff",
+                      "secondary-container": "#ffcfc7",
+                      "on-primary-container": "#809787",
+                      "on-background": "#1c1c19",
+                      "warning-muted": "#E29578",
+                      "inverse-surface": "#31302e",
+                      "on-primary-fixed": "#0a2014",
+                      "on-tertiary-fixed-variant": "#5b4224",
+                      "surface-container-lowest": "#ffffff",
+                      "on-secondary": "#ffffff",
+                      "primary-fixed": "#d0e9d6",
+                      "on-surface": "#1c1c19",
+                      "clinical-white": "#FFFFFF",
+                      "error-container": "#ffdad6",
+                      "on-secondary-fixed": "#2e1410",
+                      "gold-leaf": "#BD9B60",
+                      "on-surface-variant": "#424843",
+                      "surface-container-low": "#f7f3ef",
+                      "on-secondary-container": "#7a5650",
+                      "primary-fixed-dim": "#b4ccbb",
+                      "tertiary-container": "#3b260b",
+                      "success-muted": "#4F6F52",
+                      "surface": "#fdf9f5",
+                      "secondary-fixed": "#ffdad4",
+                      "outline-variant": "#c2c8c2",
+                      "primary-container": "#1a2f23",
+                      "sand": "#D9D1C7",
+                      "primary": "#051a0f",
+                      "surface-container-highest": "#e6e2de",
+                      "error": "#ba1a1a",
+                      "tertiary-fixed": "#ffddb9",
+                      "background": "#fdf9f5",
+                      "surface-tint": "#4d6355",
+                      "inverse-primary": "#b4ccbb",
+                      "secondary": "#79564f",
+                      "on-error-container": "#93000a",
+                      "surface-bright": "#fdf9f5",
+                      "on-primary": "#ffffff",
+                      "outline": "#737973",
+                      "secondary-fixed-dim": "#eabcb4",
+                      "tertiary-fixed-dim": "#e4c099",
+                      "inverse-on-surface": "#f4f0ec",
+                      "on-tertiary-container": "#ac8c69"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "section-padding": "120px",
+                      "margin-desktop": "64px",
+                      "gutter": "24px",
+                      "container-max-width": "1280px",
+                      "margin-mobile": "16px",
+                      "unit": "8px"
+              },
+              "fontFamily": {
+                      "display-xl": [
+                              "literata"
+                      ],
+                      "body-lg": [
+                              "inter"
+                      ],
+                      "title-lg": [
+                              "inter"
+                      ],
+                      "clinical-data": [
+                              "inter"
+                      ],
+                      "headline-md-mobile": [
+                              "literata"
+                      ],
+                      "label-caps": [
+                              "inter"
+                      ],
+                      "body-md": [
+                              "inter"
+                      ],
+                      "display-lg": [
+                              "literata"
+                      ],
+                      "headline-md": [
+                              "literata"
+                      ]
+              },
+              "fontSize": {
+                      "display-xl": [
+                              "64px",
+                              {
+                                      "lineHeight": "72px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "title-lg": [
+                              "20px",
+                              {
+                                      "lineHeight": "28px",
+                                      "letterSpacing": "0.01em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "clinical-data": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "letterSpacing": "0.02em",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "headline-md-mobile": [
+                              "28px",
+                              {
+                                      "lineHeight": "36px",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "label-caps": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.08em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "display-lg": [
+                              "48px",
+                              {
+                                      "lineHeight": "56px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-md": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "fontWeight": "500"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+    </script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Literata:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .font-literata { font-family: 'Literata', serif; }
+        .glass-panel {
+            background: rgba(253, 249, 245, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .service-image-mask {
+            mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+            -webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background antialiased selection:bg-gold-leaf selection:text-white">
+<!-- Top Navigation Bar (Shared Component) -->
+<nav class="hidden md:flex bg-background/80 dark:bg-primary/90 backdrop-blur-md docked full-width top-0 border-b border-outline-variant dark:border-outline/20 flat no shadows fixed left-0 w-full z-50 justify-between items-center px-margin-desktop h-20">
+<a class="text-title-lg font-title-lg tracking-tight text-primary dark:text-on-primary" href="/">onkofizjo</a>
+<div class="flex gap-8 items-center">
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-gold-leaf transition-colors text-body-md font-body-md" href="/about">About</a>
+<a class="text-gold-leaf font-bold border-b-2 border-gold-leaf pb-1 text-body-md font-body-md" href="/services">Services</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-gold-leaf transition-colors text-body-md font-body-md" href="/locations">Locations</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-gold-leaf transition-colors text-body-md font-body-md" href="/blog">Blog</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-gold-leaf transition-colors text-body-md font-body-md" href="/contact">Contact</a>
+</div>
+<div class="flex items-center gap-6">
+<button class="text-on-surface-variant hover:text-gold-leaf text-label-caps font-label-caps transition-colors">EN/PL</button>
+<button class="bg-primary text-white px-6 py-3 rounded text-label-caps font-label-caps hover:bg-primary-container transition-colors">Book by phone</button>
+</div>
+</nav>
+<!-- Mobile Bottom Navigation (Shared Component) -->
+<nav class="md:hidden bg-background/90 dark:bg-primary/95 backdrop-blur-xl docked full-width bottom-0 rounded-t-full border-t border-outline-variant dark:border-outline/10 shadow-lg fixed left-0 w-full z-50 flex justify-around items-center h-16 pb-safe">
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant hover:bg-surface-container transition-all" href="/">
+<span class="material-symbols-outlined mb-1 text-[20px]">home</span>
+<span class="text-label-caps font-label-caps text-[10px]">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-gold-leaf hover:bg-surface-container transition-all scale-110 duration-300" href="/services">
+<span class="material-symbols-outlined mb-1 text-[20px]">event</span>
+<span class="text-label-caps font-label-caps text-[10px]">Services</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant hover:bg-surface-container transition-all" href="/locations">
+<span class="material-symbols-outlined mb-1 text-[20px]">person</span>
+<span class="text-label-caps font-label-caps text-[10px]">Patient</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant hover:bg-surface-container transition-all" href="/ai">
+<span class="material-symbols-outlined mb-1 text-[20px]">psychology</span>
+<span class="text-label-caps font-label-caps text-[10px]">Hermes</span>
+</a>
+</nav>
+<main class="pt-24 md:pt-32 pb-32">
+<!-- Hero Section -->
+<header class="px-margin-mobile md:px-margin-desktop max-w-container-max-width mx-auto mb-section-padding">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-end">
+<div class="lg:col-span-8">
+<span class="text-label-caps font-label-caps text-primary tracking-widest uppercase mb-4 block">Our Expertise</span>
+<h1 class="text-display-lg md:text-display-xl font-display-lg md:font-display-xl text-primary font-literata leading-tight">
+                        Specialized clinical care,<br/>tailored for oncology.
+                    </h1>
+</div>
+<div class="lg:col-span-4 pb-4">
+<p class="text-body-lg font-body-lg text-on-surface-variant">
+                        We blend high-end clinical precision with deep human empathy, focusing on continuity of care throughout your recovery journey.
+                    </p>
+</div>
+</div>
+</header>
+<!-- Services Bento Grid -->
+<section class="px-margin-mobile md:px-margin-desktop max-w-container-max-width mx-auto mb-section-padding space-y-32">
+<!-- Oncology Rehab -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-center">
+<div class="lg:col-span-5 order-2 lg:order-1">
+<span class="text-label-caps font-label-caps text-gold-leaf mb-4 block">01 / CORE THERAPY</span>
+<h2 class="text-headline-md-mobile md:text-headline-md font-headline-md-mobile md:font-headline-md text-primary font-literata mb-6">Oncology Rehabilitation</h2>
+<p class="text-body-md font-body-md text-on-surface-variant mb-8">
+                        Comprehensive physical therapy designed specifically for patients before, during, and after cancer treatment. Focuses on restoring mobility, managing fatigue, and preventing treatment-related complications in a safe, monitored environment.
+                    </p>
+<ul class="space-y-4 mb-10 text-body-md font-body-md text-primary">
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-gold-leaf mt-1">check_circle</span>
+<span>Pre-habilitation to prepare for surgery</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-gold-leaf mt-1">check_circle</span>
+<span>Post-operative mobility restoration</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-gold-leaf mt-1">check_circle</span>
+<span>Cancer-related fatigue management</span>
+</li>
+</ul>
+<a class="inline-flex items-center text-primary font-label-caps text-label-caps border-b border-gold-leaf pb-1 hover:text-gold-leaf transition-colors" href="tel:+1234567890">
+                        BOOK BY PHONE <span class="material-symbols-outlined ml-2 text-sm">arrow_forward</span>
+</a>
+</div>
+<div class="lg:col-span-6 lg:col-start-7 order-1 lg:order-2 mb-8 lg:mb-0">
+<div class="relative w-full aspect-[4/5] bg-surface-container-low rounded overflow-hidden border border-sand">
+<img class="w-full h-full object-cover service-image-mask" data-alt="A serene, brightly lit clinical therapy room with minimalist wooden details, soft natural light streaming through a large window, a modern therapy table, and subtle green plants. The aesthetic is clean, warm, boutique medical space, high-key lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAbIwJdaB_ZYmfEssZvD5JfSx5l9aQXtT_lL64WYP4jM3AlJIMgzDDkrbD0MKd5MULxQO49aiL5TrX-yyMjdrgl7Kw_pI5RJLM2JG_2JlvNln-HpLWI-jmXL2gYBCR0N9vzTB167W4ideOZZSFFCuRvSPdHop-7vIxoVAvXAB_7hnZXbWsmYAThEtLPeyrqPoTKJGfw9qQzhppVQBGU0uLH8AKmXYqGo5NAc_h3OjDGg_K-ityM_0N3"/>
+</div>
+</div>
+</div>
+<!-- Lymphatic Therapy -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-center">
+<div class="lg:col-span-6 mb-8 lg:mb-0">
+<div class="relative w-full aspect-[4/5] bg-surface-container-low rounded overflow-hidden border border-sand">
+<img class="w-full h-full object-cover service-image-mask" data-alt="Close up of a therapist's hands gently performing manual lymphatic drainage on a patient's arm. Soft, warm lighting, clinical yet comforting atmosphere, focus on human touch and care. High-end boutique clinic aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBG26BejyaHNaJnJgLMB2W_kMa8wmzcrfKKGCTjZmh58ADfVvbTh30o-Tw3NM4DGiD5pcrmghrLZIUDzRisuZSNrWzfK8n0x-0OT2-Brwaqj6OP3yKXRnjy4-GKUtzGoaZyu2ZfHUAAbuM783dZbWeuNJyc-sH4pdczs61pB7PheSqBCAAlUxXZfO__jEGDjiP4DwSN5OPE5VwiMYcWTCCF5RS8abDcpXoxJwbyhNFSkoC0Fep8Z4D_"/>
+</div>
+</div>
+<div class="lg:col-span-5 lg:col-start-8">
+<span class="text-label-caps font-label-caps text-gold-leaf mb-4 block">02 / SPECIALIZED CARE</span>
+<h2 class="text-headline-md-mobile md:text-headline-md font-headline-md-mobile md:font-headline-md text-primary font-literata mb-6">Lymphatic Therapy</h2>
+<p class="text-body-md font-body-md text-on-surface-variant mb-8">
+                        Expert manual lymphatic drainage (MLD) and comprehensive decongestive therapy for patients dealing with or at risk of lymphedema following lymph node removal or radiation therapy.
+                    </p>
+<ul class="space-y-4 mb-10 text-body-md font-body-md text-primary">
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-gold-leaf mt-1">check_circle</span>
+<span>Manual Lymphatic Drainage (MLD)</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-gold-leaf mt-1">check_circle</span>
+<span>Compression bandaging &amp; garment fitting</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-gold-leaf mt-1">check_circle</span>
+<span>Skin care and risk reduction education</span>
+</li>
+</ul>
+<a class="inline-flex items-center text-primary font-label-caps text-label-caps border-b border-gold-leaf pb-1 hover:text-gold-leaf transition-colors" href="tel:+1234567890">
+                        BOOK BY PHONE <span class="material-symbols-outlined ml-2 text-sm">arrow_forward</span>
+</a>
+</div>
+</div>
+<!-- Physiotherapy & Massage Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<!-- Physiotherapy -->
+<div class="bg-clinical-white border border-sand p-8 lg:p-12 rounded flex flex-col justify-between hover:border-gold-leaf transition-colors group">
+<div>
+<span class="text-label-caps font-label-caps text-gold-leaf mb-4 block">03 / RECOVERY</span>
+<h3 class="text-title-lg font-title-lg text-primary mb-4 font-literata">Clinical Physiotherapy</h3>
+<p class="text-body-md font-body-md text-on-surface-variant mb-8">
+                            Targeted interventions for musculoskeletal issues, scar tissue management, and general physical conditioning tailored to compromised immune systems.
+                        </p>
+</div>
+<a class="inline-flex items-center text-primary font-label-caps text-label-caps mt-auto w-max border-b border-transparent group-hover:border-gold-leaf group-hover:text-gold-leaf transition-colors" href="tel:+1234567890">
+                        BOOK BY PHONE <span class="material-symbols-outlined ml-2 text-sm">arrow_forward</span>
+</a>
+</div>
+<!-- Massage -->
+<div class="bg-surface-container-low border border-sand p-8 lg:p-12 rounded flex flex-col justify-between hover:border-gold-leaf transition-colors group">
+<div>
+<span class="text-label-caps font-label-caps text-gold-leaf mb-4 block">04 / WELLNESS</span>
+<h3 class="text-title-lg font-title-lg text-primary mb-4 font-literata">Oncology Massage</h3>
+<p class="text-body-md font-body-md text-on-surface-variant mb-8">
+                            Specially modified massage techniques designed to safely comfort, relax, and reduce pain and anxiety for patients currently in or recovering from treatment.
+                        </p>
+</div>
+<a class="inline-flex items-center text-primary font-label-caps text-label-caps mt-auto w-max border-b border-transparent group-hover:border-gold-leaf group-hover:text-gold-leaf transition-colors" href="tel:+1234567890">
+                        BOOK BY PHONE <span class="material-symbols-outlined ml-2 text-sm">arrow_forward</span>
+</a>
+</div>
+</div>
+</section>
+<!-- Dietetics & Nutrition (Glassmorphism Section) -->
+<section class="relative py-section-padding px-margin-mobile md:px-margin-desktop mb-section-padding">
+<div class="absolute inset-0 z-0">
+<img class="w-full h-full object-cover opacity-30" data-alt="Abstract, soft, warm-toned fluid shapes slowly blending together, evoking a sense of nutrition, earthiness, and health. Muted greens, soft creams, and gentle sand colors. High key, elegant, soft focus background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCYy_E_xMlvGV1vd2hOVKWpt_HEE1nakzewP_eoVYf50-wFUFVoKA8-XdN-Hj0L1qdD4LSsoDvXjhOO_x-q8syI6aNKpP8NrkBLrqeON0hGFrvbUFpWDOaz8-PLYeVgiO7EFMAyXSTNa4FmQDMngBbgtmOXKAhdosPfYtPXfQ3IRBIOsCpbCa9SYVMH5Y9QeRsJSHR2ngofl3yLdVdMzdS5E_HGtTILP79HEA_CbrBY-VrONGGN84-V"/>
+</div>
+<div class="relative z-10 max-w-container-max-width mx-auto">
+<div class="glass-panel border border-sand p-8 md:p-16 rounded-xl max-w-3xl">
+<span class="text-label-caps font-label-caps text-gold-leaf mb-4 block">05 / NUTRITION</span>
+<h2 class="text-headline-md-mobile md:text-headline-md font-headline-md-mobile md:font-headline-md text-primary font-literata mb-6">Clinical Dietetics</h2>
+<p class="text-body-lg font-body-lg text-on-surface-variant mb-8">
+                        Personalized nutritional strategies to support the body through demanding treatments, manage side effects like weight loss or nausea, and promote long-term recovery and vitality.
+                    </p>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-8 mb-10">
+<div>
+<h4 class="text-clinical-data font-clinical-data text-primary mb-2 uppercase tracking-wide">During Treatment</h4>
+<p class="text-body-md font-body-md text-on-surface-variant">Mitigating side effects and maintaining strength and weight.</p>
+</div>
+<div>
+<h4 class="text-clinical-data font-clinical-data text-primary mb-2 uppercase tracking-wide">Post Treatment</h4>
+<p class="text-body-md font-body-md text-on-surface-variant">Rebuilding immunity and establishing healthy long-term habits.</p>
+</div>
+</div>
+<button class="bg-primary text-white px-8 py-4 rounded text-label-caps font-label-caps hover:bg-primary-container transition-colors shadow-sm">
+                        Consult a Dietitian
+                    </button>
+</div>
+</div>
+</section>
+<!-- Pricing Overview -->
+<section class="px-margin-mobile md:px-margin-desktop max-w-container-max-width mx-auto mb-section-padding">
+<div class="text-center mb-16">
+<h2 class="text-headline-md-mobile md:text-headline-md font-headline-md-mobile md:font-headline-md text-primary font-literata mb-4">Transparent Care</h2>
+<p class="text-body-md font-body-md text-on-surface-variant max-w-2xl mx-auto">Clear, straightforward pricing for our specialized services. We focus on providing premium care without administrative confusion.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+<!-- Price Card 1 -->
+<div class="bg-clinical-white border border-sand p-6 rounded flex flex-col">
+<h4 class="text-clinical-data font-clinical-data text-on-surface-variant uppercase tracking-wide mb-2">Initial Consultation</h4>
+<div class="text-headline-md-mobile font-headline-md-mobile text-primary font-literata mb-4">250 PLN</div>
+<p class="text-body-sm font-body-sm text-on-surface-variant mb-6 flex-grow">Comprehensive assessment and personalized care plan creation. (60 mins)</p>
+<div class="border-t border-sand pt-4">
+<a class="text-label-caps font-label-caps text-gold-leaf hover:text-primary transition-colors" href="#">View Details</a>
+</div>
+</div>
+<!-- Price Card 2 -->
+<div class="bg-clinical-white border border-sand p-6 rounded flex flex-col relative overflow-hidden">
+<div class="absolute top-0 right-0 bg-surface-container-low text-gold-leaf text-[10px] font-bold px-3 py-1 rounded-bl border-b border-l border-sand">POPULAR</div>
+<h4 class="text-clinical-data font-clinical-data text-on-surface-variant uppercase tracking-wide mb-2">Standard Session</h4>
+<div class="text-headline-md-mobile font-headline-md-mobile text-primary font-literata mb-4">180 PLN</div>
+<p class="text-body-sm font-body-sm text-on-surface-variant mb-6 flex-grow">Single session for oncology rehab, lymphatic therapy, or massage. (45 mins)</p>
+<div class="border-t border-sand pt-4">
+<a class="text-label-caps font-label-caps text-gold-leaf hover:text-primary transition-colors" href="#">View Details</a>
+</div>
+</div>
+<!-- Price Card 3 -->
+<div class="bg-clinical-white border border-sand p-6 rounded flex flex-col">
+<h4 class="text-clinical-data font-clinical-data text-on-surface-variant uppercase tracking-wide mb-2">Package of 5</h4>
+<div class="text-headline-md-mobile font-headline-md-mobile text-primary font-literata mb-4">850 PLN</div>
+<p class="text-body-sm font-body-sm text-on-surface-variant mb-6 flex-grow">Discounted package for ongoing continuous care. Valid for 3 months.</p>
+<div class="border-t border-sand pt-4">
+<a class="text-label-caps font-label-caps text-gold-leaf hover:text-primary transition-colors" href="#">View Details</a>
+</div>
+</div>
+<!-- Price Card 4 -->
+<div class="bg-clinical-white border border-sand p-6 rounded flex flex-col">
+<h4 class="text-clinical-data font-clinical-data text-on-surface-variant uppercase tracking-wide mb-2">Dietetics Plan</h4>
+<div class="text-headline-md-mobile font-headline-md-mobile text-primary font-literata mb-4">300 PLN</div>
+<p class="text-body-sm font-body-sm text-on-surface-variant mb-6 flex-grow">Includes initial consultation and customized 14-day meal plan.</p>
+<div class="border-t border-sand pt-4">
+<a class="text-label-caps font-label-caps text-gold-leaf hover:text-primary transition-colors" href="#">View Details</a>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer (Shared Component) -->
+<footer class="bg-primary dark:bg-ink text-on-primary dark:text-surface-variant w-full mt-section-padding flat no shadows py-16 px-margin-mobile md:px-margin-desktop grid grid-cols-1 md:grid-cols-4 gap-gutter">
+<div class="md:col-span-1">
+<div class="text-headline-md font-headline-md text-gold-leaf mb-4 font-literata">onkofizjo</div>
+<p class="text-body-md font-body-md text-surface-variant/80 mt-2">© 2024 onkofizjo. Nie jesteś kolejnym terminem.</p>
+</div>
+<div class="flex flex-col gap-4">
+<h4 class="text-label-caps font-label-caps text-on-primary uppercase tracking-widest">Legal</h4>
+<a class="text-body-md font-body-md text-surface-variant/80 hover:text-on-primary hover:opacity-100 transition-opacity" href="#">Privacy Policy</a>
+<a class="text-body-md font-body-md text-surface-variant/80 hover:text-on-primary hover:opacity-100 transition-opacity" href="#">Medical Terms</a>
+</div>
+<div class="flex flex-col gap-4">
+<h4 class="text-label-caps font-label-caps text-on-primary uppercase tracking-widest">About</h4>
+<a class="text-body-md font-body-md text-surface-variant/80 hover:text-on-primary hover:opacity-100 transition-opacity" href="#">Certificates</a>
+<a class="text-body-md font-body-md text-surface-variant/80 hover:text-on-primary hover:opacity-100 transition-opacity" href="#">Locations</a>
+</div>
+<div class="flex flex-col gap-4">
+<h4 class="text-label-caps font-label-caps text-on-primary uppercase tracking-widest">Contact</h4>
+<a class="text-body-md font-body-md text-gold-leaf underline hover:opacity-100 transition-opacity flex items-center gap-2" href="tel:+1234567890">
+<span class="material-symbols-outlined text-[18px]">phone</span> +48 123 456 789
+             </a>
+<p class="text-body-md font-body-md text-surface-variant/80 mt-2">Warsaw, Poland</p>
+</div>
+</footer>
+</body></html>

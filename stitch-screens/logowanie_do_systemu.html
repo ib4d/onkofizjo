@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+
+<html lang="pl"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>onkofizjo - Login</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Literata:ital,opsz,wght@0,7..72,200..900;1,7..72,200..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-fixed-variant": "#5f3e39",
+                        "on-tertiary": "#ffffff",
+                        "on-tertiary-fixed": "#2a1701",
+                        "surface-container-high": "#ebe7e4",
+                        "surface-container": "#f1ede9",
+                        "tertiary": "#231200",
+                        "on-primary-fixed-variant": "#364c3e",
+                        "ink": "#0D1410",
+                        "surface-dim": "#ddd9d6",
+                        "surface-variant": "#e6e2de",
+                        "on-error": "#ffffff",
+                        "secondary-container": "#ffcfc7",
+                        "on-primary-container": "#809787",
+                        "on-background": "#1c1c19",
+                        "warning-muted": "#E29578",
+                        "inverse-surface": "#31302e",
+                        "on-primary-fixed": "#0a2014",
+                        "on-tertiary-fixed-variant": "#5b4224",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "primary-fixed": "#d0e9d6",
+                        "on-surface": "#1c1c19",
+                        "clinical-white": "#FFFFFF",
+                        "error-container": "#ffdad6",
+                        "on-secondary-fixed": "#2e1410",
+                        "gold-leaf": "#BD9B60",
+                        "on-surface-variant": "#424843",
+                        "surface-container-low": "#f7f3ef",
+                        "on-secondary-container": "#7a5650",
+                        "primary-fixed-dim": "#b4ccbb",
+                        "tertiary-container": "#3b260b",
+                        "success-muted": "#4F6F52",
+                        "surface": "#fdf9f5",
+                        "secondary-fixed": "#ffdad4",
+                        "outline-variant": "#c2c8c2",
+                        "primary-container": "#1a2f23",
+                        "sand": "#D9D1C7",
+                        "primary": "#051a0f",
+                        "surface-container-highest": "#e6e2de",
+                        "error": "#ba1a1a",
+                        "tertiary-fixed": "#ffddb9",
+                        "background": "#fdf9f5",
+                        "surface-tint": "#4d6355",
+                        "inverse-primary": "#b4ccbb",
+                        "secondary": "#79564f",
+                        "on-error-container": "#93000a",
+                        "surface-bright": "#fdf9f5",
+                        "on-primary": "#ffffff",
+                        "outline": "#737973",
+                        "secondary-fixed-dim": "#eabcb4",
+                        "tertiary-fixed-dim": "#e4c099",
+                        "inverse-on-surface": "#f4f0ec",
+                        "on-tertiary-container": "#ac8c69"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "section-padding": "120px",
+                        "margin-desktop": "64px",
+                        "gutter": "24px",
+                        "container-max-width": "1280px",
+                        "margin-mobile": "16px",
+                        "unit": "8px"
+                    },
+                    "fontFamily": {
+                        "display-xl": ["literata"],
+                        "body-lg": ["inter"],
+                        "title-lg": ["inter"],
+                        "clinical-data": ["inter"],
+                        "headline-md-mobile": ["literata"],
+                        "label-caps": ["inter"],
+                        "body-md": ["inter"],
+                        "display-lg": ["literata"],
+                        "headline-md": ["literata"]
+                    },
+                    "fontSize": {
+                        "display-xl": ["64px", { "lineHeight": "72px", "letterSpacing": "-0.02em", "fontWeight": "400" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "title-lg": ["20px", { "lineHeight": "28px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+                        "clinical-data": ["14px", { "lineHeight": "20px", "letterSpacing": "0.02em", "fontWeight": "500" }],
+                        "headline-md-mobile": ["28px", { "lineHeight": "36px", "fontWeight": "500" }],
+                        "label-caps": ["12px", { "lineHeight": "16px", "letterSpacing": "0.08em", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "fontWeight": "400" }],
+                        "headline-md": ["32px", { "lineHeight": "40px", "fontWeight": "500" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { background-color: theme('colors.background'); color: theme('colors.on-background'); }
+        .input-float:focus-within label { transform: translateY(-1.5rem) scale(0.85); color: theme('colors.gold-leaf'); }
+        .input-float:focus-within input { border-color: theme('colors.gold-leaf'); border-width: 2px; outline: none; }
+        .input-float label { transition: all 0.2s ease-out; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col font-body-md text-body-md antialiased">
+<!-- Main Canvas: Suppress Navigation for Linear/Transactional Flow (Login) -->
+<main class="flex-grow flex items-center justify-center p-margin-mobile md:p-margin-desktop bg-surface-container-low">
+<div class="w-full max-w-md bg-clinical-white border border-sand rounded-xl shadow-sm overflow-hidden flex flex-col relative z-10">
+<!-- Header Section -->
+<div class="p-8 pb-6 text-center border-b border-surface-variant">
+<h1 class="font-headline-md text-headline-md text-primary tracking-tight mb-2">onkofizjo</h1>
+<p class="font-body-md text-body-md text-on-surface-variant italic">Nie jesteś kolejnym terminem.</p>
+</div>
+<!-- Login Form Section -->
+<div class="p-8 flex flex-col gap-6 bg-clinical-white">
+<h2 class="font-title-lg text-title-lg text-primary text-center">Secure Portal</h2>
+<form class="flex flex-col gap-5">
+<div class="input-float relative flex flex-col gap-1">
+<input class="peer w-full bg-transparent border-b border-outline-variant py-2 pt-4 font-body-md text-body-md text-primary placeholder-transparent focus:border-gold-leaf focus:outline-none transition-colors" id="email" placeholder="Email Address" type="email"/>
+<label class="absolute left-0 top-3 font-label-caps text-label-caps text-outline transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-body-md peer-placeholder-shown:font-body-md peer-focus:top-0 peer-focus:text-label-caps peer-focus:text-gold-leaf" for="email">EMAIL ADDRESS</label>
+</div>
+<div class="input-float relative flex flex-col gap-1">
+<input class="peer w-full bg-transparent border-b border-outline-variant py-2 pt-4 font-body-md text-body-md text-primary placeholder-transparent focus:border-gold-leaf focus:outline-none transition-colors" id="password" placeholder="Password" type="password"/>
+<label class="absolute left-0 top-3 font-label-caps text-label-caps text-outline transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-body-md peer-placeholder-shown:font-body-md peer-focus:top-0 peer-focus:text-label-caps peer-focus:text-gold-leaf" for="password">PASSWORD</label>
+</div>
+<div class="flex justify-between items-center mt-2">
+<label class="flex items-center gap-2 cursor-pointer group">
+<div class="relative flex items-center justify-center w-5 h-5 border border-outline-variant rounded bg-transparent group-hover:border-primary transition-colors">
+<input class="opacity-0 absolute w-full h-full cursor-pointer peer" type="checkbox"/>
+<span class="material-symbols-outlined text-[16px] text-clinical-white opacity-0 peer-checked:opacity-100 peer-checked:text-primary transition-opacity">check</span>
+</div>
+<span class="font-clinical-data text-clinical-data text-on-surface-variant">Remember me</span>
+</label>
+<a class="font-clinical-data text-clinical-data text-gold-leaf hover:underline" href="#">Forgot password?</a>
+</div>
+<button class="mt-4 w-full bg-primary text-on-primary font-title-lg text-title-lg py-3 rounded-lg hover:bg-primary-container transition-colors shadow-sm" type="button">
+                        Authenticate
+                    </button>
+<div class="flex items-center justify-center gap-2 mt-2 text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">lock</span>
+<span class="font-clinical-data text-clinical-data">Requires 2FA via authenticator</span>
+</div>
+</form>
+</div>
+</div>
+<!-- Ambient Background Element -->
+<div class="absolute inset-0 z-0 overflow-hidden pointer-events-none flex justify-center items-center opacity-30">
+<div class="w-[800px] h-[800px] bg-secondary-container rounded-full blur-[100px] mix-blend-multiply opacity-20 transform translate-x-1/4 -translate-y-1/4"></div>
+<div class="w-[600px] h-[600px] bg-primary-fixed-dim rounded-full blur-[120px] mix-blend-multiply opacity-20 transform -translate-x-1/4 translate-y-1/4"></div>
+</div>
+</main>
+<!-- Footer Component from JSON -->
+<footer class="w-full mt-section-padding bg-primary dark:bg-ink w-full py-16 px-margin-mobile md:px-margin-desktop grid grid-cols-1 md:grid-cols-4 gap-gutter relative z-10">
+<div class="col-span-1 md:col-span-1 flex flex-col justify-between h-full gap-4">
+<div class="text-headline-md font-headline-md text-gold-leaf">onkofizjo</div>
+<p class="text-body-md font-body-md text-on-primary dark:text-surface-variant opacity-80 text-sm">© 2024 onkofizjo. Nie jesteś kolejnym terminem.</p>
+</div>
+<div class="col-span-1 md:col-span-3 flex flex-wrap gap-8 justify-end items-end h-full">
+<nav class="flex flex-wrap gap-6 text-body-md font-body-md text-surface-variant/80 hover:text-on-primary hover:opacity-100 transition-opacity">
+<!-- Using active styles for demonstration, usually these would be dynamic -->
+<a class="text-surface-variant/80 hover:text-on-primary hover:opacity-100 transition-opacity" href="#">Privacy Policy</a>
+<a class="text-surface-variant/80 hover:text-on-primary hover:opacity-100 transition-opacity" href="#">Medical Terms</a>
+<a class="text-surface-variant/80 hover:text-on-primary hover:opacity-100 transition-opacity" href="#">Certificates</a>
+<a class="text-surface-variant/80 hover:text-on-primary hover:opacity-100 transition-opacity" href="#">Locations</a>
+</nav>
+</div>
+</footer>
+</body></html>

@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>onkofizjo - Locations &amp; Contact</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,500;0,7..72,600;1,7..72,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-secondary-fixed-variant": "#5f3e39",
+                      "on-tertiary": "#ffffff",
+                      "on-tertiary-fixed": "#2a1701",
+                      "surface-container-high": "#ebe7e4",
+                      "surface-container": "#f1ede9",
+                      "tertiary": "#231200",
+                      "on-primary-fixed-variant": "#364c3e",
+                      "ink": "#0D1410",
+                      "surface-dim": "#ddd9d6",
+                      "surface-variant": "#e6e2de",
+                      "on-error": "#ffffff",
+                      "secondary-container": "#ffcfc7",
+                      "on-primary-container": "#809787",
+                      "on-background": "#1c1c19",
+                      "warning-muted": "#E29578",
+                      "inverse-surface": "#31302e",
+                      "on-primary-fixed": "#0a2014",
+                      "on-tertiary-fixed-variant": "#5b4224",
+                      "surface-container-lowest": "#ffffff",
+                      "on-secondary": "#ffffff",
+                      "primary-fixed": "#d0e9d6",
+                      "on-surface": "#1c1c19",
+                      "clinical-white": "#FFFFFF",
+                      "error-container": "#ffdad6",
+                      "on-secondary-fixed": "#2e1410",
+                      "gold-leaf": "#BD9B60",
+                      "on-surface-variant": "#424843",
+                      "surface-container-low": "#f7f3ef",
+                      "on-secondary-container": "#7a5650",
+                      "primary-fixed-dim": "#b4ccbb",
+                      "tertiary-container": "#3b260b",
+                      "success-muted": "#4F6F52",
+                      "surface": "#fdf9f5",
+                      "secondary-fixed": "#ffdad4",
+                      "outline-variant": "#c2c8c2",
+                      "primary-container": "#1a2f23",
+                      "sand": "#D9D1C7",
+                      "primary": "#051a0f",
+                      "surface-container-highest": "#e6e2de",
+                      "error": "#ba1a1a",
+                      "tertiary-fixed": "#ffddb9",
+                      "background": "#fdf9f5",
+                      "surface-tint": "#4d6355",
+                      "inverse-primary": "#b4ccbb",
+                      "secondary": "#79564f",
+                      "on-error-container": "#93000a",
+                      "surface-bright": "#fdf9f5",
+                      "on-primary": "#ffffff",
+                      "outline": "#737973",
+                      "secondary-fixed-dim": "#eabcb4",
+                      "tertiary-fixed-dim": "#e4c099",
+                      "inverse-on-surface": "#f4f0ec",
+                      "on-tertiary-container": "#ac8c69"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "section-padding": "120px",
+                      "margin-desktop": "64px",
+                      "gutter": "24px",
+                      "container-max-width": "1280px",
+                      "margin-mobile": "16px",
+                      "unit": "8px"
+              },
+              "fontFamily": {
+                      "display-xl": [
+                              "literata"
+                      ],
+                      "body-lg": [
+                              "inter"
+                      ],
+                      "title-lg": [
+                              "inter"
+                      ],
+                      "clinical-data": [
+                              "inter"
+                      ],
+                      "headline-md-mobile": [
+                              "literata"
+                      ],
+                      "label-caps": [
+                              "inter"
+                      ],
+                      "body-md": [
+                              "inter"
+                      ],
+                      "display-lg": [
+                              "literata"
+                      ],
+                      "headline-md": [
+                              "literata"
+                      ]
+              },
+              "fontSize": {
+                      "display-xl": [
+                              "64px",
+                              {
+                                      "lineHeight": "72px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "title-lg": [
+                              "20px",
+                              {
+                                      "lineHeight": "28px",
+                                      "letterSpacing": "0.01em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "clinical-data": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "letterSpacing": "0.02em",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "headline-md-mobile": [
+                              "28px",
+                              {
+                                      "lineHeight": "36px",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "label-caps": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.08em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "display-lg": [
+                              "48px",
+                              {
+                                      "lineHeight": "56px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-md": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "fontWeight": "500"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+    </script>
+<style>
+        body {
+            background-color: theme('colors.background');
+            color: theme('colors.on-background');
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        .icon-fill {
+            font-variation-settings: 'FILL' 1, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+<!-- TopNavBar (Shared Component) -->
+<nav class="hidden md:flex bg-background/80 dark:bg-primary/90 backdrop-blur-md border-b border-outline-variant dark:border-outline/20 fixed top-0 left-0 w-full z-50 justify-between items-center px-margin-mobile md:px-margin-desktop h-20 transition-all">
+<div class="flex items-center gap-8">
+<span class="text-title-lg font-title-lg tracking-tight text-primary dark:text-on-primary">onkofizjo</span>
+<div class="flex gap-6">
+<a class="text-body-md font-body-md text-on-surface-variant dark:text-surface-variant hover:text-gold-leaf transition-colors hover:bg-surface-container-low dark:hover:bg-primary-container px-3 py-2 rounded-md" href="#">About</a>
+<a class="text-body-md font-body-md text-on-surface-variant dark:text-surface-variant hover:text-gold-leaf transition-colors hover:bg-surface-container-low dark:hover:bg-primary-container px-3 py-2 rounded-md" href="#">Services</a>
+<a class="text-body-md font-body-md text-gold-leaf font-bold border-b-2 border-gold-leaf pb-1 hover:bg-surface-container-low dark:hover:bg-primary-container px-3 py-2 rounded-md opacity-80 duration-200" href="#">Locations</a>
+<a class="text-body-md font-body-md text-on-surface-variant dark:text-surface-variant hover:text-gold-leaf transition-colors hover:bg-surface-container-low dark:hover:bg-primary-container px-3 py-2 rounded-md" href="#">Blog</a>
+<a class="text-body-md font-body-md text-on-surface-variant dark:text-surface-variant hover:text-gold-leaf transition-colors hover:bg-surface-container-low dark:hover:bg-primary-container px-3 py-2 rounded-md" href="#">Contact</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<span class="text-body-md font-body-md text-primary dark:text-on-primary">EN/PL</span>
+<button class="text-body-md font-body-md text-gold-leaf underline hover:opacity-80 transition-opacity">Book by phone</button>
+</div>
+</nav>
+<!-- BottomNavBar (Shared Component Mobile) -->
+<nav class="flex md:hidden bg-background/90 dark:bg-primary/95 backdrop-blur-xl border-t border-outline-variant dark:border-outline/10 shadow-lg fixed bottom-0 left-0 w-full z-50 justify-around items-center h-16 pb-safe rounded-t-full transition-all">
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant text-label-caps font-label-caps active:bg-surface-container p-2 rounded-lg" href="#">
+<span class="material-symbols-outlined">home</span>
+<span>Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant text-label-caps font-label-caps active:bg-surface-container p-2 rounded-lg" href="#">
+<span class="material-symbols-outlined">person</span>
+<span>Patient</span>
+</a>
+<a class="flex flex-col items-center justify-center text-gold-leaf text-label-caps font-label-caps active:bg-surface-container p-2 rounded-lg scale-110 transition-all duration-300" href="#">
+<span class="material-symbols-outlined icon-fill">event</span>
+<span>Schedule</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant text-label-caps font-label-caps active:bg-surface-container p-2 rounded-lg" href="#">
+<span class="material-symbols-outlined">psychology</span>
+<span>Hermes</span>
+</a>
+</nav>
+<main class="flex-grow pt-24 md:pt-32 pb-section-padding px-margin-mobile md:px-margin-desktop max-w-container-max-width mx-auto w-full">
+<!-- Header Section -->
+<section class="mb-section-padding text-center md:text-left max-w-3xl">
+<h1 class="text-display-lg font-display-lg text-primary mb-6">Where to find us</h1>
+<p class="text-body-lg font-body-lg text-on-surface-variant">
+                We operate across specialized clinical centers in Poznań, providing dedicated oncology physiotherapy environments designed for comfort and precision.
+            </p>
+</section>
+<!-- Locations Grid (Bento Style) -->
+<section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter mb-section-padding">
+<!-- Location Card 1 -->
+<div class="bg-clinical-white border border-sand rounded-xl overflow-hidden hover:border-gold-leaf transition-colors duration-300 flex flex-col">
+<div class="h-48 relative bg-surface-container-low">
+<img class="w-full h-full object-cover absolute inset-0" data-alt="A bright, minimalist medical clinic reception area featuring light wood accents, warm cream walls, and large windows bringing in soft natural light. The space feels premium, calm, and welcoming, embodying a boutique clinical aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCwMNSg1bX3QSD0w_J1QHuI8luipIvzaD770g7j2oEavyddjYozPDPbdmvSQeVpEfZ-VEAkwoCBlQCsre9w05b9hx2ud8DIMYqok6GgJW5q59ak2qt1d1Dcg4_GN5hs0Aj0HgsnFnPrNbrJypjHHkqWcFkJFffblpn63mfLRYumqsjOYpm2BO1IkQAuKItFv98FHknAlpwf1sRcJA2_KQeJjNqC7DDsUh_RXMmNSTgSDIw6CAxB7fxE"/>
+<div class="absolute top-4 left-4 bg-primary text-on-primary px-3 py-1 rounded-full text-label-caps font-label-caps">Main Center</div>
+</div>
+<div class="p-6 flex-grow flex flex-col">
+<h3 class="text-title-lg font-title-lg text-primary mb-2">Ortopedia 28 Czerwca</h3>
+<p class="text-body-md font-body-md text-on-surface-variant mb-4 flex items-start gap-2">
+<span class="material-symbols-outlined text-gold-leaf shrink-0 mt-0.5" style="font-size: 20px;">location_on</span>
+                        ul. 28 Czerwca 1956 r. 161, Poznań
+                    </p>
+<div class="mt-auto space-y-2 border-t border-surface-variant pt-4">
+<div class="flex justify-between text-clinical-data font-clinical-data text-ink">
+<span>Mon - Fri</span>
+<span>08:00 - 20:00</span>
+</div>
+<div class="flex justify-between text-clinical-data font-clinical-data text-ink opacity-70">
+<span>Saturday</span>
+<span>09:00 - 14:00</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Location Card 2 -->
+<div class="bg-clinical-white border border-sand rounded-xl overflow-hidden hover:border-gold-leaf transition-colors duration-300 flex flex-col">
+<div class="h-48 relative bg-surface-container-low">
+<img class="w-full h-full object-cover absolute inset-0" data-alt="A serene, private physiotherapy treatment room with a modern adjustable treatment table, soft indirect warm lighting, and minimalist decor in cream and deep green tones. The environment suggests intimacy, care, and professional medical authority." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBasnAEPpjBI17UTFzpLuE71Rb8bqm2edaSdjMUrnKsnj9q5KYhtoxm7AfwQcrxN7hQVS2cJ7oHwKQt5Xaa2m-N2itPT5gC7916vh81hKH0Gwov9goaHb--ArWjcL86zTC8KUvU42QSF8oTS6nnCUshLyVI5dxjAQXwl6YPVh7gTjWXNVo7fQPzF7Tauf1ti__tHCCsF-mnThQx3YorupTa_bt-h2HSeJMUV7jsZu9DF0phorOrdTnZ"/>
+</div>
+<div class="p-6 flex-grow flex flex-col">
+<h3 class="text-title-lg font-title-lg text-primary mb-2">SowMed</h3>
+<p class="text-body-md font-body-md text-on-surface-variant mb-4 flex items-start gap-2">
+<span class="material-symbols-outlined text-gold-leaf shrink-0 mt-0.5" style="font-size: 20px;">location_on</span>
+                        ul. Sowia 4, Poznań
+                    </p>
+<div class="mt-auto space-y-2 border-t border-surface-variant pt-4">
+<div class="flex justify-between text-clinical-data font-clinical-data text-ink">
+<span>Tue &amp; Thu</span>
+<span>14:00 - 21:00</span>
+</div>
+<div class="flex justify-between text-clinical-data font-clinical-data text-ink opacity-70">
+<span>Other days</span>
+<span>Closed</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Location Card 3 -->
+<div class="bg-clinical-white border border-sand rounded-xl overflow-hidden hover:border-gold-leaf transition-colors duration-300 flex flex-col">
+<div class="h-48 relative bg-surface-container-low">
+<img class="w-full h-full object-cover absolute inset-0" data-alt="A close-up of a calming medical waiting area detail, showing a comfortable upholstered chair next to a small side table with a minimalist vase and fresh greenery. The lighting is soft and cinematic, emphasizing a boutique, non-clinical atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDF1y1IUong93iEpbnrhF2VpZw3UE9ViHjgfbpEfm8K3auwrXIfTVq2EnEZrOnaOLdDvkDaSP8J9U454JDmO1X_6hH717u6ZQGqWXn1guHHzVCo6YXWUNKCObFdo2Eg5wIdgneJ0Ws_giiUk_LAo-eJsRzkGTe31EiJhHPzCLQ1uGLbEf7QmvZzGGSJdsOcqF6CHomAHjAWUP_WZdNOWc0Qe7ykZfvj8ZW3p_xbZPTGPvo0ilD1m9Sv"/>
+<div class="absolute top-4 left-4 bg-surface-variant text-on-surface-variant px-3 py-1 rounded-full text-label-caps font-label-caps">Partnership</div>
+</div>
+<div class="p-6 flex-grow flex flex-col">
+<h3 class="text-title-lg font-title-lg text-primary mb-2">Poznańskie Amazonki</h3>
+<p class="text-body-md font-body-md text-on-surface-variant mb-4 flex items-start gap-2">
+<span class="material-symbols-outlined text-gold-leaf shrink-0 mt-0.5" style="font-size: 20px;">location_on</span>
+                        ul. Piastowska 38, Poznań
+                    </p>
+<div class="mt-auto space-y-2 border-t border-surface-variant pt-4">
+<p class="text-clinical-data font-clinical-data text-ink italic text-center py-2 bg-surface rounded-lg">
+                            Dedicated workshops and group sessions by appointment only.
+                        </p>
+</div>
+</div>
+</div>
+</section>
+<!-- Contact & Booking Section -->
+<section class="bg-surface-container-low rounded-2xl p-8 md:p-16 border border-sand relative overflow-hidden">
+<!-- Decorative background element -->
+<div class="absolute top-0 right-0 w-64 h-64 bg-gold-leaf/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/4"></div>
+<div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+<div>
+<span class="text-label-caps font-label-caps text-gold-leaf tracking-widest uppercase mb-4 block">Get in touch</span>
+<h2 class="text-headline-md-mobile md:text-headline-md font-headline-md-mobile md:font-headline-md text-primary mb-6">Ready to schedule your consultation?</h2>
+<p class="text-body-lg font-body-lg text-on-surface-variant mb-10">
+                        Direct communication is the fastest way to arrange a visit. Call us during working hours to find the most suitable time and location for your therapy.
+                    </p>
+<div class="space-y-6">
+<a class="flex items-center gap-4 group p-4 rounded-xl hover:bg-clinical-white transition-colors border border-transparent hover:border-sand" href="tel:+48500000000">
+<div class="w-12 h-12 rounded-full bg-primary flex items-center justify-center text-on-primary group-hover:scale-105 transition-transform">
+<span class="material-symbols-outlined icon-fill">call</span>
+</div>
+<div>
+<p class="text-label-caps font-label-caps text-on-surface-variant mb-1">Primary Contact</p>
+<p class="text-title-lg font-title-lg text-primary">+48 500 000 000</p>
+</div>
+</a>
+<a class="flex items-center gap-4 group p-4 rounded-xl hover:bg-clinical-white transition-colors border border-transparent hover:border-sand" href="mailto:kontakt@onkofizjo.pl">
+<div class="w-12 h-12 rounded-full bg-surface-variant flex items-center justify-center text-primary group-hover:scale-105 transition-transform">
+<span class="material-symbols-outlined">mail</span>
+</div>
+<div>
+<p class="text-label-caps font-label-caps text-on-surface-variant mb-1">Email Inquiries</p>
+<p class="text-body-md font-body-md text-primary font-medium">kontakt@onkofizjo.pl</p>
+</div>
+</a>
+</div>
+</div>
+<div class="bg-clinical-white p-8 rounded-xl border border-sand shadow-sm">
+<h3 class="text-title-lg font-title-lg text-primary mb-6 text-center border-b border-surface-variant pb-4">Connect Digitally</h3>
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+<a class="flex flex-col items-center justify-center gap-3 p-6 rounded-lg bg-surface hover:bg-surface-container transition-colors text-center border border-transparent hover:border-sand" href="#">
+<span class="material-symbols-outlined text-primary text-3xl">photo_camera</span>
+<span class="text-clinical-data font-clinical-data text-primary">Instagram</span>
+</a>
+<a class="flex flex-col items-center justify-center gap-3 p-6 rounded-lg bg-surface hover:bg-surface-container transition-colors text-center border border-transparent hover:border-sand" href="#">
+<span class="material-symbols-outlined text-primary text-3xl">thumb_up</span>
+<span class="text-clinical-data font-clinical-data text-primary">Facebook</span>
+</a>
+<a class="flex flex-col items-center justify-center gap-3 p-6 rounded-lg bg-surface hover:bg-surface-container transition-colors text-center border border-transparent hover:border-sand" href="#">
+<span class="material-symbols-outlined text-primary text-3xl">medical_services</span>
+<span class="text-clinical-data font-clinical-data text-primary">ZnanyLekarz</span>
+</a>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer (Shared Component) -->
+<footer class="w-full mt-section-padding bg-primary dark:bg-ink py-16 px-margin-mobile md:px-margin-desktop grid grid-cols-1 md:grid-cols-4 gap-gutter pb-24 md:pb-16">
+<div class="col-span-1 md:col-span-2">
+<h2 class="text-headline-md font-headline-md text-gold-leaf mb-4">onkofizjo</h2>
+<p class="text-body-md font-body-md text-on-primary dark:text-surface-variant">© 2024 onkofizjo. Nie jesteś kolejnym terminem.</p>
+</div>
+<div class="col-span-1 md:col-span-2 flex flex-col md:flex-row gap-6 justify-end">
+<a class="text-body-md font-body-md text-surface-variant/80 hover:text-on-primary hover:opacity-100 transition-opacity" href="#">Privacy Policy</a>
+<a class="text-body-md font-body-md text-surface-variant/80 hover:text-on-primary hover:opacity-100 transition-opacity" href="#">Medical Terms</a>
+<a class="text-body-md font-body-md text-surface-variant/80 hover:text-on-primary hover:opacity-100 transition-opacity" href="#">Certificates</a>
+<a class="text-body-md font-body-md text-gold-leaf underline hover:opacity-100 transition-opacity" href="#">Locations</a>
+</div>
+</footer>
+</body></html>

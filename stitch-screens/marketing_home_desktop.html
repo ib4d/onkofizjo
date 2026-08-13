@@ -1,0 +1,190 @@
+<!DOCTYPE html><html lang="pl"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>onkofizjo - Nie jesteś kolejnym terminem</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Literata:wght@400;500&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "gold-leaf": "#BD9B60",
+                        "on-primary": "#ffffff",
+                        "tertiary-fixed": "#ffddb9",
+                        "on-primary-fixed-variant": "#364c3e",
+                        "surface-container-low": "#f7f3ef",
+                        "on-primary-container": "#809787",
+                        "sand": "#D9D1C7",
+                        "secondary-fixed-dim": "#eabcb4",
+                        "secondary": "#79564f",
+                        "on-secondary-fixed": "#2e1410",
+                        "background": "#fdf9f5",
+                        "on-tertiary-container": "#ac8c69",
+                        "outline": "#737973",
+                        "surface": "#fdf9f5",
+                        "surface-variant": "#e6e2de",
+                        "ink": "#0D1410",
+                        "surface-container-highest": "#e6e2de",
+                        "tertiary-container": "#3b260b",
+                        "surface-container-high": "#ebe7e4",
+                        "outline-variant": "#c2c8c2",
+                        "primary-fixed-dim": "#b4ccbb",
+                        "error": "#ba1a1a",
+                        "on-background": "#1c1c19",
+                        "on-surface-variant": "#424843",
+                        "on-secondary-fixed-variant": "#5f3e39",
+                        "on-primary-fixed": "#0a2014",
+                        "inverse-primary": "#b4ccbb",
+                        "on-error-container": "#93000a",
+                        "success-muted": "#4F6F52",
+                        "surface-container": "#f1ede9",
+                        "secondary-fixed": "#ffdad4",
+                        "on-secondary-container": "#7a5650",
+                        "primary-container": "#1a2f23",
+                        "on-tertiary": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "on-tertiary-fixed-variant": "#5b4224",
+                        "surface-tint": "#4d6355",
+                        "surface-container-lowest": "#ffffff",
+                        "on-surface": "#1c1c19",
+                        "primary-fixed": "#d0e9d6",
+                        "primary": "#051a0f",
+                        "on-error": "#ffffff",
+                        "inverse-on-surface": "#f4f0ec",
+                        "tertiary-fixed-dim": "#e4c099",
+                        "warning-muted": "#E29578",
+                        "on-tertiary-fixed": "#2a1701",
+                        "on-secondary": "#ffffff",
+                        "surface-dim": "#ddd9d6",
+                        "tertiary": "#231200",
+                        "inverse-surface": "#31302e",
+                        "surface-bright": "#fdf9f5",
+                        "secondary-container": "#ffcfc7",
+                        "clinical-white": "#FFFFFF"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "margin-desktop": "64px",
+                        "unit": "8px",
+                        "gutter": "24px",
+                        "margin-mobile": "16px",
+                        "container-max-width": "1280px",
+                        "section-padding": "120px"
+                    },
+                    "fontFamily": {
+                        "title-lg": ["inter"],
+                        "display-lg": ["literata"],
+                        "clinical-data": ["inter"],
+                        "label-caps": ["inter"],
+                        "headline-md": ["literata"],
+                        "body-md": ["inter"],
+                        "display-xl": ["literata"],
+                        "headline-md-mobile": ["literata"],
+                        "body-lg": ["inter"]
+                    },
+                    "fontSize": {
+                        "title-lg": ["20px", { "lineHeight": "28px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "fontWeight": "400" }],
+                        "clinical-data": ["14px", { "lineHeight": "20px", "letterSpacing": "0.02em", "fontWeight": "500" }],
+                        "label-caps": ["12px", { "lineHeight": "16px", "letterSpacing": "0.08em", "fontWeight": "700" }],
+                        "headline-md": ["32px", { "lineHeight": "40px", "fontWeight": "500" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "display-xl": ["64px", { "lineHeight": "72px", "letterSpacing": "-0.02em", "fontWeight": "400" }],
+                        "headline-md-mobile": ["28px", { "lineHeight": "36px", "fontWeight": "500" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: theme('colors.background');
+            color: theme('colors.on-background');
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.fill {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="antialiased">
+<!-- TopNavBar -->
+<nav class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-margin-mobile md:px-margin-desktop h-20 bg-background/80 dark:bg-primary/90 backdrop-blur-md border-b border-outline-variant dark:border-outline/20">
+<a class="text-title-lg font-title-lg tracking-tight text-primary dark:text-on-primary" href="#">onkofizjo</a>
+<div class="hidden md:flex items-center space-x-8">
+<a class="text-gold-leaf font-bold border-b-2 border-gold-leaf pb-1" href="#">About</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-gold-leaf transition-colors" href="#">Services</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-gold-leaf transition-colors" href="#">Locations</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-gold-leaf transition-colors" href="#">Blog</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-gold-leaf transition-colors" href="#">Contact</a>
+</div>
+<div class="flex items-center space-x-4">
+<button class="text-body-md font-body-md text-on-surface-variant hover:text-primary transition-colors">EN/PL</button>
+<a class="hidden md:inline-flex items-center justify-center px-6 py-2 bg-primary text-on-primary text-body-md font-body-md rounded hover:opacity-90 transition-opacity" href="tel:+48123456789">
+                Book by phone
+            </a>
+<button class="md:hidden text-primary">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="pt-20">
+<!-- Hero Section -->
+<section class="relative min-h-[921px] flex flex-col md:flex-row items-center justify-center px-margin-mobile md:px-margin-desktop py-section-padding overflow-hidden">
+<div class="w-full md:w-1/2 flex flex-col items-start z-10 md:pr-12">
+<h1 class="text-display-lg md:text-display-xl font-display-lg md:font-display-xl text-primary mb-6">
+                    Nie jesteś <span class="text-gold-leaf">kolejnym terminem.</span>
+</h1>
+<p class="text-body-lg font-body-lg text-on-surface-variant mb-10 max-w-lg">
+                    Specjalistyczna rehabilitacja onkologiczna i opieka, która widzi w Tobie człowieka, a nie tylko diagnozę.
+                </p>
+<div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6 w-full">
+<a class="inline-flex items-center justify-center px-8 py-4 bg-primary text-on-primary text-body-md font-body-md rounded hover:bg-primary-container transition-colors w-full sm:w-auto" href="#">
+                        Umów wizytę telefonicznie
+                    </a>
+<a class="inline-flex items-center justify-center px-8 py-4 border border-sand text-primary text-body-md font-body-md rounded hover:bg-surface-container transition-colors w-full sm:w-auto" href="#philosophy">
+                        Poznaj naszą filozofię
+                    </a>
+</div>
+</div>
+<div class="w-full md:w-1/2 mt-12 md:mt-0 relative h-[614px] md:h-[819px] rounded-2xl overflow-hidden shadow-lg border border-sand">
+<img class="object-cover w-full h-full" data-alt="A professional and empathetic portrait of a female physiotherapist in a bright, modern, minimalist clinical setting. She is wearing a simple, clean uniform, looking directly at the camera with a warm, reassuring smile. The lighting is soft and natural, emphasizing the 'boutique clinical' aesthetic with creamy whites and subtle earthy tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA6IRS9ndvlNE0oZOFfdVADw1vAh_puaKDDsBTAvh8Dq6ZzFVVW-KFHGcEPMSlzSFcJ2emfXTP4PBZe55vsQhg4vcT-hYRXU5AK1cSq-Xz85Dmhu__eLaQnRfex8lE7ZbhzspP5vO-qbIxQgDd7aFisbEeglePN3vEmkcmi233vAouvD2DfQKX3L4RkUx43aUQTGTmFBswKCiP-CiERn71zA2zjP6PD8tWuvJhSwtTk__tyLcVvcRGb">
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full mt-section-padding bg-primary dark:bg-ink py-16 px-margin-mobile md:px-margin-desktop grid grid-cols-1 md:grid-cols-4 gap-gutter text-on-primary dark:text-surface-variant">
+<div>
+<div class="text-headline-md font-headline-md text-gold-leaf mb-6">onkofizjo</div>
+<p class="text-body-md font-body-md text-surface-variant/80">© 2026 onkofizjo. Nie jesteś kolejnym terminem.</p>
+</div>
+<div class="flex flex-col space-y-4">
+<a class="text-surface-variant/80 hover:text-on-primary text-body-md font-body-md transition-opacity" href="#">Privacy Policy</a>
+<a class="text-surface-variant/80 hover:text-on-primary text-body-md font-body-md transition-opacity" href="#">Medical Terms</a>
+</div>
+<div class="flex flex-col space-y-4">
+<a class="text-surface-variant/80 hover:text-on-primary text-body-md font-body-md transition-opacity" href="#">Certificates</a>
+<a class="text-surface-variant/80 hover:text-on-primary text-body-md font-body-md transition-opacity" href="#">Locations</a>
+</div>
+<div class="flex flex-col space-y-4">
+<p class="text-body-md font-body-md text-surface-variant/80">
+                Kontakt: <a class="text-gold-leaf underline" href="tel:+48123456789">+48 123 456 789</a>
+</p>
+</div>
+</footer>
+
+
+</body></html>

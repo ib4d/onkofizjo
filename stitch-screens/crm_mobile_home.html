@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+
+<html lang="pl"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>CRM Mobile - OnkoFizjo</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Literata:opsz,wght@7..72,400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-fixed-variant": "#5b4224",
+                        "primary-container": "#1a2f23",
+                        "on-primary-fixed": "#0a2014",
+                        "surface-container-high": "#ebe7e4",
+                        "ink": "#0D1410",
+                        "on-secondary": "#ffffff",
+                        "on-secondary-fixed": "#2e1410",
+                        "on-surface-variant": "#424843",
+                        "inverse-primary": "#b4ccbb",
+                        "primary-fixed-dim": "#b4ccbb",
+                        "tertiary-container": "#3b260b",
+                        "on-error-container": "#93000a",
+                        "secondary-fixed": "#ffdad4",
+                        "on-tertiary": "#ffffff",
+                        "outline-variant": "#c2c8c2",
+                        "inverse-on-surface": "#f4f0ec",
+                        "tertiary-fixed-dim": "#e4c099",
+                        "warning-muted": "#E29578",
+                        "background": "#fdf9f5",
+                        "on-secondary-fixed-variant": "#5f3e39",
+                        "sand": "#D9D1C7",
+                        "on-background": "#1c1c19",
+                        "surface-dim": "#ddd9d6",
+                        "secondary-fixed-dim": "#eabcb4",
+                        "on-primary-container": "#809787",
+                        "primary-fixed": "#d0e9d6",
+                        "error-container": "#ffdad6",
+                        "on-primary": "#ffffff",
+                        "success-muted": "#4F6F52",
+                        "on-secondary-container": "#7a5650",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-tint": "#4d6355",
+                        "on-error": "#ffffff",
+                        "clinical-white": "#FFFFFF",
+                        "secondary-container": "#ffcfc7",
+                        "surface-container-low": "#f7f3ef",
+                        "tertiary-fixed": "#ffddb9",
+                        "inverse-surface": "#31302e",
+                        "on-tertiary-fixed": "#2a1701",
+                        "surface-container": "#f1ede9",
+                        "gold-leaf": "#BD9B60",
+                        "tertiary": "#231200",
+                        "outline": "#737973",
+                        "on-tertiary-container": "#ac8c69",
+                        "error": "#ba1a1a",
+                        "surface-variant": "#e6e2de",
+                        "surface-container-highest": "#e6e2de",
+                        "on-primary-fixed-variant": "#364c3e",
+                        "primary": "#051a0f",
+                        "on-surface": "#1c1c19",
+                        "surface-bright": "#fdf9f5",
+                        "surface": "#fdf9f5",
+                        "secondary": "#79564f"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "margin-mobile": "16px",
+                        "margin-desktop": "64px",
+                        "unit": "8px",
+                        "section-padding": "120px",
+                        "container-max-width": "1280px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["literata"],
+                        "display-xl": ["literata"],
+                        "clinical-data": ["inter"],
+                        "body-lg": ["inter"],
+                        "headline-md-mobile": ["literata"],
+                        "label-caps": ["inter"],
+                        "body-md": ["inter"],
+                        "title-lg": ["inter"],
+                        "display-lg": ["literata"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["32px", { "lineHeight": "40px", "fontWeight": "500" }],
+                        "display-xl": ["64px", { "lineHeight": "72px", "letterSpacing": "-0.02em", "fontWeight": "400" }],
+                        "clinical-data": ["14px", { "lineHeight": "20px", "letterSpacing": "0.02em", "fontWeight": "500" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "headline-md-mobile": ["28px", { "lineHeight": "36px", "fontWeight": "500" }],
+                        "label-caps": ["12px", { "lineHeight": "16px", "letterSpacing": "0.08em", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "title-lg": ["20px", { "lineHeight": "28px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-primary text-on-primary font-body-md antialiased min-h-screen flex flex-col">
+<!-- Header / Date -->
+<header class="pt-12 pb-6 px-margin-mobile flex justify-between items-end">
+<div>
+<h1 class="font-headline-md-mobile text-headline-md-mobile text-on-primary">Dzień dobry, Gosia</h1>
+<p class="font-body-md text-body-md text-on-primary/80 mt-1">Czwartek, 27 Marca</p>
+</div>
+<button class="w-12 h-12 rounded-full bg-surface-tint flex items-center justify-center text-on-primary shadow-sm active:scale-95 transition-transform">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">calendar_month</span>
+</button>
+</header>
+<!-- Main Content Area (Scrollable) -->
+<main class="flex-1 overflow-y-auto px-margin-mobile pb-32 space-y-6">
+<!-- Next Patient Card (Hero) -->
+<section class="bg-clinical-white rounded-xl shadow-lg p-5 text-on-surface">
+<div class="flex justify-between items-start mb-4">
+<span class="font-label-caps text-label-caps text-on-surface-variant/70 tracking-wider">NASTĘPNY PACJENT • 10:30</span>
+<span class="font-label-caps text-label-caps bg-surface-container px-2 py-1 rounded text-primary">ZA 15 MIN</span>
+</div>
+<div class="flex items-center gap-4 mb-5">
+<div class="w-16 h-16 rounded-full overflow-hidden bg-surface-variant">
+<img alt="Anna Kowalska" class="w-full h-full object-cover" data-alt="A close-up, softly lit portrait of a serene woman in her late 30s. High-end clinical photography style with a light cream background, conveying trust and warmth." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCwpn85oOA2WADiO2vgszv_05JoB8ZVBs8vlq3apWGh44JoT5I4Cn0pnqpN4CuumtwtCwYt9PUdZ2kkJJS1aZDr0w5KJAJO57pVH4Tru-wQ4GLOtzU05pKbyeGW4dwj4Z1IcoMOENpnMwdGeSYHZ2_uqReHI26B1YWmfaFutQoy96bQW6c9BFYpB7x_K3REk-B4864PdCQ-jgcjQDmNHMXQn6CJP8Wy3Ie24bdCGFjUR_lRMXnCnHoj"/>
+</div>
+<div>
+<h2 class="font-title-lg text-title-lg text-ink">Anna Kowalska</h2>
+<p class="font-clinical-data text-clinical-data text-on-surface-variant mt-1">Rehabilitacja onkologiczna (Piersi)</p>
+</div>
+</div>
+<div class="space-y-3 mb-6">
+<div class="flex items-center gap-3 font-clinical-data text-clinical-data text-on-surface-variant">
+<span class="material-symbols-outlined text-outline">location_on</span>
+<span>Gabinet 2, ul. Spokojna 15, Warszawa</span>
+</div>
+<div class="flex items-center gap-3 font-clinical-data text-clinical-data text-on-surface-variant">
+<span class="material-symbols-outlined text-outline">healing</span>
+<span>Skupienie: Mobilność obręczy barkowej, drenaż</span>
+</div>
+</div>
+<div class="flex gap-3">
+<button class="flex-1 bg-primary text-on-primary font-body-md text-body-md py-3 rounded-lg flex justify-center items-center gap-2 active:scale-95 transition-transform shadow-md">
+<span class="material-symbols-outlined">play_arrow</span>
+                    Rozpocznij
+                </button>
+<button class="w-14 h-14 bg-surface-container rounded-lg flex justify-center items-center text-primary active:bg-surface-variant transition-colors border border-sand">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">mic</span>
+</button>
+</div>
+</section>
+<!-- Today's Schedule Timeline -->
+<section>
+<h3 class="font-label-caps text-label-caps text-on-primary/70 tracking-wider mb-4 px-2">DZISIEJSZY GRAFIK</h3>
+<div class="space-y-3 relative before:absolute before:inset-y-0 before:left-[19px] before:w-[2px] before:bg-surface-tint before:z-0 ml-1">
+<!-- Past Appointment -->
+<div class="relative z-10 flex gap-4 opacity-60">
+<div class="w-10 h-10 rounded-full bg-primary border-2 border-surface-tint flex items-center justify-center shrink-0 mt-1">
+<span class="material-symbols-outlined text-[20px] text-on-primary">check</span>
+</div>
+<div class="bg-surface-tint/30 rounded-lg p-4 flex-1 backdrop-blur-sm">
+<div class="flex justify-between items-start">
+<h4 class="font-clinical-data text-clinical-data text-on-primary">09:00 - Tomasz N.</h4>
+<span class="material-symbols-outlined text-[16px] text-on-primary/60">description</span>
+</div>
+<p class="text-xs text-on-primary/70 mt-1">Notatka zapisana</p>
+</div>
+</div>
+<!-- Current/Next (Active in timeline) -->
+<div class="relative z-10 flex gap-4">
+<div class="w-10 h-10 rounded-full bg-gold-leaf border-2 border-primary flex items-center justify-center shrink-0 mt-1 shadow-[0_0_0_4px_rgba(189,155,96,0.2)]">
+<span class="w-3 h-3 rounded-full bg-primary"></span>
+</div>
+<div class="bg-surface-tint rounded-lg p-4 flex-1 border border-gold-leaf/30">
+<h4 class="font-clinical-data text-clinical-data text-on-primary">10:30 - Anna Kowalska</h4>
+<p class="text-xs text-on-primary/80 mt-1">Rehab. onkologiczna</p>
+</div>
+</div>
+<!-- Future Appointments -->
+<div class="relative z-10 flex gap-4">
+<div class="w-10 h-10 rounded-full bg-primary border-2 border-surface-tint flex items-center justify-center shrink-0 mt-1">
+<span class="w-2 h-2 rounded-full bg-surface-tint"></span>
+</div>
+<div class="bg-primary-container rounded-lg p-4 flex-1 border border-surface-tint/50">
+<h4 class="font-clinical-data text-clinical-data text-on-primary">12:00 - Ewa M.</h4>
+<p class="text-xs text-on-primary/70 mt-1">Konsultacja wstępna</p>
+</div>
+</div>
+<div class="relative z-10 flex gap-4">
+<div class="w-10 h-10 rounded-full bg-primary border-2 border-surface-tint flex items-center justify-center shrink-0 mt-1">
+<span class="w-2 h-2 rounded-full bg-surface-tint"></span>
+</div>
+<div class="bg-primary-container rounded-lg p-4 flex-1 border border-surface-tint/50 flex justify-between items-center">
+<div>
+<h4 class="font-clinical-data text-clinical-data text-on-primary">13:30 - Przerwa</h4>
+<p class="text-xs text-on-primary/70 mt-1">30 min</p>
+</div>
+<span class="material-symbols-outlined text-on-primary/50">restaurant</span>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar (Generated from JSON) -->
+<nav class="bg-clinical-white/80 dark:bg-inverse-surface/90 backdrop-blur-md fixed bottom-0 w-full z-50 rounded-t-full shadow-lg border-t border-sand dark:border-outline-variant fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-margin-mobile pb-4 pt-2">
+<button class="flex flex-col items-center justify-center text-primary dark:text-primary-fixed active:bg-surface-variant w-16 h-16 rounded-full transition-all">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 1;">home</span>
+<span class="font-label-caps text-label-caps-mobile">Home</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant/60 active:bg-surface-variant w-16 h-16 rounded-full transition-all">
+<span class="material-symbols-outlined mb-1">person_search</span>
+<span class="font-label-caps text-label-caps-mobile">Patients</span>
+</button>
+<!-- Hermes AI Action (Center FAB-style) -->
+<button class="flex flex-col items-center justify-center bg-surface-container-low text-primary dark:text-primary-fixed active:bg-surface-variant w-14 h-14 rounded-full -translate-y-4 shadow-md border border-sand transition-transform">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant/60 active:bg-surface-variant w-16 h-16 rounded-full transition-all">
+<span class="material-symbols-outlined mb-1">account_circle</span>
+<span class="font-label-caps text-label-caps-mobile">Profile</span>
+</button>
+</nav>
+</body></html>
