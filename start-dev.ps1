@@ -1,5 +1,8 @@
 param([int]$WebPort = 4173, [int]$ApiPort = 8794)
-$python = 'C:\Users\abad1\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe'
+$bundledPython = 'C:\Users\abad1\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe'
+$python = if (Test-Path $bundledPython) { $bundledPython } else { (Get-Command python -ErrorAction SilentlyContinue).Source }
+if (-not $python) { $python = (Get-Command py -ErrorAction SilentlyContinue).Source }
+if (-not $python) { throw 'Python no está instalado o no está disponible en PATH.' }
 $root = Split-Path -Parent $MyInvocation.MyCommand.Path
 Start-Process -FilePath $python -ArgumentList '-m','http.server',"$WebPort" -WorkingDirectory $root -WindowStyle Hidden
 $env:ONKOFIZJO_API_PORT = "$ApiPort"
