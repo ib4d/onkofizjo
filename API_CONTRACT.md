@@ -33,6 +33,10 @@ sources and approval metadata.
 It can never create `APPROVED` or `SENT` directly. Production must require an
 authenticated actor, validate patient context and create an audit event.
 
+`POST /api/appointments` creates a demo internal appointment with status
+`SCHEDULED` and `humanConfirmationRequired: true`. It is intentionally not a
+public booking endpoint.
+
 ## Production gate
 
 This API must not receive real patient data until authentication, authorization,
