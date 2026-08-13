@@ -4,3 +4,5 @@ node_modules/
 dist/
 .DS_Store
 _docx_render/
+data/dev-audit.sqlite3
+_stitch_inspect/
