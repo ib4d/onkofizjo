@@ -27,8 +27,8 @@ sources and approval metadata.
 - reason or task context;
 - correlation identifier.
 
-`GET /api/audit-events` returns events recorded during the current development
-API process. Production must not expose unrestricted audit logs to the browser.
+`GET /api/audit-events` returns events persisted in the local development
+SQLite database. Production must not expose unrestricted audit logs to the browser.
 
 ## Controlled write endpoint
 
