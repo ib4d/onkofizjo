@@ -6,6 +6,12 @@ Run from the repository root:
 python api/server.py
 ```
 
+Or start the web server and API together:
+
+```powershell
+.\start-dev.ps1
+```
+
 Endpoints:
 
 - `GET /api/health`
