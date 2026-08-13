@@ -1,12 +1,13 @@
 /* Demo-only bridge for the Stitch diet and Hermes screens. */
 (async function () {
-  const files = await Promise.all([
-    fetch('data/demo-diet-plan.json').then((r) => r.json()),
-    fetch('data/demo-assistant-run.json').then((r) => r.json())
+  const results = await Promise.all([
+    OnkofizjoApi.get('/api/diet-plans', 'data/demo-diet-plan.json'),
+    OnkofizjoApi.get('/api/assistant-runs', 'data/demo-assistant-run.json')
   ]);
-  const [plan, run] = files;
+  const plan = results[0].data;
+  const run = results[1].data;
   const marker = document.createElement('div');
-  marker.textContent = `DEMO DATA · ${plan.status} · HUMAN REVIEW REQUIRED`;
+  marker.textContent = `DEMO DATA · ${results[0].source} · ${plan.status} · HUMAN REVIEW REQUIRED`;
   marker.style.cssText = 'position:fixed;left:16px;bottom:16px;z-index:9999;background:#051a0f;color:#fff;padding:8px 12px;border-radius:4px;font:700 11px Inter,Arial,sans-serif;letter-spacing:.08em';
   document.body.appendChild(marker);
   document.querySelectorAll('body *').forEach((node) => {
