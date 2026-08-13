@@ -20,6 +20,7 @@ ROUTES = {
     "/api/operations": "demo-operations.json",
     "/api/appointments": "demo-appointments.json",
 }
+AUDIT_EVENTS = []
 
 
 class Handler(BaseHTTPRequestHandler):
@@ -34,6 +35,9 @@ class Handler(BaseHTTPRequestHandler):
 
     def do_GET(self):  # noqa: N802
         route = urlparse(self.path).path
+        if route == "/api/audit-events":
+            self._send({"demo": True, "events": AUDIT_EVENTS})
+            return
         target = ROUTES.get(route)
         if target is None:
             self._send({"error": "not_found", "demo": True}, 404)
@@ -72,6 +76,7 @@ class Handler(BaseHTTPRequestHandler):
             self._send({"error": "not_found", "demo": True}, 404)
             return
         event = {"demo": True, "recorded": True, "payload": payload}
+        AUDIT_EVENTS.append(event)
         self._send(event, 201)
 
     def log_message(self, *_args):

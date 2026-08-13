@@ -27,6 +27,9 @@ sources and approval metadata.
 - reason or task context;
 - correlation identifier.
 
+`GET /api/audit-events` returns events recorded during the current development
+API process. Production must not expose unrestricted audit logs to the browser.
+
 ## Controlled write endpoint
 
 `POST /api/diet-plans` creates a demo proposal with status `ASSISTANT_PROPOSED`.
