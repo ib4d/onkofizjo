@@ -27,6 +27,12 @@ sources and approval metadata.
 - reason or task context;
 - correlation identifier.
 
+## Controlled write endpoint
+
+`POST /api/diet-plans` creates a demo proposal with status `ASSISTANT_PROPOSED`.
+It can never create `APPROVED` or `SENT` directly. Production must require an
+authenticated actor, validate patient context and create an audit event.
+
 ## Production gate
 
 This API must not receive real patient data until authentication, authorization,

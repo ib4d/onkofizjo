@@ -44,11 +44,20 @@ class Handler(BaseHTTPRequestHandler):
 
     def do_POST(self):  # noqa: N802
         route = urlparse(self.path).path
+        length = int(self.headers.get("Content-Length", "0"))
+        payload = json.loads(self.rfile.read(length) or b"{}")
+        if route == "/api/diet-plans":
+            self._send({
+                "demo": True,
+                "id": "demo-plan-created",
+                "status": "ASSISTANT_PROPOSED",
+                "humanApprovalRequired": True,
+                "payload": payload,
+            }, 201)
+            return
         if route != "/api/audit-events":
             self._send({"error": "not_found", "demo": True}, 404)
             return
-        length = int(self.headers.get("Content-Length", "0"))
-        payload = json.loads(self.rfile.read(length) or b"{}")
         event = {"demo": True, "recorded": True, "payload": payload}
         self._send(event, 201)
 
