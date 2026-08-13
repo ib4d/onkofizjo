@@ -15,6 +15,9 @@ sources and approval metadata.
 
 `GET /api/operations` returns documents and payment records.
 
+`GET /api/knowledge` returns demo knowledge items. Production must version
+internal rules separately from external evidence and retain source metadata.
+
 ## Audit endpoint
 
 `POST /api/audit-events` records a demo event. Production events must include:

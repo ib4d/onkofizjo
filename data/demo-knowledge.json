@@ -1,0 +1,8 @@
+{
+  "demo": true,
+  "items": [
+    {"id":"know-001","kind":"GOSIA_RULE","title":"Patient plans require human approval","area":"DIETETICS","status":"APPROVED_INTERNAL","source":"Gosia workflow note"},
+    {"id":"know-002","kind":"RECIPE","title":"Demo gentle breakfast","area":"DIETETICS","status":"DRAFT","source":"Synthetic demo recipe"},
+    {"id":"know-003","kind":"EXTERNAL_EVIDENCE","title":"Evidence placeholder — verify before use","area":"ONCOLOGY_REHAB","status":"REVIEW_REQUIRED","source":"No external source attached"}
+  ]
+}
