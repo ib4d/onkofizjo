@@ -1,0 +1,15 @@
+{
+  "id": "demo-plan-anna-001",
+  "demo": true,
+  "patientId": "demo-patient-anna-kowalska",
+  "language": "pl",
+  "strategy": "Demo supportive nutrition plan",
+  "status": "ASSISTANT_PROPOSED",
+  "warnings": ["Synthetic demo content — not clinical advice"],
+  "sources": ["demo-source-placeholder"],
+  "meals": [
+    {"name": "Breakfast", "description": "Demo meal — replace with verified content", "kcal": 420},
+    {"name": "Lunch", "description": "Demo meal — replace with verified content", "kcal": 650}
+  ],
+  "approval": {"requiredBy": "Gosia", "approvedAt": null}
+}

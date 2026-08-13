@@ -1,0 +1,19 @@
+{
+  "id": "demo-patient-anna-kowalska",
+  "demo": true,
+  "name": "Anna Kowalska",
+  "language": "pl",
+  "ecosystem": "LYMPHATIC_THERAPY",
+  "location": "28 CZERWCA",
+  "nextAppointment": "2026-08-13T10:00:00+02:00",
+  "clinical": {
+    "cancerType": "Breast cancer (demo)",
+    "affectedSide": "Right",
+    "scarStatus": "Healing",
+    "latestNote": "Synthetic demo record only"
+  },
+  "consents": {
+    "treatment": "demo-pending",
+    "photography": "not-collected"
+  }
+}

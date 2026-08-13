@@ -1,0 +1,11 @@
+{
+  "id": "demo-hermes-run-001",
+  "demo": true,
+  "agent": "HERMES",
+  "patientId": "demo-patient-anna-kowalska",
+  "status": "REVIEW_REQUIRED",
+  "answer": "There is not enough verified information to make a clinical recommendation.",
+  "sources": [],
+  "confidence": "low",
+  "humanApprovalRequired": true
+}
