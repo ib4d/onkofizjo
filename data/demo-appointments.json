@@ -1,0 +1,8 @@
+{
+  "demo": true,
+  "appointments": [
+    {"id":"appt-001","patientId":"demo-patient-anna-kowalska","patient":"Anna Kowalska","ecosystem":"LYMPHATIC_THERAPY","location":"28 CZERWCA","service":"Post-operative lymphatic drainage","start":"2026-08-13T10:00:00+02:00","end":"2026-08-13T10:45:00+02:00","status":"CONFIRMED","paymentStatus":"PAID"},
+    {"id":"appt-002","patientId":"demo-patient-maria-nowak","patient":"Maria Nowak","ecosystem":"DIETETICS","location":"SOWMED_KOSCIELNA","service":"Meal plan adjustment","start":"2026-08-13T12:15:00+02:00","end":"2026-08-13T13:00:00+02:00","status":"SCHEDULED","paymentStatus":"PENDING"},
+    {"id":"appt-003","patientId":"demo-patient-ewa-dabrowska","patient":"Ewa Dąbrowska","ecosystem":"PHYSIOTHERAPY","location":"AMAZONKI","service":"Scar mobilization","start":"2026-08-13T14:00:00+02:00","end":"2026-08-13T14:45:00+02:00","status":"SCHEDULED","paymentStatus":"PENDING"}
+  ]
+}

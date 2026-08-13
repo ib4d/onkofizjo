@@ -18,6 +18,7 @@ ROUTES = {
     "/api/diet-plans": "demo-diet-plan.json",
     "/api/assistant-runs": "demo-assistant-run.json",
     "/api/operations": "demo-operations.json",
+    "/api/appointments": "demo-appointments.json",
 }
 
 
@@ -55,6 +56,9 @@ class Handler(BaseHTTPRequestHandler):
                 "humanApprovalRequired": True,
                 "payload": payload,
             }, 201)
+            return
+        if route == "/api/appointments":
+            self._send({"demo": True, "id": "demo-appt-created", "status": "SCHEDULED", "humanConfirmationRequired": True, "payload": payload}, 201)
             return
         if route != "/api/audit-events":
             self._send({"error": "not_found", "demo": True}, 404)
