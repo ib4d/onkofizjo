@@ -7,6 +7,7 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 import json
 from urllib.parse import urlparse
+import os
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / "data"
@@ -66,6 +67,7 @@ class Handler(BaseHTTPRequestHandler):
 
 
 if __name__ == "__main__":
-    server = ThreadingHTTPServer(("127.0.0.1", 8787), Handler)
-    print("onkofizjo development API listening on http://127.0.0.1:8787")
+    port = int(os.environ.get("ONKOFIZJO_API_PORT", "8787"))
+    server = ThreadingHTTPServer(("127.0.0.1", port), Handler)
+    print(f"onkofizjo development API listening on http://127.0.0.1:{port}")
     server.serve_forever()
