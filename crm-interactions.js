@@ -6,7 +6,7 @@
     result.style.cssText = 'position:absolute;top:calc(100% + 8px);left:0;right:0;z-index:80;background:#fffdf9;border:1px solid #d9d1c7;border-radius:10px;box-shadow:0 14px 30px rgba(5,26,15,.12);display:none;overflow:hidden';
     const wrapper = input.parentElement; wrapper.style.position = 'relative'; wrapper.appendChild(result);
     let patients = [];
-    try { const response = await OnkofizjoApi.get('/api/patients', 'data/demo-patient.json'); patients = response.data.patients || [response.data]; } catch (_) {}
+    try { const response = await OnkofizjoApi.get('/api/patients', 'data/demo-patients.json'); patients = response.data.patients || [response.data]; } catch (_) {}
     const render = () => { const query = input.value.trim().toLowerCase(); if (!query) { result.style.display='none'; return; } const matches = patients.filter(p => `${p.name || ''} ${p.id || ''}`.toLowerCase().includes(query)); result.innerHTML = matches.length ? matches.map(p => `<a href="patient.html" style="display:block;padding:12px 14px;text-decoration:none;color:#051a0f;border-bottom:1px solid #eee8e0;font:600 13px Inter,Arial,sans-serif">${p.name || p.id}<small style="display:block;margin-top:3px;color:#737973;font-weight:400">${p.ecosystem || 'Patient record'}</small></a>`).join('') : '<div style="padding:14px;color:#737973;font:13px Inter,Arial,sans-serif">No patient found.</div>'; result.style.display='block'; };
     input.addEventListener('input', render); input.addEventListener('focus', render); document.addEventListener('click', e => { if (!wrapper.contains(e.target)) result.style.display='none'; });
   }

@@ -7,10 +7,12 @@
     const requestedId = new URLSearchParams(location.search).get('patientId');
     const patients = result.data.patients || [result.data];
     const patient = patients.find(item => item.id === requestedId) || patients[0];
+    const [firstName, ...lastNames] = (patient.name || '').split(' ');
     document.querySelectorAll('body *').forEach((node) => {
-      if (node.children.length === 0 && node.textContent.includes('Anna Kowalska')) {
-        node.textContent = node.textContent.replaceAll('Anna Kowalska', patient.name);
-      }
+      if (node.children.length !== 0) return;
+      if (node.textContent.includes('Anna Kowalska')) node.textContent = node.textContent.replaceAll('Anna Kowalska', patient.name);
+      else if (node.textContent.trim() === 'Anna') node.textContent = firstName;
+      else if (node.textContent.trim() === 'Kowalska') node.textContent = lastNames.join(' ');
     });
     const banner = document.createElement('div');
     banner.textContent = `DEMO DATA · ${result.source} · No real patient information`;
