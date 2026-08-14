@@ -16,6 +16,10 @@
     const fields = contextData.profiles?.[selectedId];
     if (!fields) throw new Error(`Clinical context not found: ${selectedId}`);
     const names = (patient.name || '').split(' ');
+    const initials = names.map(name => name[0]).join('');
+    const avatarSvg = `data:image/svg+xml,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="800" height="420" viewBox="0 0 800 420"><rect width="800" height="420" fill="#e8dfd5"/><circle cx="400" cy="170" r="92" fill="#bd9b60" opacity=".75"/><text x="400" y="195" text-anchor="middle" font-family="Georgia" font-size="88" fill="#051a0f">${initials}</text><text x="400" y="340" text-anchor="middle" font-family="Arial" font-size="24" fill="#051a0f">DEMO PROFILE</text></svg>`)}`;
+    document.querySelectorAll('img[alt*="Anna"], img[alt*="Therapist Profile"], img[alt*="Avatar"]').forEach(img => { img.src = avatarSvg; img.alt = `${patient.name} demo profile`; });
+    document.querySelector('main')?.setAttribute('data-patient-id', selectedId);
     document.querySelectorAll('body *').forEach(node => {
       if (node.children.length) return;
       const text = node.textContent.trim();
@@ -29,6 +33,10 @@
       if (text === 'Obrzęk limfatyczny' || text === 'Zmęczenie po posiłkach' || text === 'Ograniczenie ruchowe') node.textContent = fields.symptom;
       if (text.includes('Lekki obrzęk przedramienia') || text.includes('Pacjentka zgłasza spadek energii') || text.includes('Ograniczenie zakresu ruchu po stronie')) node.textContent = fields.detail;
       if (text.includes('Na podstawie ograniczonej rotacji') || text.includes('Na podstawie celu dietetycznego') || text.includes('Na podstawie ostatniej oceny ruchowej')) node.textContent = fields.insight;
+      if (selectedId.includes('maria') && (text.includes('Obrz') || text.includes('Napięcie') || text.includes('NapiÄ™cie'))) node.textContent = fields.symptom;
+      if (selectedId.includes('ewa') && (text.includes('Obrz') || text.includes('Napięcie') || text.includes('NapiÄ™cie'))) node.textContent = fields.symptom;
+      if (selectedId.includes('maria') && (text.includes('Plan przeciw') || text.includes('75%'))) node.textContent = 'Plan żywieniowy · realizacja 72%';
+      if (selectedId.includes('ewa') && (text.includes('Plan przeciw') || text.includes('75%'))) node.textContent = 'Ćwiczenia aktywne · progresja monitorowana';
     });
   } catch (error) { console.warn('Patient context unavailable', error); }
 })();
