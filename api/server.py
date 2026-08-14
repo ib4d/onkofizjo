@@ -45,6 +45,14 @@ def read_notes():
     with (DATA / "demo-notes.json").open(encoding="utf-8") as file:
         return json.load(file)
 
+def read_appointments():
+    with (DATA / "demo-appointments.json").open(encoding="utf-8") as file:
+        return json.load(file)
+
+def write_appointments(document):
+    with (DATA / "demo-appointments.json").open("w", encoding="utf-8") as file:
+        json.dump(document, file, ensure_ascii=False, indent=2)
+
 def append_demo_note(payload):
     document = read_notes()
     now = datetime.now(timezone.utc).isoformat()
@@ -116,7 +124,13 @@ class Handler(BaseHTTPRequestHandler):
             self._send(result, 201)
             return
         if route == "/api/appointments":
-            self._send({"demo": True, "id": "demo-appt-created", "status": "SCHEDULED", "humanConfirmationRequired": True, "payload": payload}, 201)
+            document = read_appointments()
+            next_id = f"appt-demo-{len(document.get('appointments', [])) + 1:03d}"
+            appointment = {"id": next_id, "patientId": payload.get("patientId"), "patient": payload.get("patient", ""), "ecosystem": payload.get("ecosystem", ""), "location": payload.get("location", ""), "service": payload.get("service", ""), "start": payload.get("start", ""), "end": payload.get("end", ""), "status": "SCHEDULED", "paymentStatus": "PENDING"}
+            document.setdefault("appointments", []).append(appointment)
+            write_appointments(document)
+            record_audit({"action": "CREATE_APPOINTMENT", "resourceId": next_id, "actor": payload.get("actor", "demo-gosia")})
+            self._send({"demo": True, "id": next_id, "status": "SCHEDULED", "humanConfirmationRequired": True, "appointment": appointment}, 201)
             return
         if route == "/api/appointments/status":
             allowed = {"SCHEDULED", "CONFIRMED", "TIME_BLOCKED", "CANCELLED_BY_PATIENT", "NO_SHOW", "COMPLETED", "VACATION", "BLOCKED"}
@@ -124,7 +138,14 @@ class Handler(BaseHTTPRequestHandler):
             if status not in allowed:
                 self._send({"error": "invalid_status", "allowed": sorted(allowed), "demo": True}, 422)
                 return
-            result = {"demo": True, "recorded": True, "appointmentId": payload.get("appointmentId"), "status": status, "auditRequired": True}
+            document = read_appointments()
+            appointment = next((item for item in document.get("appointments", []) if item.get("id") == payload.get("appointmentId")), None)
+            if appointment is None:
+                self._send({"error": "appointment_not_found", "appointmentId": payload.get("appointmentId"), "demo": True}, 404)
+                return
+            appointment["status"] = status
+            write_appointments(document)
+            result = {"demo": True, "recorded": True, "appointmentId": appointment["id"], "status": status, "appointment": appointment, "auditRequired": True}
             record_audit({"action": "UPDATE_APPOINTMENT_STATUS", "resourceId": payload.get("appointmentId"), "status": status, "actor": payload.get("actor", "unknown")})
             self._send(result, 200)
             return
