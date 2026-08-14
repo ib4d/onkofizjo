@@ -191,11 +191,17 @@ class Handler(BaseHTTPRequestHandler):
             if mode not in {"VIDEO", "PHONE"}:
                 self._send({"error": "invalid_mode", "allowed": ["VIDEO", "PHONE"], "demo": True}, 422)
                 return
+            if payload.get("role", "GOSIA") == "AI_AGENT":
+                self._send({"error": "forbidden_role", "requiredRole": "GOSIA or COLLABORATOR", "demo": True}, 403)
+                return
             result = {"demo": True, "id": f"tele-demo-{datetime.now(timezone.utc).strftime('%Y%m%d%H%M%S')}", "patientId": payload.get("patientId"), "appointmentId": payload.get("appointmentId"), "mode": mode, "status": "READY" if mode == "VIDEO" else "INITIATED", "consentRequired": mode == "VIDEO", "recording": False}
             record_audit({"action": "START_TELECONSULTATION", "resourceId": result["id"], "mode": mode, "actor": payload.get("actor", "demo-gosia")})
             self._send(result, 201)
             return
         if route == "/api/notes":
+            if payload.get("role") == "AI_AGENT" and payload.get("status", "DRAFT") != "DRAFT":
+                self._send({"error": "forbidden_note_status", "allowedStatus": "DRAFT", "demo": True}, 403)
+                return
             note = append_demo_note(payload)
             note["demo"] = True
             record_audit({"action": "CREATE_CLINICAL_NOTE_DRAFT", "resourceId": note["id"], "actor": payload.get("author", "unknown")})
