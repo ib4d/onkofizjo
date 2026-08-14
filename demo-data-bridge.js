@@ -4,7 +4,9 @@
   const path = location.pathname.includes('patient') ? 'data/demo-patient.json' : 'data/demo-patient.json';
   try {
     const result = await OnkofizjoApi.get('/api/patients', path);
-    const patient = result.data;
+    const requestedId = new URLSearchParams(location.search).get('patientId');
+    const patients = result.data.patients || [result.data];
+    const patient = patients.find(item => item.id === requestedId) || patients[0];
     document.querySelectorAll('body *').forEach((node) => {
       if (node.children.length === 0 && node.textContent.includes('Anna Kowalska')) {
         node.textContent = node.textContent.replaceAll('Anna Kowalska', patient.name);

@@ -16,7 +16,7 @@ DATA = ROOT / "data"
 
 ROUTES = {
     "/api/health": {"service": "onkofizjo-dev-api", "demo": True},
-    "/api/patients": "demo-patient.json",
+    "/api/patients": "demo-patients.json",
     "/api/diet-plans": "demo-diet-plan.json",
     "/api/assistant-runs": "demo-assistant-run.json",
     "/api/operations": "demo-operations.json",
