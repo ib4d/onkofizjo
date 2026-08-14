@@ -16,4 +16,5 @@
     return { data, source: 'development-api' };
   }
   global.OnkofizjoApi = { API_BASE, get, post };
+  if (location.pathname.endsWith('calendar.html')) { const script = document.createElement('script'); script.src = 'calendar-links.js'; document.head.appendChild(script); }
 })(window);
