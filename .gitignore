@@ -6,3 +6,4 @@ dist/
 _docx_render/
 data/dev-audit.sqlite3
 _stitch_inspect/
+__pycache__/
