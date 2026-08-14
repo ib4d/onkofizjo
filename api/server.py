@@ -150,6 +150,15 @@ class Handler(BaseHTTPRequestHandler):
             record_audit({"action": "UPDATE_APPOINTMENT_STATUS", "resourceId": payload.get("appointmentId"), "status": status, "actor": payload.get("actor", "unknown")})
             self._send(result, 200)
             return
+        if route == "/api/teleconsultations":
+            mode = payload.get("mode")
+            if mode not in {"VIDEO", "PHONE"}:
+                self._send({"error": "invalid_mode", "allowed": ["VIDEO", "PHONE"], "demo": True}, 422)
+                return
+            result = {"demo": True, "id": f"tele-demo-{datetime.now(timezone.utc).strftime('%Y%m%d%H%M%S')}", "patientId": payload.get("patientId"), "appointmentId": payload.get("appointmentId"), "mode": mode, "status": "READY" if mode == "VIDEO" else "INITIATED", "consentRequired": mode == "VIDEO", "recording": False}
+            record_audit({"action": "START_TELECONSULTATION", "resourceId": result["id"], "mode": mode, "actor": payload.get("actor", "demo-gosia")})
+            self._send(result, 201)
+            return
         if route == "/api/notes":
             note = append_demo_note(payload)
             note["demo"] = True
