@@ -58,6 +58,7 @@ def append_demo_note(payload):
     now = datetime.now(timezone.utc).isoformat()
     note = {
         "id": f"demo-note-{now.replace(':', '').replace('+', '-')}",
+        "patientId": payload.get("patientId"),
         "appointmentId": payload.get("appointmentId"),
         "author": payload.get("author", "Gosia"),
         "createdAt": now,
