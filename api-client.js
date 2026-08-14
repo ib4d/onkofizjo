@@ -1,6 +1,6 @@
 /* Shared client boundary. Production will add auth headers and request policies here. */
 (function (global) {
-  const API_BASE = global.ONKOFIZJO_API_BASE || 'http://127.0.0.1:8795';
+  const API_BASE = global.ONKOFIZJO_API_BASE || 'http://127.0.0.1:8796';
   async function get(path, fallbackPath) {
     try {
       const response = await fetch(`${API_BASE}${path}`, { headers: { Accept: 'application/json' } });

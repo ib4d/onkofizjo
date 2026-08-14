@@ -2,7 +2,7 @@
   const selectedId = new URLSearchParams(location.search).get('patientId');
   if (!selectedId) return;
   try {
-    const response = await fetch(`http://127.0.0.1:8795/api/patients?context=${encodeURIComponent(selectedId)}`, { cache: 'no-store' });
+    const response = await fetch(`http://127.0.0.1:8796/api/patients?context=${encodeURIComponent(selectedId)}`, { cache: 'no-store' });
     const data = await response.json();
     const patient = (data.patients || []).find(item => item.id === selectedId);
     if (!patient) throw new Error('Patient not found');
