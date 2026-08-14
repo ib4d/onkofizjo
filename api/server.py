@@ -22,6 +22,7 @@ ROUTES = {
     "/api/operations": "demo-operations.json",
     "/api/appointments": "demo-appointments.json",
     "/api/knowledge": "demo-knowledge.json",
+    "/api/patient-context": "demo-clinical-profiles.json",
     "/api/notes": "demo-notes.json",
 }
 AUDIT_DB = ROOT / "data" / "dev-audit.sqlite3"

@@ -2,7 +2,7 @@
   const selectedId = new URLSearchParams(location.search).get('patientId');
   if (!selectedId) return;
   try {
-    const response = await fetch(`http://127.0.0.1:8796/api/patients?context=${encodeURIComponent(selectedId)}`, { cache: 'no-store' });
+    const response = await fetch(`http://127.0.0.1:8797/api/patients?context=${encodeURIComponent(selectedId)}`, { cache: 'no-store' });
     const data = await response.json();
     const patient = (data.patients || []).find(item => item.id === selectedId);
     if (!patient) throw new Error('Patient not found');
@@ -11,7 +11,9 @@
       'demo-patient-maria-nowak': { age:'46', id:'PAC-2024-014', tag:'Dietetyka', state:'Plan żywieniowy', measure:'Realizacja planu', value:'72%', symptom:'Zmęczenie po posiłkach', detail:'Pacjentka zgłasza spadek energii po południu; wymaga przeglądu regularności posiłków.', insight:'Na podstawie celu dietetycznego i zapisów posiłków sugeruję przegląd rozkładu energii oraz nawodnienia.' },
       'demo-patient-ewa-dabrowska': { age:'39', id:'PAC-2024-027', tag:'Fizjoterapia', state:'Rehabilitacja aktywna', measure:'Zakres ruchu barku', value:'145°', symptom:'Ograniczenie ruchowe', detail:'Ograniczenie zakresu ruchu po stronie lewej; monitorować tolerancję ćwiczeń.', insight:'Na podstawie ostatniej oceny ruchowej sugeruję progresję ćwiczeń aktywnych zgodnie z tolerancją.' }
     };
-    const fields = profiles[selectedId] || profiles['demo-patient-anna-kowalska'];
+    const contextResponse = await fetch(`http://127.0.0.1:8797/api/patient-context?patientId=${encodeURIComponent(selectedId)}`, { cache: 'no-store' });
+    const contextData = await contextResponse.json();
+    const fields = contextData.profiles?.[selectedId] || profiles[selectedId] || profiles['demo-patient-anna-kowalska'];
     const names = (patient.name || '').split(' ');
     document.querySelectorAll('body *').forEach(node => {
       if (node.children.length) return;

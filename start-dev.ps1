@@ -1,4 +1,4 @@
-param([int]$WebPort = 4173, [int]$ApiPort = 8796)
+param([int]$WebPort = 4173, [int]$ApiPort = 8797)
 $bundledPython = 'C:\Users\abad1\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe'
 $python = if (Test-Path $bundledPython) { $bundledPython } else { (Get-Command python -ErrorAction SilentlyContinue).Source }
 if (-not $python) { $python = (Get-Command py -ErrorAction SilentlyContinue).Source }
