@@ -24,6 +24,7 @@ ROUTES = {
     "/api/knowledge": "demo-knowledge.json",
     "/api/patient-context": "demo-clinical-profiles.json",
     "/api/notes": "demo-notes.json",
+    "/api/permissions": {"demo": True, "roles": {"GOSIA": {"approve_diet": True, "edit_notes": True, "export_record": True}, "ASSISTANT": {"approve_diet": False, "edit_notes": False, "export_record": False}, "COLLABORATOR": {"approve_diet": False, "edit_notes": "ASSIGNED", "export_record": False}, "AI_AGENT": {"approve_diet": False, "edit_notes": "DRAFT", "export_record": False}}},
 }
 AUDIT_DB = ROOT / "data" / "dev-audit.sqlite3"
 
