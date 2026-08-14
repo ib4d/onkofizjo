@@ -135,6 +135,14 @@ class Handler(BaseHTTPRequestHandler):
             record_audit({"action": "CREATE_DIET_PROPOSAL", "resourceId": result["id"], "actor": payload.get("requestedBy", "unknown")})
             self._send(result, 201)
             return
+        if route == "/api/assistant-runs":
+            if not payload.get("patientId") or not payload.get("task"):
+                self._send({"error": "patient_and_task_required", "demo": True}, 422)
+                return
+            result = {"demo": True, "id": f"assistant-demo-{datetime.now(timezone.utc).strftime('%Y%m%d%H%M%S')}", "patientId": payload["patientId"], "task": payload["task"], "status": "NEEDS_REVIEW", "answer": "No clinical conclusion generated. Review the linked patient context and approved sources before drafting.", "sources": payload.get("sources", []), "humanReviewRequired": True, "noInferenceWithoutEvidence": True}
+            record_audit({"action": "CREATE_ASSISTANT_RUN", "resourceId": result["id"], "actor": payload.get("requestedBy", "demo-gosia")})
+            self._send(result, 201)
+            return
         if route == "/api/diet-plans/status":
             allowed = {"ASSISTANT_PROPOSED", "DRAFT", "IN_REVIEW", "APPROVED", "REJECTED"}
             status = payload.get("status")
