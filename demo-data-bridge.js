@@ -31,7 +31,8 @@
     banner.style.cssText = 'position:fixed;left:16px;bottom:16px;z-index:9999;background:#051a0f;color:#fff;padding:8px 12px;border-radius:4px;font:700 11px Inter,Arial,sans-serif;letter-spacing:.08em';
     document.body.appendChild(banner);
     const notesResult = await OnkofizjoApi.get('/api/notes', 'data/demo-notes.json');
-    const notes = notesResult.data.notes || [];
+    const notesDocument = notesResult.data || {};
+    const notes = notesDocument.patientId === requestedId ? (notesDocument.notes || []) : [];
     const panel = document.createElement('section');
     panel.setAttribute('aria-label', 'Clinical notes');
     panel.className = 'crm-overlay-card';

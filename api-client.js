@@ -17,4 +17,5 @@
   }
   global.OnkofizjoApi = { API_BASE, get, post };
   if (location.pathname.endsWith('calendar.html')) { const script = document.createElement('script'); script.src = 'calendar-links.js'; document.head.appendChild(script); }
+  if (location.pathname.endsWith('note-create.html') || location.pathname.endsWith('teleconsult.html')) { const script = document.createElement('script'); script.src = 'context-route.js'; document.head.appendChild(script); }
 })(window);
