@@ -18,7 +18,11 @@
   document.body.appendChild(marker);
   const actionButtons = [...document.querySelectorAll('button')].filter(button => /Zapisz|Zatwierd|Generuj|Przejdź|PrzejdĹş|Generuj Ponownie/i.test(button.textContent));
   actionButtons.forEach(button => button.addEventListener('click', async () => {
-    const result = await OnkofizjoApi.post('/api/diet-plans', { patientId, requestedBy: 'demo-gosia', action: button.textContent.trim(), humanApprovalRequired: true });
+    const label = button.textContent.trim();
+    const status = /Zatwierd/i.test(label) ? 'APPROVED' : /Zapisz/i.test(label) ? 'DRAFT' : 'IN_REVIEW';
+    const result = status === 'APPROVED'
+      ? await OnkofizjoApi.post('/api/diet-plans/status', { patientId, planId: plan.id || 'demo-plan-created', status, approvedBy: 'demo-gosia' })
+      : await OnkofizjoApi.post('/api/diet-plans/status', { patientId, planId: plan.id || 'demo-plan-created', status, actor: 'demo-gosia' });
     marker.textContent = `DEMO DATA · ${result.source} · ${result.data.status} · PATIENT ${patientId} · HUMAN REVIEW REQUIRED`;
   }));
   document.querySelectorAll('body *').forEach((node) => {

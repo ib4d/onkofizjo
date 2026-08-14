@@ -135,6 +135,19 @@ class Handler(BaseHTTPRequestHandler):
             record_audit({"action": "CREATE_DIET_PROPOSAL", "resourceId": result["id"], "actor": payload.get("requestedBy", "unknown")})
             self._send(result, 201)
             return
+        if route == "/api/diet-plans/status":
+            allowed = {"ASSISTANT_PROPOSED", "DRAFT", "IN_REVIEW", "APPROVED", "REJECTED"}
+            status = payload.get("status")
+            if status not in allowed:
+                self._send({"error": "invalid_plan_status", "allowed": sorted(allowed), "demo": True}, 422)
+                return
+            if status == "APPROVED" and not payload.get("approvedBy"):
+                self._send({"error": "human_approval_required", "demo": True}, 422)
+                return
+            result = {"demo": True, "recorded": True, "patientId": payload.get("patientId"), "planId": payload.get("planId", "demo-plan-created"), "status": status, "humanApprovalRequired": status != "APPROVED"}
+            record_audit({"action": "UPDATE_DIET_PLAN_STATUS", "resourceId": result["planId"], "status": status, "actor": payload.get("approvedBy", payload.get("actor", "unknown"))})
+            self._send(result, 200)
+            return
         if route == "/api/appointments":
             document = read_appointments()
             next_id = f"appt-demo-{len(document.get('appointments', [])) + 1:03d}"
