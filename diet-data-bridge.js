@@ -1,7 +1,7 @@
 /* Demo-only bridge for the Stitch diet and Hermes screens. */
 (async function () {
   const results = await Promise.all([
-    OnkofizjoApi.get('/api/diet-plans', 'data/demo-diet-plan.json'),
+    OnkofizjoApi.get(`/api/diet-plans?patientId=${encodeURIComponent(new URLSearchParams(location.search).get('patientId') || 'demo-patient-anna-kowalska')}`, 'data/demo-diet-plan.json'),
     OnkofizjoApi.get('/api/assistant-runs', 'data/demo-assistant-run.json')
   ]);
   const plan = results[0].data;

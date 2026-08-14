@@ -6,7 +6,7 @@ replaced by authenticated, encrypted infrastructure before handling real health 
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 import json
-from urllib.parse import urlparse
+from urllib.parse import urlparse, parse_qs
 import os
 import sqlite3
 from datetime import datetime, timezone
@@ -95,7 +95,9 @@ class Handler(BaseHTTPRequestHandler):
         self.end_headers()
 
     def do_GET(self):  # noqa: N802
-        route = urlparse(self.path).path
+        parsed = urlparse(self.path)
+        route = parsed.path
+        query = parse_qs(parsed.query)
         if route == "/api/audit-events":
             self._send({"demo": True, "persistent": True, "events": read_audits()})
             return
@@ -105,6 +107,15 @@ class Handler(BaseHTTPRequestHandler):
             return
         if isinstance(target, dict):
             self._send(target)
+            return
+        if route == "/api/diet-plans" and query.get("patientId"):
+            patient_id = query["patientId"][0]
+            profiles = json.loads((DATA / "demo-clinical-profiles.json").read_text(encoding="utf-8")).get("profiles", {})
+            profile = profiles.get(patient_id)
+            if not profile:
+                self._send({"error": "patient_context_not_found", "patientId": patient_id, "demo": True}, 404)
+                return
+            self._send({"demo": True, "patientId": patient_id, "status": "ASSISTANT_PROPOSED", "humanReviewRequired": True, "strategy": profile.get("tag"), "clinicalContext": {"state": profile.get("state"), "symptom": profile.get("symptom"), "detail": profile.get("detail")}, "sourcePolicy": "Synthetic demo context; verify against approved clinical sources before use."})
             return
         with (DATA / target).open(encoding="utf-8") as file:
             self._send(json.load(file))
