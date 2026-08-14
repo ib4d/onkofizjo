@@ -1,0 +1,7 @@
+/* Shared navigation layer for the current prototype. */
+(function () {
+  const marketing = {'about':'stitch-marketing.html#about','o mnie':'stitch-marketing.html#about','services':'marketing-section.html?section=services','usługi':'marketing-section.html?section=services','locations':'marketing-section.html?section=locations','blog':'marketing-section.html?section=blog','contact':'marketing-section.html?section=contact','kontakt':'marketing-section.html?section=contact','certificates':'marketing-section.html?section=certificates','certyfikaty':'marketing-section.html?section=certificates'};
+  const crm = {'dashboard':'crm.html','overview':'crm.html','home':'crm.html','patients':'patient.html','pacjenci':'patient.html','patient':'patient.html','calendar':'calendar.html','kalendarz':'calendar.html','clinical records':'patient.html','records':'patient.html','notatki':'note-create.html','dietetyka':'diet-plan.html','diet plans':'diet-plan.html','hermes':'hermes.html','documents':'documents.html','dokumenty':'documents.html','payments':'payments.html','płatności':'payments.html','roles':'roles.html','audit':'audit.html','knowledge':'knowledge.html'};
+  const map = location.pathname.includes('stitch-marketing') ? marketing : crm;
+  document.querySelectorAll('a').forEach((anchor) => { const label = anchor.textContent.trim().toLowerCase().replace(/\s+/g, ' '); if (anchor.getAttribute('href') === '#' && map[label]) anchor.href = map[label]; });
+})();
