@@ -16,6 +16,17 @@
     const fields = contextData.profiles?.[selectedId];
     if (!fields) throw new Error(`Clinical context not found: ${selectedId}`);
     const names = (patient.name || '').split(' ');
+    const main = document.querySelector('main');
+    if (main) {
+      const headers = [...main.children].filter(child => child.tagName === 'HEADER');
+      main.innerHTML = '';
+      headers.forEach(header => main.appendChild(header));
+      const view = document.createElement('section');
+      view.style.cssText = 'max-width:1180px;margin:0 auto;padding:32px 5vw 80px;font-family:Inter,Arial,sans-serif;color:#1c1c19';
+      view.innerHTML = `<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:20px;flex-wrap:wrap"><div><div style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#79564f">Clinical record · ${patient.ecosystem.replaceAll('_',' ')}</div><h1 style="font:48px Georgia,serif;color:#051a0f;margin:12px 0">${patient.name}</h1><p style="color:#737973">Wiek: ${fields.age} · ID: ${fields.recordId} · ${patient.location.replaceAll('_',' ')}</p></div><span style="padding:10px 14px;border:1px solid #d9d1c7;border-radius:999px;color:#051a0f">${fields.tag}</span></div><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:26px"><article style="background:#fff;border:1px solid #d9d1c7;border-radius:12px;padding:22px"><div style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#79564f">Current care state</div><h2 style="font:26px Georgia,serif;color:#051a0f">${fields.state}</h2><p style="color:#4d514e;line-height:1.5">${fields.detail}</p></article><article style="background:#fff;border:1px solid #d9d1c7;border-radius:12px;padding:22px"><div style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#79564f">Primary measure</div><h2 style="font:26px Georgia,serif;color:#051a0f">${fields.measure}</h2><strong style="font-size:34px;color:#bd9b60">${fields.value}</strong></article><article style="background:#fff;border:1px solid #d9d1c7;border-radius:12px;padding:22px"><div style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#79564f">Reported symptom</div><h2 style="font:26px Georgia,serif;color:#051a0f">${fields.symptom}</h2><p style="color:#4d514e;line-height:1.5">${fields.detail}</p></article></div><article style="margin-top:16px;background:#faf8f5;border:1px solid #e8dfd5;border-radius:12px;padding:22px"><div style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#79564f">Hermes · draft insight</div><p style="font-size:18px;line-height:1.6;color:#051a0f">${fields.insight}</p><small style="color:#737973">Synthetic demo context · human review required</small></article>`;
+      main.appendChild(view);
+      return;
+    }
     const initials = names.map(name => name[0]).join('');
     const avatarSvg = `data:image/svg+xml,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="800" height="420" viewBox="0 0 800 420"><rect width="800" height="420" fill="#e8dfd5"/><circle cx="400" cy="170" r="92" fill="#bd9b60" opacity=".75"/><text x="400" y="195" text-anchor="middle" font-family="Georgia" font-size="88" fill="#051a0f">${initials}</text><text x="400" y="340" text-anchor="middle" font-family="Arial" font-size="24" fill="#051a0f">DEMO PROFILE</text></svg>`)}`;
     document.querySelectorAll('img[alt*="Anna"], img[alt*="Therapist Profile"], img[alt*="Avatar"]').forEach(img => { img.src = avatarSvg; img.alt = `${patient.name} demo profile`; });
