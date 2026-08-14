@@ -13,7 +13,8 @@
     };
     const contextResponse = await fetch(`http://127.0.0.1:8797/api/patient-context?patientId=${encodeURIComponent(selectedId)}`, { cache: 'no-store' });
     const contextData = await contextResponse.json();
-    const fields = contextData.profiles?.[selectedId] || profiles[selectedId] || profiles['demo-patient-anna-kowalska'];
+    const fields = contextData.profiles?.[selectedId];
+    if (!fields) throw new Error(`Clinical context not found: ${selectedId}`);
     const names = (patient.name || '').split(' ');
     document.querySelectorAll('body *').forEach(node => {
       if (node.children.length) return;

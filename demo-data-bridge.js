@@ -1,12 +1,13 @@
 /* Demo-only bridge. Production will replace this with authenticated API calls. */
 (async function () {
   if (!location.pathname.includes('patient.html')) return;
-  const path = location.pathname.includes('patient') ? 'data/demo-patient.json' : 'data/demo-patient.json';
+  const path = 'data/demo-patients.json';
   try {
     const result = await OnkofizjoApi.get('/api/patients', path);
     const requestedId = new URLSearchParams(location.search).get('patientId');
     const patients = result.data.patients || [result.data];
-    const patient = patients.find(item => item.id === requestedId) || patients[0];
+    const patient = patients.find(item => item.id === requestedId) || (requestedId ? null : patients[0]);
+    if (!patient) throw new Error(`Patient context not found: ${requestedId}`);
     const [firstName, ...lastNames] = (patient.name || '').split(' ');
     const demoFields = {
       'demo-patient-anna-kowalska': { age: '54', recordId: 'PAC-2023-089', phone: '+48 500 123 456', email: 'anna.k@example.com', address: 'ul. Spokojna 15/4\n00-123 Warszawa' },
