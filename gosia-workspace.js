@@ -19,10 +19,11 @@
   target.prepend(panel);
   const grid = panel.querySelector('#quick-links');
   links.forEach(([href, label, icon]) => { const a=document.createElement('a'); a.href=href; a.title=label; a.style.cssText='display:inline-flex;align-items:center;gap:5px;padding:7px 9px;border:1px solid #d9d1c7;border-radius:7px;color:#051a0f;text-decoration:none;font:600 11px Inter,Arial,sans-serif;background:#fff;white-space:nowrap'; a.innerHTML=`<span aria-hidden="true" style="font-size:13px;color:#bd9b60">${icon === 'calendar_month' ? '◷' : icon === 'clinical_notes' ? '▤' : icon === 'restaurant' ? '♢' : icon === 'folder_open' ? '□' : icon === 'videocam' ? '▣' : icon === 'payments' ? '◫' : '✦'}</span><span>${label}</span>`; grid.appendChild(a); });
-  let lastY = window.scrollY;
+  const scrollContainer = target.querySelector('.overflow-y-auto') || document.scrollingElement || document.documentElement;
+  let lastY = scrollContainer.scrollTop;
   let ticking = false;
   function updateVisibility() {
-    const currentY = window.scrollY;
+    const currentY = scrollContainer.scrollTop;
     const movingDown = currentY > lastY + 6;
     const movingUp = currentY < lastY - 6;
     if (movingDown && currentY > 24) panel.classList.add('is-collapsed');
@@ -30,5 +31,5 @@
     lastY = currentY;
     ticking = false;
   }
-  window.addEventListener('scroll', () => { if (!ticking) { window.requestAnimationFrame(updateVisibility); ticking = true; } }, { passive: true });
+  scrollContainer.addEventListener('scroll', () => { if (!ticking) { window.requestAnimationFrame(updateVisibility); ticking = true; } }, { passive: true });
 })();
