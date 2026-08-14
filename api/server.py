@@ -153,6 +153,9 @@ class Handler(BaseHTTPRequestHandler):
             if status == "APPROVED" and not payload.get("approvedBy"):
                 self._send({"error": "human_approval_required", "demo": True}, 422)
                 return
+            if status == "APPROVED" and payload.get("role", "GOSIA") != "GOSIA":
+                self._send({"error": "forbidden_role", "requiredRole": "GOSIA", "demo": True}, 403)
+                return
             result = {"demo": True, "recorded": True, "patientId": payload.get("patientId"), "planId": payload.get("planId", "demo-plan-created"), "status": status, "humanApprovalRequired": status != "APPROVED"}
             record_audit({"action": "UPDATE_DIET_PLAN_STATUS", "resourceId": result["planId"], "status": status, "actor": payload.get("approvedBy", payload.get("actor", "unknown"))})
             self._send(result, 200)
