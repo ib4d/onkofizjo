@@ -1,5 +1,6 @@
 /* Demo-only bridge. Production will replace this with authenticated API calls. */
 (async function () {
+  if (!location.pathname.includes('patient.html')) return;
   const path = location.pathname.includes('patient') ? 'data/demo-patient.json' : 'data/demo-patient.json';
   try {
     const result = await OnkofizjoApi.get('/api/patients', path);
