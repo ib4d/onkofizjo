@@ -8,11 +8,22 @@
     const patients = result.data.patients || [result.data];
     const patient = patients.find(item => item.id === requestedId) || patients[0];
     const [firstName, ...lastNames] = (patient.name || '').split(' ');
+    const demoFields = {
+      'demo-patient-anna-kowalska': { age: '54', recordId: 'PAC-2023-089', phone: '+48 500 123 456', email: 'anna.k@example.com', address: 'ul. Spokojna 15/4\n00-123 Warszawa' },
+      'demo-patient-maria-nowak': { age: '46', recordId: 'PAC-2024-014', phone: '+48 500 234 567', email: 'maria.n@example.com', address: 'ul. Kościelna 8\n60-101 Poznań' },
+      'demo-patient-ewa-dabrowska': { age: '39', recordId: 'PAC-2024-027', phone: '+48 500 345 678', email: 'ewa.d@example.com', address: 'ul. Amazonki 3\n60-201 Poznań' }
+    }[patient.id];
     document.querySelectorAll('body *').forEach((node) => {
       if (node.children.length !== 0) return;
       if (node.textContent.includes('Anna Kowalska')) node.textContent = node.textContent.replaceAll('Anna Kowalska', patient.name);
       else if (node.textContent.trim() === 'Anna') node.textContent = firstName;
       else if (node.textContent.trim() === 'Kowalska') node.textContent = lastNames.join(' ');
+      if (demoFields && node.textContent.includes('Wiek: 54')) node.textContent = `Wiek: ${demoFields.age} | ID: ${demoFields.recordId}`;
+      if (demoFields && node.textContent.trim() === '54') node.textContent = demoFields.age;
+      if (demoFields && node.textContent.trim() === 'PAC-2023-089') node.textContent = demoFields.recordId;
+      if (demoFields && node.textContent.trim() === '+48 500 123 456') node.textContent = demoFields.phone;
+      if (demoFields && node.textContent.trim() === 'anna.k@example.com') node.textContent = demoFields.email;
+      if (demoFields && node.textContent.includes('ul. Spokojna 15/4')) node.textContent = demoFields.address;
     });
     const banner = document.createElement('div');
     banner.textContent = `DEMO DATA · ${result.source} · No real patient information`;
