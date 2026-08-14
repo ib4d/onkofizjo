@@ -2,6 +2,14 @@
   "demo": true,
   "patientId": "demo-patient-anna-kowalska",
   "notes": [
-    {"id":"note-001","appointmentId":"appt-001","author":"Gosia","createdAt":"2026-08-13T09:20:00+02:00","type":"VISIT_PREP","text":"Synthetic preparation note. Verify patient context before use.","recommendations":[]}
+    {
+      "id": "note-001",
+      "appointmentId": "appt-001",
+      "author": "Gosia",
+      "createdAt": "2026-08-13T09:20:00+02:00",
+      "type": "VISIT_PREP",
+      "text": "Synthetic preparation note. Verify patient context before use.",
+      "recommendations": []
+    }
   ]
 }
