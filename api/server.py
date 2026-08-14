@@ -40,6 +40,29 @@ def read_audits():
         rows = conn.execute("SELECT id, created_at, payload FROM audit_events ORDER BY id DESC").fetchall()
     return [{"id": row[0], "createdAt": row[1], "payload": json.loads(row[2])} for row in rows]
 
+def read_notes():
+    with (DATA / "demo-notes.json").open(encoding="utf-8") as file:
+        return json.load(file)
+
+def append_demo_note(payload):
+    document = read_notes()
+    now = datetime.now(timezone.utc).isoformat()
+    note = {
+        "id": f"demo-note-{now.replace(':', '').replace('+', '-')}",
+        "appointmentId": payload.get("appointmentId"),
+        "author": payload.get("author", "Gosia"),
+        "createdAt": now,
+        "type": "VISIT_NOTE",
+        "status": "DRAFT",
+        "text": payload.get("text", ""),
+        "recommendations": [],
+        "humanReviewRequired": True,
+    }
+    document.setdefault("notes", []).append(note)
+    with (DATA / "demo-notes.json").open("w", encoding="utf-8") as file:
+        json.dump(document, file, ensure_ascii=False, indent=2)
+    return note
+
 
 class Handler(BaseHTTPRequestHandler):
     def _send(self, value, status=200):
@@ -95,7 +118,8 @@ class Handler(BaseHTTPRequestHandler):
             self._send(result, 200)
             return
         if route == "/api/notes":
-            note = {"demo": True, "id": "demo-note-created", "status": "DRAFT", "humanReviewRequired": True, "payload": payload}
+            note = append_demo_note(payload)
+            note["demo"] = True
             record_audit({"action": "CREATE_CLINICAL_NOTE_DRAFT", "resourceId": note["id"], "actor": payload.get("author", "unknown")})
             self._send(note, 201)
             return
