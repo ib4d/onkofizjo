@@ -54,6 +54,10 @@ def write_appointments(document):
     with (DATA / "demo-appointments.json").open("w", encoding="utf-8") as file:
         json.dump(document, file, ensure_ascii=False, indent=2)
 
+def known_patient(patient_id):
+    document = json.loads((DATA / "demo-patients.json").read_text(encoding="utf-8"))
+    return any(item.get("id") == patient_id for item in document.get("patients", []))
+
 def append_demo_note(payload):
     document = read_notes()
     now = datetime.now(timezone.utc).isoformat()
@@ -126,6 +130,9 @@ class Handler(BaseHTTPRequestHandler):
         length = int(self.headers.get("Content-Length", "0"))
         payload = json.loads(self.rfile.read(length) or b"{}")
         if route == "/api/diet-plans":
+            if payload.get("patientId") and not known_patient(payload.get("patientId")):
+                self._send({"error": "patient_not_found", "patientId": payload.get("patientId"), "demo": True}, 422)
+                return
             result = {
                 "demo": True,
                 "id": "demo-plan-created",
@@ -140,11 +147,17 @@ class Handler(BaseHTTPRequestHandler):
             if not payload.get("patientId") or not payload.get("task"):
                 self._send({"error": "patient_and_task_required", "demo": True}, 422)
                 return
+            if not known_patient(payload["patientId"]):
+                self._send({"error": "patient_not_found", "patientId": payload["patientId"], "demo": True}, 422)
+                return
             result = {"demo": True, "id": f"assistant-demo-{datetime.now(timezone.utc).strftime('%Y%m%d%H%M%S')}", "patientId": payload["patientId"], "task": payload["task"], "status": "NEEDS_REVIEW", "answer": "No clinical conclusion generated. Review the linked patient context and approved sources before drafting.", "sources": payload.get("sources", []), "humanReviewRequired": True, "noInferenceWithoutEvidence": True}
             record_audit({"action": "CREATE_ASSISTANT_RUN", "resourceId": result["id"], "actor": payload.get("requestedBy", "demo-gosia")})
             self._send(result, 201)
             return
         if route == "/api/diet-plans/status":
+            if payload.get("patientId") and not known_patient(payload.get("patientId")):
+                self._send({"error": "patient_not_found", "patientId": payload.get("patientId"), "demo": True}, 422)
+                return
             allowed = {"ASSISTANT_PROPOSED", "DRAFT", "IN_REVIEW", "APPROVED", "REJECTED"}
             status = payload.get("status")
             if status not in allowed:
@@ -161,6 +174,9 @@ class Handler(BaseHTTPRequestHandler):
             self._send(result, 200)
             return
         if route == "/api/appointments":
+            if not known_patient(payload.get("patientId")):
+                self._send({"error": "patient_not_found", "patientId": payload.get("patientId"), "demo": True}, 422)
+                return
             document = read_appointments()
             next_id = f"appt-demo-{len(document.get('appointments', [])) + 1:03d}"
             appointment = {"id": next_id, "patientId": payload.get("patientId"), "patient": payload.get("patient", ""), "ecosystem": payload.get("ecosystem", ""), "location": payload.get("location", ""), "service": payload.get("service", ""), "start": payload.get("start", ""), "end": payload.get("end", ""), "status": "SCHEDULED", "paymentStatus": "PENDING"}
@@ -187,6 +203,9 @@ class Handler(BaseHTTPRequestHandler):
             self._send(result, 200)
             return
         if route == "/api/teleconsultations":
+            if not known_patient(payload.get("patientId")):
+                self._send({"error": "patient_not_found", "patientId": payload.get("patientId"), "demo": True}, 422)
+                return
             mode = payload.get("mode")
             if mode not in {"VIDEO", "PHONE"}:
                 self._send({"error": "invalid_mode", "allowed": ["VIDEO", "PHONE"], "demo": True}, 422)
@@ -199,6 +218,9 @@ class Handler(BaseHTTPRequestHandler):
             self._send(result, 201)
             return
         if route == "/api/notes":
+            if not known_patient(payload.get("patientId")):
+                self._send({"error": "patient_not_found", "patientId": payload.get("patientId"), "demo": True}, 422)
+                return
             if payload.get("role") == "AI_AGENT" and payload.get("status", "DRAFT") != "DRAFT":
                 self._send({"error": "forbidden_note_status", "allowedStatus": "DRAFT", "demo": True}, 403)
                 return
