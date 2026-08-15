@@ -117,6 +117,14 @@ class Handler(BaseHTTPRequestHandler):
         if isinstance(target, dict):
             self._send(target)
             return
+        if route == "/api/patient-context" and query.get("patientId"):
+            patient_id = query["patientId"][0]
+            context = json.loads((DATA / "demo-clinical-profiles.json").read_text(encoding="utf-8")).get("profiles", {})
+            if patient_id not in context:
+                self._send({"error": "patient_context_not_found", "patientId": patient_id, "demo": True}, 404)
+                return
+            self._send({"demo": True, "profiles": {patient_id: context[patient_id]}})
+            return
         if route == "/api/diet-plans" and query.get("patientId"):
             patient_id = query["patientId"][0]
             profiles = json.loads((DATA / "demo-clinical-profiles.json").read_text(encoding="utf-8")).get("profiles", {})
