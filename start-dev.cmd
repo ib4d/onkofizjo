@@ -5,6 +5,6 @@ echo.
 echo Onkofizjo está iniciándose.
 echo Marketing: http://127.0.0.1:4173/
 echo CRM:       http://127.0.0.1:4173/crm.html
-echo API:       http://127.0.0.1:8794/api/health
+echo API:       http://127.0.0.1:8797/api/health
 echo.
 pause
