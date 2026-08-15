@@ -58,6 +58,10 @@ def known_patient(patient_id):
     document = json.loads((DATA / "demo-patients.json").read_text(encoding="utf-8"))
     return any(item.get("id") == patient_id for item in document.get("patients", []))
 
+def appointment_for(appointment_id):
+    document = read_appointments()
+    return next((item for item in document.get("appointments", []) if item.get("id") == appointment_id), None)
+
 def append_demo_note(payload):
     document = read_notes()
     now = datetime.now(timezone.utc).isoformat()
@@ -188,6 +192,9 @@ class Handler(BaseHTTPRequestHandler):
         if route == "/api/appointments/status":
             allowed = {"SCHEDULED", "CONFIRMED", "TIME_BLOCKED", "CANCELLED_BY_PATIENT", "NO_SHOW", "COMPLETED", "VACATION", "BLOCKED"}
             status = payload.get("status")
+            if not appointment_for(payload.get("appointmentId")):
+                self._send({"error": "appointment_not_found", "appointmentId": payload.get("appointmentId"), "demo": True}, 404)
+                return
             if status not in allowed:
                 self._send({"error": "invalid_status", "allowed": sorted(allowed), "demo": True}, 422)
                 return
@@ -206,6 +213,14 @@ class Handler(BaseHTTPRequestHandler):
             if not known_patient(payload.get("patientId")):
                 self._send({"error": "patient_not_found", "patientId": payload.get("patientId"), "demo": True}, 422)
                 return
+            if payload.get("appointmentId"):
+                appointment = appointment_for(payload["appointmentId"])
+                if not appointment:
+                    self._send({"error": "appointment_not_found", "appointmentId": payload["appointmentId"], "demo": True}, 422)
+                    return
+                if appointment.get("patientId") != payload["patientId"]:
+                    self._send({"error": "appointment_patient_mismatch", "demo": True}, 422)
+                    return
             mode = payload.get("mode")
             if mode not in {"VIDEO", "PHONE"}:
                 self._send({"error": "invalid_mode", "allowed": ["VIDEO", "PHONE"], "demo": True}, 422)
@@ -221,6 +236,14 @@ class Handler(BaseHTTPRequestHandler):
             if not known_patient(payload.get("patientId")):
                 self._send({"error": "patient_not_found", "patientId": payload.get("patientId"), "demo": True}, 422)
                 return
+            if payload.get("appointmentId"):
+                appointment = appointment_for(payload["appointmentId"])
+                if not appointment:
+                    self._send({"error": "appointment_not_found", "appointmentId": payload["appointmentId"], "demo": True}, 422)
+                    return
+                if appointment.get("patientId") != payload["patientId"]:
+                    self._send({"error": "appointment_patient_mismatch", "demo": True}, 422)
+                    return
             if payload.get("role") == "AI_AGENT" and payload.get("status", "DRAFT") != "DRAFT":
                 self._send({"error": "forbidden_note_status", "allowedStatus": "DRAFT", "demo": True}, 403)
                 return
