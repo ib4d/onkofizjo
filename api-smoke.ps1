@@ -3,6 +3,7 @@ $ErrorActionPreference = 'Stop'
 $Base = "http://127.0.0.1:$Port"
 function Get-Json($Path) { Invoke-RestMethod -Uri "$Base$Path" -Method Get -Headers @{Accept='application/json'} }
 function Post-Json($Path, $Body, $Headers = $null) {
+  if (-not $Headers -and $Script:AuthHeaders) { $Headers = $Script:AuthHeaders }
   $arguments = @{ Uri = "$Base$Path"; Method = 'Post'; ContentType = 'application/json'; Body = ($Body | ConvertTo-Json -Compress) }
   if ($Headers) { $arguments.Headers = $Headers }
   Invoke-RestMethod @arguments
@@ -14,7 +15,8 @@ $session = Post-Json '/api/auth/session' @{ userId='demo-gosia'; role='GOSIA' };
 $sessionCheck = Invoke-RestMethod -Uri "$Base/api/auth/session" -Method Get -Headers @{ Authorization = "Bearer $($session.accessToken)" }; if (-not $sessionCheck.authenticated -or $sessionCheck.session.role -ne 'GOSIA') { throw 'Authenticated session read failed' }
 Write-Output 'PASS: unauthenticated requests are rejected and demo Gosia session is verifiable.'
 $authHeaders = @{ Authorization = "Bearer $($session.accessToken)" }
-try { Post-Json '/api/assistant-runs' @{ patientId='demo-patient-ewa-dabrowska'; task='unauthenticated guard'; sources=@() } | Out-Null; throw 'Assistant auth guard failed' } catch { if ($_.Exception.Response.StatusCode.value__ -ne 401) { throw } }
+$Script:AuthHeaders = $authHeaders
+try { Invoke-RestMethod -Uri "$Base/api/assistant-runs" -Method Post -ContentType 'application/json' -Body (@{ patientId='demo-patient-ewa-dabrowska'; task='unauthenticated guard'; sources=@() } | ConvertTo-Json -Compress) | Out-Null; throw 'Assistant auth guard failed' } catch { if ($_.Exception.Response.StatusCode.value__ -ne 401) { throw } }
 $assistant = Post-Json '/api/assistant-runs' @{ patientId='demo-patient-ewa-dabrowska'; task='smoke test'; sources=@('patient-context') } -Headers $authHeaders; if ($assistant.status -ne 'NEEDS_REVIEW') { throw 'Assistant guardrail failed' }
 $patients = Get-Json '/api/patients'; if ($patients.patients.Count -lt 3) { throw 'Expected at least 3 demo patients' }
 $search = Get-Json '/api/patients?q=maria'; if ($search.patients.Count -ne 1 -or $search.patients[0].id -ne 'demo-patient-maria-nowak') { throw 'Patient search contract failed' }

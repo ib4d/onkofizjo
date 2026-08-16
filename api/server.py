@@ -225,6 +225,8 @@ class Handler(BaseHTTPRequestHandler):
             self._send(result, 200)
             return
         if route == "/api/appointments":
+            if not self.require_session():
+                return
             if not known_patient(payload.get("patientId")):
                 self._send({"error": "patient_not_found", "patientId": payload.get("patientId"), "demo": True}, 422)
                 return
@@ -237,6 +239,8 @@ class Handler(BaseHTTPRequestHandler):
             self._send({"demo": True, "id": next_id, "status": "SCHEDULED", "humanConfirmationRequired": True, "appointment": appointment}, 201)
             return
         if route == "/api/appointments/status":
+            if not self.require_session():
+                return
             allowed = {"SCHEDULED", "CONFIRMED", "TIME_BLOCKED", "CANCELLED_BY_PATIENT", "NO_SHOW", "COMPLETED", "VACATION", "BLOCKED"}
             status = payload.get("status")
             if not appointment_for(payload.get("appointmentId")):
@@ -257,6 +261,8 @@ class Handler(BaseHTTPRequestHandler):
             self._send(result, 200)
             return
         if route == "/api/teleconsultations":
+            if not self.require_session():
+                return
             if not known_patient(payload.get("patientId")):
                 self._send({"error": "patient_not_found", "patientId": payload.get("patientId"), "demo": True}, 422)
                 return

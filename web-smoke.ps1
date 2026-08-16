@@ -39,4 +39,5 @@ Assert-PageContains 'note-create.html?patientId=demo-patient-ewa-dabrowska' 'id=
 Assert-PageExcludes 'diet-plan.html' 'Anna Kowalska'
 Assert-PageContains 'crm.html' 'data-phase3-responsive'
 Assert-PageContains 'calendar.html' 'data-phase3-responsive'
+Assert-PageContains 'appointment-create.html' 'auth-bridge.js'
 Write-Output "PASS: $($routes.Count) application routes returned HTTP 200."

