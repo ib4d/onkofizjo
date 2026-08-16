@@ -56,13 +56,22 @@ class FakeStorage:
     pass
 
 
+class FakeDatabase:
+    pass
+
+
 class FakeAudit:
     pass
 
 
 runtime = build_production_runtime(
     config,
-    ProductionAdapters(identity=FakeIdentity(), storage=FakeStorage(), audit_sink=FakeAudit()),
+    ProductionAdapters(
+        identity=FakeIdentity(),
+        database=FakeDatabase(),
+        storage=FakeStorage(),
+        audit_sink=FakeAudit(),
+    ),
 )
 assert runtime.config.storage_bucket == "onkofizjo-clinical"
 

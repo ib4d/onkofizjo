@@ -62,8 +62,9 @@ desarrollo. Sigue prohibido introducir datos reales: el API local declara
   `PRIVACY_DATA_MAP.md`, y la decisión de infraestructura pendiente está
   documentada en `infra/PROVIDER_DECISION.md`. Las interfaces provider-neutral
   de OIDC, almacenamiento clínico y auditoría externa fallan cerradas en
-  `api/production_adapters.py`, y `api/production_startup.py` impide iniciar
-  el runtime si falta cualquiera de esas integraciones; estos artefactos requieren revisión jurídica
+  `api/production_adapters.py` (incluye ahora el adaptador privado de
+  PostgreSQL), y `api/production_startup.py` impide iniciar el runtime si falta
+  cualquiera de esas integraciones; estos artefactos requieren revisión jurídica
   polaca y proveedores autorizados antes de conectar datos reales.
 
 ## Evidencia ejecutada

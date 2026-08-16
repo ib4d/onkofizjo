@@ -53,9 +53,10 @@ operational gates, not a substitute for Polish legal review.
 
 The provider boundary is explicit in `api/production_adapters.py`. Its default
 adapters reject every operation, so the future production service cannot fall
-back to demo sessions, local files or in-memory audit data. Real OIDC, encrypted
-object-storage and external immutable-audit implementations must be registered
-and reviewed before `ProductionAdapters.assert_ready()` can pass.
+back to demo sessions, local files or in-memory audit data. Real OIDC, private
+PostgreSQL, encrypted object-storage and external immutable-audit
+implementations must be registered and reviewed before
+`ProductionAdapters.assert_ready()` can pass.
 
 `api/production_startup.py` combines both gates. A future production entrypoint
 must call `build_production_runtime()` before binding an HTTP listener; it will

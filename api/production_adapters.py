@@ -30,6 +30,11 @@ class ClinicalObjectStorage(Protocol):
         """Delete an object only as part of an approved lifecycle workflow."""
 
 
+class ClinicalDatabase(Protocol):
+    def health_check(self) -> None:
+        """Verify that the private PostgreSQL clinical store is reachable."""
+
+
 class ExternalAuditSink(Protocol):
     def append(self, *, event_hash: str, payload: dict[str, object]) -> str:
         """Append an event to an external immutable audit destination."""
@@ -53,6 +58,13 @@ class _UnconfiguredClinicalObjectStorage:
         raise ProductionIntegrationNotConfigured("No clinical deletion workflow adapter is configured")
 
 
+class _UnconfiguredClinicalDatabase:
+    def health_check(self) -> None:
+        raise ProductionIntegrationNotConfigured(
+            "No private PostgreSQL clinical database adapter is configured"
+        )
+
+
 class _UnconfiguredExternalAuditSink:
     def append(self, *, event_hash: str, payload: dict[str, object]) -> str:
         raise ProductionIntegrationNotConfigured("No external immutable audit sink adapter is configured")
@@ -63,6 +75,7 @@ class ProductionAdapters:
     """All provider boundaries required by a clinical production service."""
 
     identity: IdentityVerifier
+    database: ClinicalDatabase
     storage: ClinicalObjectStorage
     audit_sink: ExternalAuditSink
 
@@ -70,15 +83,24 @@ class ProductionAdapters:
     def unconfigured(cls) -> "ProductionAdapters":
         return cls(
             identity=_UnconfiguredIdentityVerifier(),
+            database=_UnconfiguredClinicalDatabase(),
             storage=_UnconfiguredClinicalObjectStorage(),
             audit_sink=_UnconfiguredExternalAuditSink(),
         )
 
     def assert_ready(self) -> None:
         if any(
-            isinstance(adapter, (_UnconfiguredIdentityVerifier, _UnconfiguredClinicalObjectStorage, _UnconfiguredExternalAuditSink))
-            for adapter in (self.identity, self.storage, self.audit_sink)
+            isinstance(
+                adapter,
+                (
+                    _UnconfiguredIdentityVerifier,
+                    _UnconfiguredClinicalDatabase,
+                    _UnconfiguredClinicalObjectStorage,
+                    _UnconfiguredExternalAuditSink,
+                ),
+            )
+            for adapter in (self.identity, self.database, self.storage, self.audit_sink)
         ):
             raise ProductionIntegrationNotConfigured(
-                "Production adapters are incomplete; configure OIDC, encrypted storage and external audit sink"
+                "Production adapters are incomplete; configure OIDC, private PostgreSQL, encrypted storage and external audit sink"
             )
