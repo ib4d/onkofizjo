@@ -1,6 +1,6 @@
 # Onkofizjo · estado global de ejecución
 
-Última verificación: 2026-08-16
+Última verificación: 2026-08-17
 
 ## Estado actual
 
@@ -44,7 +44,10 @@ desarrollo. Sigue prohibido introducir datos reales: el API local declara
   pagos y auditoría append-only. La validación local es estática porque este
   entorno no tiene PostgreSQL de staging. También existe un guion de pruebas
   negativas para ejecutar allí con fixtures sintéticos y rollback transaccional,
-  más un bootstrap Docker con roles separados y volumen local aislado.
+  un bootstrap Docker con roles separados y volumen local aislado, y un workflow
+  de integración continua que ejecuta el mismo contrato en PostgreSQL efímero.
+  El bootstrap y el workflow están preparados, pero su ejecución runtime aún
+  requiere Docker/PostgreSQL o un run disponible de GitHub Actions.
 - **4.6 Infraestructura clínica de producción:** pendiente y bloqueante. Faltan
   IdP real con MFA, cookies HttpOnly/Secure/SameSite, base de datos cifrada,
   almacenamiento de documentos cifrado, backups y restauración probados,

@@ -7,6 +7,7 @@ from pathlib import Path
 
 
 sql = (Path(__file__).resolve().parent / "staging_rls_checks.sql").read_text(encoding="utf-8")
+audit_sql = (Path(__file__).resolve().parent / "audit_trigger_checks.sql").read_text(encoding="utf-8")
 required = (
     "\\set ON_ERROR_STOP on",
     "BEGIN;",
@@ -28,4 +29,12 @@ for token in required:
 if "SELECT set_config('onkofizjo.test_audit_sequence', :'audit_sequence', TRUE);" not in sql:
     raise AssertionError("psql audit sequence must be copied into a transaction-local setting")
 
-print("PASS: staging RLS harness retains rollback, cross-patient, role and audit checks.")
+for token in (
+    "audit update trigger did not reject mutation",
+    "audit delete trigger did not reject mutation",
+    "ROLLBACK;",
+):
+    if token not in audit_sql:
+        raise AssertionError(f"audit trigger harness is missing: {token}")
+
+print("PASS: staging RLS and append-only audit harnesses retain rollback, cross-patient, role and mutation checks.")

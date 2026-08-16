@@ -63,3 +63,17 @@ El bootstrap publica PostgreSQL solo en `127.0.0.1`, crea un usuario de
 aplicación separado del administrador, aplica la migración, carga únicamente
 fixtures sintéticos y ejecuta el harness con rollback. `-Reset` es explícito y
 elimina únicamente el volumen de este staging local.
+
+## Verificación continua
+
+El workflow [`staging-security.yml`](C:\dev\mis-apps\reha-app\.github\workflows\staging-security.yml)
+repite estas comprobaciones en un PostgreSQL efímero de GitHub Actions:
+
+- validación estática del esquema, del contrato de producción y de los harnesses;
+- aplicación de la migración y carga de fixtures sintéticos;
+- comprobación de los triggers append-only de auditoría como propietario;
+- comprobación de RLS con un rol de aplicación no propietario.
+
+El workflow no constituye una certificación de producción: solo evita que el
+contrato de persistencia y sus barreras principales se degraden durante los
+cambios de código.

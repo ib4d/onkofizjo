@@ -1,0 +1,76 @@
+name: Staging security contract
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  postgres-rls:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: onkofizjo_staging
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d onkofizjo_staging"
+          --health-interval 2s
+          --health-timeout 3s
+          --health-retries 20
+
+    env:
+      PGHOST: 127.0.0.1
+      PGPORT: 5432
+      PGDATABASE: onkofizjo_staging
+      PGUSER: postgres
+      PGPASSWORD: postgres
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install PostgreSQL client
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes postgresql-client
+      - name: Validate local contracts
+        run: |
+          python db/validate_schema.py
+          python db/validate_staging_checks.py
+          python api/validate_production_config.py
+      - name: Apply production schema to disposable staging
+        run: psql --set ON_ERROR_STOP=1 --file=db/001_initial_production.sql
+      - name: Create non-owner application role
+        run: |
+          psql --set ON_ERROR_STOP=1 <<'SQL'
+          CREATE ROLE onkofizjo_app LOGIN PASSWORD 'ci-only-app-password';
+          GRANT CONNECT ON DATABASE onkofizjo_staging TO onkofizjo_app;
+          GRANT USAGE ON SCHEMA onkofizjo TO onkofizjo_app;
+          GRANT SELECT, INSERT, UPDATE ON ALL TABLES IN SCHEMA onkofizjo TO onkofizjo_app;
+          GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA onkofizjo TO onkofizjo_app;
+          GRANT EXECUTE ON ALL FUNCTIONS IN SCHEMA onkofizjo TO onkofizjo_app;
+          SQL
+      - name: Load synthetic fixtures
+        run: psql --set ON_ERROR_STOP=1 --file=db/staging-fixtures.sql
+      - name: Verify append-only audit triggers as database owner
+        run: psql --set ON_ERROR_STOP=1 --file=db/audit_trigger_checks.sql
+      - name: Verify RLS as non-owner application role
+        env:
+          PGUSER: onkofizjo_app
+          PGPASSWORD: ci-only-app-password
+        run: >-
+          psql --set ON_ERROR_STOP=1
+          -v subject_gosia=staging-gosia
+          -v subject_collaborator_a=staging-collaborator-a
+          -v patient_a=30000000-0000-4000-8000-000000000001
+          -v patient_b=30000000-0000-4000-8000-000000000002
+          -v diet_plan_id=50000000-0000-4000-8000-000000000001
+          --file=db/staging_rls_checks.sql
