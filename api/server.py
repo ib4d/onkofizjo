@@ -117,6 +117,12 @@ class Handler(BaseHTTPRequestHandler):
         if isinstance(target, dict):
             self._send(target)
             return
+        if route == "/api/patients" and query.get("q"):
+            term = query["q"][0].strip().casefold()
+            document = json.loads((DATA / "demo-patients.json").read_text(encoding="utf-8"))
+            matches = [item for item in document.get("patients", []) if term in item.get("name", "").casefold() or term in item.get("id", "").casefold() or term in item.get("ecosystem", "").casefold()]
+            self._send({"demo": True, "query": query["q"][0], "patients": matches})
+            return
         if route == "/api/patient-context" and query.get("patientId"):
             patient_id = query["patientId"][0]
             context = json.loads((DATA / "demo-clinical-profiles.json").read_text(encoding="utf-8")).get("profiles", {})
