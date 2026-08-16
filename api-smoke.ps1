@@ -20,6 +20,13 @@ foreach ($expected in $expectedContexts) {
   if ($scoped.profiles.PSObject.Properties.Name.Count -ne 1) { throw "Patient context was not scoped for $($expected.Id)" }
 }
 Write-Output 'PASS: patient contexts remain scoped and retain distinct record IDs.'
+try {
+  Get-Json '/api/patient-context?patientId=does-not-exist' | Out-Null
+  throw 'Unknown patient guard failed'
+} catch {
+  if ($_.Exception.Response.StatusCode.value__ -ne 404) { throw }
+}
+Write-Output 'PASS: unknown patient context returns HTTP 404 without fallback data.'
 $assistant = Post-Json '/api/assistant-runs' @{ patientId='demo-patient-ewa-dabrowska'; task='smoke test'; sources=@('patient-context') }; if ($assistant.status -ne 'NEEDS_REVIEW') { throw 'Assistant guardrail failed' }
 $tele = Post-Json '/api/teleconsultations' @{ patientId='demo-patient-ewa-dabrowska'; appointmentId='appt-003'; mode='PHONE'; role='GOSIA' }; if ($tele.status -ne 'INITIATED') { throw 'Teleconsultation flow failed' }
 $permissions = Get-Json '/api/permissions'; if (-not $permissions.roles.GOSIA.approve_diet -or $permissions.roles.AI_AGENT.approve_diet) { throw 'Permission policy failed' }
