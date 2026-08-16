@@ -43,3 +43,8 @@ python db/validate_schema.py
 
 Esta comprobación es estática. La validación real requiere aplicar la migración
 en staging y ejecutar pruebas negativas de RLS con cada rol y ecosistema.
+
+El guion [`staging_rls_checks.sql`](C:\dev\mis-apps\reha-app\db\staging_rls_checks.sql)
+contiene esas comprobaciones. Requiere fixtures sintéticos ya creados, el rol
+de aplicación (no el propietario de la migración), y hace rollback de todos sus
+cambios al finalizar.
