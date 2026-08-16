@@ -15,7 +15,7 @@ ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / "data"
 
 ROUTES = {
-    "/api/health": {"service": "onkofizjo-dev-api", "demo": True},
+    "/api/health": {"service": "onkofizjo-dev-api", "version": "0.1.0-demo", "demo": True, "dataMode": "synthetic-only"},
     "/api/patients": "demo-patients.json",
     "/api/diet-plans": "demo-diet-plan.json",
     "/api/assistant-runs": "demo-assistant-run.json",
