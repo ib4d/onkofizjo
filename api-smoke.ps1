@@ -6,6 +6,7 @@ function Post-Json($Path, $Body) { Invoke-RestMethod -Uri "$Base$Path" -Method P
 Write-Output "Testing Onkofizjo API at $Base"
 $health = Get-Json '/api/health'; if (-not $health.demo -or -not $health.version -or $health.dataMode -ne 'synthetic-only') { throw 'Health contract failed' }
 $patients = Get-Json '/api/patients'; if ($patients.patients.Count -lt 3) { throw 'Expected at least 3 demo patients' }
+$search = Get-Json '/api/patients?q=maria'; if ($search.patients.Count -ne 1 -or $search.patients[0].id -ne 'demo-patient-maria-nowak') { throw 'Patient search contract failed' }
 $context = Get-Json '/api/patient-context?patientId=demo-patient-ewa-dabrowska'; if (-not $context.profiles.'demo-patient-ewa-dabrowska') { throw 'Ewa context missing' }
 $assistant = Post-Json '/api/assistant-runs' @{ patientId='demo-patient-ewa-dabrowska'; task='smoke test'; sources=@('patient-context') }; if ($assistant.status -ne 'NEEDS_REVIEW') { throw 'Assistant guardrail failed' }
 $tele = Post-Json '/api/teleconsultations' @{ patientId='demo-patient-ewa-dabrowska'; appointmentId='appt-003'; mode='PHONE'; role='GOSIA' }; if ($tele.status -ne 'INITIATED') { throw 'Teleconsultation flow failed' }
