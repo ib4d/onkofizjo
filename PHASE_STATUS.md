@@ -50,7 +50,8 @@ desarrollo. Sigue prohibido introducir datos reales: el API local declara
   retención/borrado, acuerdos RODO/GDPR, respuesta a incidentes y revisión de
   seguridad independiente. Existe un contrato ejecutable que rechaza una
   configuración incompleta o insegura, pero todavía no hay proveedores
-  conectados ni staging real.
+  conectados ni staging real. El mapa de datos y los workflows jurídicos están
+  documentados en `PRIVACY_DATA_MAP.md`, pendientes de revisión jurídica polaca.
 
 ## Evidencia ejecutada
 
