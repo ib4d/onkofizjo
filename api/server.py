@@ -92,6 +92,12 @@ class Handler(BaseHTTPRequestHandler):
         token = header.removeprefix("Bearer ").strip()
         return DEMO_SESSIONS.get(token)
 
+    def require_session(self):
+        if self.session():
+            return True
+        self._send({"error": "unauthorized", "demo": True}, 401)
+        return False
+
     def _send(self, value, status=200):
         body = json.dumps(value, ensure_ascii=False).encode("utf-8")
         self.send_response(status)
@@ -185,6 +191,8 @@ class Handler(BaseHTTPRequestHandler):
             self._send(result, 201)
             return
         if route == "/api/assistant-runs":
+            if not self.require_session():
+                return
             if not payload.get("patientId") or not payload.get("task"):
                 self._send({"error": "patient_and_task_required", "demo": True}, 422)
                 return
@@ -196,6 +204,8 @@ class Handler(BaseHTTPRequestHandler):
             self._send(result, 201)
             return
         if route == "/api/diet-plans/status":
+            if not self.require_session():
+                return
             if payload.get("patientId") and not known_patient(payload.get("patientId")):
                 self._send({"error": "patient_not_found", "patientId": payload.get("patientId"), "demo": True}, 422)
                 return
@@ -270,6 +280,8 @@ class Handler(BaseHTTPRequestHandler):
             self._send(result, 201)
             return
         if route == "/api/notes":
+            if not self.require_session():
+                return
             if not known_patient(payload.get("patientId")):
                 self._send({"error": "patient_not_found", "patientId": payload.get("patientId"), "demo": True}, 422)
                 return
