@@ -20,6 +20,7 @@ $sessionCheck = Invoke-RestMethod -Uri "$Base/api/auth/session" -Method Get -Hea
 Write-Output 'PASS: unauthenticated requests are rejected and demo Gosia session is verifiable.'
 $authHeaders = @{ Authorization = "Bearer $($session.accessToken)" }
 $Script:AuthHeaders = $authHeaders
+$aiSession = Post-Json '/api/auth/session' @{ userId='demo-agent'; role='AI_AGENT' }; $aiHeaders = @{ Authorization = "Bearer $($aiSession.accessToken)" }
 try { Invoke-RestMethod -Uri "$Base/api/patients" -Method Get -Headers @{Accept='application/json'} | Out-Null; throw 'Protected read guard failed' } catch { if ($_.Exception.Response.StatusCode.value__ -ne 401) { throw } }
 Write-Output 'PASS: protected clinical reads require the verified session.'
 try { Invoke-RestMethod -Uri "$Base/api/assistant-runs" -Method Post -ContentType 'application/json' -Body (@{ patientId='demo-patient-ewa-dabrowska'; task='unauthenticated guard'; sources=@() } | ConvertTo-Json -Compress) | Out-Null; throw 'Assistant auth guard failed' } catch { if ($_.Exception.Response.StatusCode.value__ -ne 401) { throw } }
@@ -51,5 +52,7 @@ $permissions = Get-Json '/api/permissions'; if (-not $permissions.roles.GOSIA.ap
 $audit = Get-Json '/api/audit-events'; if ($null -eq $audit.events) { throw 'Audit endpoint failed' }
 try { Post-Json '/api/teleconsultations' @{ patientId='demo-patient-maria-nowak'; appointmentId='appt-001'; mode='PHONE'; role='GOSIA' } | Out-Null; throw 'Mismatch guard failed' } catch { if ($_.Exception.Response.StatusCode.value__ -ne 422) { throw } }
 try { Post-Json '/api/appointments/status' @{ appointmentId='appt-002'; status='INVALID' } | Out-Null; throw 'Appointment status guard failed' } catch { if ($_.Exception.Response.StatusCode.value__ -ne 422) { throw } }
-try { Post-Json '/api/diet-plans/status' @{ patientId='demo-patient-maria-nowak'; status='APPROVED'; approvedBy='agent'; role='AI_AGENT' } -Headers $authHeaders | Out-Null; throw 'Diet approval guard failed' } catch { if ($_.Exception.Response.StatusCode.value__ -ne 403) { throw } }
+try { Post-Json '/api/diet-plans/status' @{ patientId='demo-patient-maria-nowak'; status='APPROVED'; approvedBy='agent' } -Headers $aiHeaders | Out-Null; throw 'Diet approval guard failed' } catch { if ($_.Exception.Response.StatusCode.value__ -ne 403) { throw } }
+try { Post-Json '/api/teleconsultations' @{ patientId='demo-patient-ewa-dabrowska'; appointmentId='appt-003'; mode='PHONE' } -Headers $aiHeaders | Out-Null; throw 'Teleconsultation role guard failed' } catch { if ($_.Exception.Response.StatusCode.value__ -ne 403) { throw } }
+try { Post-Json '/api/diet-plans/status' @{ patientId='demo-patient-maria-nowak'; status='APPROVED'; approvedBy='demo-gosia'; role='GOSIA' } -Headers $aiHeaders | Out-Null; throw 'Role spoofing guard failed' } catch { if ($_.Exception.Response.StatusCode.value__ -ne 403) { throw } }
 Write-Output 'PASS: health, patients, search, scoped context, assistant review, teleconsultation, permissions, audit, mismatch, status and approval guards.'

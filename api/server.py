@@ -29,6 +29,8 @@ ROUTES = {
 AUDIT_DB = ROOT / "data" / "dev-audit.sqlite3"
 DEMO_SESSIONS = {
     "demo-session-gosia": {"userId": "demo-gosia", "role": "GOSIA", "displayName": "Małgorzata Papierz"},
+    "demo-session-ai": {"userId": "demo-agent", "role": "AI_AGENT", "displayName": "Hermes demo agent"},
+    "demo-session-collaborator": {"userId": "demo-collaborator", "role": "COLLABORATOR", "displayName": "Collaborator demo"},
 }
 
 def audit_db():
@@ -97,6 +99,10 @@ class Handler(BaseHTTPRequestHandler):
             return True
         self._send({"error": "unauthorized", "demo": True}, 401)
         return False
+
+    def role(self):
+        session = self.session()
+        return session.get("role") if session else None
 
     def _send(self, value, status=200):
         body = json.dumps(value, ensure_ascii=False).encode("utf-8")
@@ -172,10 +178,11 @@ class Handler(BaseHTTPRequestHandler):
         length = int(self.headers.get("Content-Length", "0"))
         payload = json.loads(self.rfile.read(length) or b"{}")
         if route == "/api/auth/session":
-            if payload.get("userId") != "demo-gosia" or payload.get("role") != "GOSIA":
+            valid = next((token for token, session in DEMO_SESSIONS.items() if session["userId"] == payload.get("userId") and session["role"] == payload.get("role")), None)
+            if not valid:
                 self._send({"error": "invalid_demo_credentials", "demo": True}, 401)
                 return
-            token = "demo-session-gosia"
+            token = valid
             record_audit({"action": "CREATE_DEMO_SESSION", "resourceId": token, "actor": "demo-gosia"})
             self._send({"demo": True, "authenticated": True, "accessToken": token, "session": DEMO_SESSIONS[token], "expiresIn": 3600}, 201)
             return
@@ -209,6 +216,9 @@ class Handler(BaseHTTPRequestHandler):
         if route == "/api/diet-plans/status":
             if not self.require_session():
                 return
+            if payload.get("role") and payload.get("role") != self.role():
+                self._send({"error": "role_mismatch", "sessionRole": self.role(), "demo": True}, 403)
+                return
             if payload.get("patientId") and not known_patient(payload.get("patientId")):
                 self._send({"error": "patient_not_found", "patientId": payload.get("patientId"), "demo": True}, 422)
                 return
@@ -220,7 +230,7 @@ class Handler(BaseHTTPRequestHandler):
             if status == "APPROVED" and not payload.get("approvedBy"):
                 self._send({"error": "human_approval_required", "demo": True}, 422)
                 return
-            if status == "APPROVED" and payload.get("role", "GOSIA") != "GOSIA":
+            if status == "APPROVED" and self.role() != "GOSIA":
                 self._send({"error": "forbidden_role", "requiredRole": "GOSIA", "demo": True}, 403)
                 return
             result = {"demo": True, "recorded": True, "patientId": payload.get("patientId"), "planId": payload.get("planId", "demo-plan-created"), "status": status, "humanApprovalRequired": status != "APPROVED"}
@@ -281,7 +291,7 @@ class Handler(BaseHTTPRequestHandler):
             if mode not in {"VIDEO", "PHONE"}:
                 self._send({"error": "invalid_mode", "allowed": ["VIDEO", "PHONE"], "demo": True}, 422)
                 return
-            if payload.get("role", "GOSIA") == "AI_AGENT":
+            if self.role() == "AI_AGENT":
                 self._send({"error": "forbidden_role", "requiredRole": "GOSIA or COLLABORATOR", "demo": True}, 403)
                 return
             result = {"demo": True, "id": f"tele-demo-{datetime.now(timezone.utc).strftime('%Y%m%d%H%M%S')}", "patientId": payload.get("patientId"), "appointmentId": payload.get("appointmentId"), "mode": mode, "status": "READY" if mode == "VIDEO" else "INITIATED", "consentRequired": mode == "VIDEO", "recording": False}
@@ -302,7 +312,7 @@ class Handler(BaseHTTPRequestHandler):
                 if appointment.get("patientId") != payload["patientId"]:
                     self._send({"error": "appointment_patient_mismatch", "demo": True}, 422)
                     return
-            if payload.get("role") == "AI_AGENT" and payload.get("status", "DRAFT") != "DRAFT":
+            if self.role() == "AI_AGENT" and payload.get("status", "DRAFT") != "DRAFT":
                 self._send({"error": "forbidden_note_status", "allowedStatus": "DRAFT", "demo": True}, 403)
                 return
             note = append_demo_note(payload)
