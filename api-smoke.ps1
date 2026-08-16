@@ -13,4 +13,6 @@ $tele = Post-Json '/api/teleconsultations' @{ patientId='demo-patient-ewa-dabrow
 $permissions = Get-Json '/api/permissions'; if (-not $permissions.roles.GOSIA.approve_diet -or $permissions.roles.AI_AGENT.approve_diet) { throw 'Permission policy failed' }
 $audit = Get-Json '/api/audit-events'; if ($null -eq $audit.events) { throw 'Audit endpoint failed' }
 try { Post-Json '/api/teleconsultations' @{ patientId='demo-patient-maria-nowak'; appointmentId='appt-001'; mode='PHONE'; role='GOSIA' } | Out-Null; throw 'Mismatch guard failed' } catch { if ($_.Exception.Response.StatusCode.value__ -ne 422) { throw } }
-Write-Output 'PASS: health, patients, scoped context, assistant review, teleconsultation, permissions, audit, mismatch guard.'
+try { Post-Json '/api/appointments/status' @{ appointmentId='appt-002'; status='INVALID' } | Out-Null; throw 'Appointment status guard failed' } catch { if ($_.Exception.Response.StatusCode.value__ -ne 422) { throw } }
+try { Post-Json '/api/diet-plans/status' @{ patientId='demo-patient-maria-nowak'; status='APPROVED'; approvedBy='agent'; role='AI_AGENT' } | Out-Null; throw 'Diet approval guard failed' } catch { if ($_.Exception.Response.StatusCode.value__ -ne 403) { throw } }
+Write-Output 'PASS: health, patients, search, scoped context, assistant review, teleconsultation, permissions, audit, mismatch, status and approval guards.'
