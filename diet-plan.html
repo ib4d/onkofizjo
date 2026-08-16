@@ -366,5 +366,23 @@
 </main>
 <!-- Mobile Bottom Nav (Suppressed due to transactional intent of builder, but included structure if needed for context shift) -->
 <!-- <nav class="md:hidden fixed bottom-0 w-full z-50 rounded-t-full bg-clinical-white/80 backdrop-blur-md border-t border-sand shadow-lg flex justify-around items-center px-margin-mobile pb-4 pt-2"> ... </nav> -->
-<script src="api-client.js"></script><script src="diet-data-bridge.js"></script>
+<script src="api-client.js"></script><script src="diet-data-bridge.js"></script><script>
+(async function(){
+  const id=new URLSearchParams(location.search).get('patientId');
+  if(!id){
+    const heading=document.querySelector('h1');
+    if(heading){const note=document.createElement('p');note.textContent='Selecciona un paciente desde el CRM para cargar un plan contextualizado.';note.style='margin:12px 0;color:#79564f;font:600 14px Inter,Arial,sans-serif';heading.before(note)}
+    return;
+  }
+  try{
+    const response=await fetch('http://127.0.0.1:8797/api/patients',{headers:{Accept:'application/json'}});
+    const data=await response.json();
+    const patient=(data.patients||[]).find(item=>item.id===id);
+    if(!patient)return;
+    document.querySelectorAll('body *').forEach(node=>{
+      if(node.children.length===0&&node.textContent.includes('Paciente seleccionado'))node.textContent=node.textContent.replaceAll('Paciente seleccionado',patient.name);
+    });
+  }catch(error){console.warn('Diet patient label unavailable',error)}
+})();
+</script>
 </body></html>
