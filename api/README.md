@@ -27,3 +27,10 @@ real patient data. It is not production-ready: it does not provide a real
 identity provider, encrypted clinical storage, rate limiting, managed backups,
 or production health-data safeguards. See `SECURITY_BOUNDARY.md` for the
 mandatory production gates.
+
+The future service configuration contract can be checked without exposing
+secrets:
+
+```powershell
+python api/validate_production_config.py
+```

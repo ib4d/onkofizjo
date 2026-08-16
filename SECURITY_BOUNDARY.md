@@ -25,3 +25,7 @@ Before production deployment, all items below are mandatory:
 6. Add immutable, access-controlled audit storage and independently verify the hash chain.
 7. Complete RODO/GDPR documentation, processor agreements, incident response, and clinical data access reviews.
 8. Run an independent security assessment before importing real records.
+
+The future production service must also pass the executable configuration
+contract in `api/validate_production_config.py`. The current synthetic API does
+not load it and continues to refuse `ONKOFIZJO_ENV=production` by design.

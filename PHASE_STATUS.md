@@ -47,7 +47,9 @@ desarrollo. Sigue prohibido introducir datos reales: el API local declara
   IdP real con MFA, cookies HttpOnly/Secure/SameSite, base de datos cifrada,
   almacenamiento de documentos cifrado, backups y restauración probados,
   retención/borrado, acuerdos RODO/GDPR, respuesta a incidentes y revisión de
-  seguridad independiente.
+  seguridad independiente. Existe un contrato ejecutable que rechaza una
+  configuración incompleta o insegura, pero todavía no hay proveedores
+  conectados ni staging real.
 
 ## Evidencia ejecutada
 
