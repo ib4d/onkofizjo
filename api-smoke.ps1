@@ -20,6 +20,9 @@ try { Invoke-RestMethod -Uri "$Base/api/auth/session" -Method Get -Headers @{Acc
 $session = Post-Json '/api/auth/session' @{ userId='demo-gosia'; role='GOSIA' }; if (-not $session.authenticated -or -not $session.accessToken) { throw 'Demo session contract failed' }
 $sessionCheck = Invoke-RestMethod -Uri "$Base/api/auth/session" -Method Get -Headers @{ Authorization = "Bearer $($session.accessToken)" }; if (-not $sessionCheck.authenticated -or $sessionCheck.session.role -ne 'GOSIA') { throw 'Authenticated session read failed' }
 Write-Output 'PASS: unauthenticated requests are rejected and demo Gosia session is verifiable.'
+$healthHeaders = Invoke-WebRequest -Uri "$Base/api/health" -UseBasicParsing
+if ($healthHeaders.Content -notlike '*"dataMode": "synthetic-only"*' -and $healthHeaders.Content -notlike '*"dataMode":"synthetic-only"*') { throw 'Synthetic data mode declaration missing' }
+Write-Output 'PASS: API explicitly declares synthetic-only data mode.'
 $authHeaders = @{ Authorization = "Bearer $($session.accessToken)" }
 $Script:AuthHeaders = $authHeaders
 $aiSession = Post-Json '/api/auth/session' @{ userId='demo-agent'; role='AI_AGENT' }; $aiHeaders = @{ Authorization = "Bearer $($aiSession.accessToken)" }

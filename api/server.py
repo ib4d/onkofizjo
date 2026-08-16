@@ -350,6 +350,9 @@ class Handler(BaseHTTPRequestHandler):
 
 
 if __name__ == "__main__":
+    environment = os.environ.get("ONKOFIZJO_ENV", "development").lower()
+    if environment == "production" and os.environ.get("ONKOFIZJO_PRODUCTION_READY") != "true":
+        raise SystemExit("Refusing to start demo API in production without ONKOFIZJO_PRODUCTION_READY=true")
     port = int(os.environ.get("ONKOFIZJO_API_PORT", "8787"))
     server = ThreadingHTTPServer(("127.0.0.1", port), Handler)
     print(f"onkofizjo development API listening on http://127.0.0.1:{port}")
