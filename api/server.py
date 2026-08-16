@@ -28,6 +28,7 @@ ROUTES = {
     "/api/permissions": {"demo": True, "roles": {"GOSIA": {"approve_diet": True, "edit_notes": True, "export_record": True}, "ASSISTANT": {"approve_diet": False, "edit_notes": False, "export_record": False}, "COLLABORATOR": {"approve_diet": False, "edit_notes": "ASSIGNED", "export_record": False}, "AI_AGENT": {"approve_diet": False, "edit_notes": "DRAFT", "export_record": False}}},
 }
 AUDIT_DB = ROOT / "data" / "dev-audit.sqlite3"
+ALLOWED_ORIGINS = {item.strip() for item in os.environ.get("ONKOFIZJO_ALLOWED_ORIGINS", "http://127.0.0.1:4182,http://localhost:4182").split(",") if item.strip()}
 DEMO_SESSIONS = {
     "demo-session-gosia": {"userId": "demo-gosia", "role": "GOSIA", "displayName": "Małgorzata Papierz"},
     "demo-session-ai": {"userId": "demo-agent", "role": "AI_AGENT", "displayName": "Hermes demo agent"},
@@ -100,6 +101,10 @@ def append_demo_note(payload):
 
 
 class Handler(BaseHTTPRequestHandler):
+    def cors_origin(self):
+        requested = self.headers.get("Origin")
+        return requested if requested in ALLOWED_ORIGINS else next(iter(ALLOWED_ORIGINS), "null")
+
     def session(self):
         header = self.headers.get("Authorization", "")
         token = header.removeprefix("Bearer ").strip()
@@ -121,7 +126,8 @@ class Handler(BaseHTTPRequestHandler):
         self.send_header("Content-Type", "application/json; charset=utf-8")
         self.send_header("Content-Length", str(len(body)))
         self.send_header("Cache-Control", "no-store")
-        self.send_header("Access-Control-Allow-Origin", "*")
+        self.send_header("Access-Control-Allow-Origin", self.cors_origin())
+        self.send_header("Vary", "Origin")
         self.send_header("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
         self.send_header("Access-Control-Allow-Headers", "Content-Type, Accept")
         self.end_headers()
@@ -129,7 +135,8 @@ class Handler(BaseHTTPRequestHandler):
 
     def do_OPTIONS(self):  # noqa: N802
         self.send_response(204)
-        self.send_header("Access-Control-Allow-Origin", "*")
+        self.send_header("Access-Control-Allow-Origin", self.cors_origin())
+        self.send_header("Vary", "Origin")
         self.send_header("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
         self.send_header("Access-Control-Allow-Headers", "Content-Type, Accept")
         self.end_headers()

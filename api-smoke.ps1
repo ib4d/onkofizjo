@@ -14,6 +14,8 @@ function Post-Json($Path, $Body, $Headers = $null) {
 }
 Write-Output "Testing Onkofizjo API at $Base"
 $health = Get-Json '/api/health'; if (-not $health.demo -or -not $health.version -or $health.dataMode -ne 'synthetic-only') { throw 'Health contract failed' }
+$cors = Invoke-WebRequest -Uri "$Base/api/health" -Headers @{ Origin='http://127.0.0.1:4182' } -UseBasicParsing; if ($cors.Headers['Access-Control-Allow-Origin'] -ne 'http://127.0.0.1:4182') { throw 'CORS allowlist contract failed' }
+Write-Output 'PASS: CORS responds only with an explicit development origin.'
 try { Invoke-RestMethod -Uri "$Base/api/auth/session" -Method Get -Headers @{Accept='application/json'} | Out-Null; throw 'Unauthenticated session guard failed' } catch { if ($_.Exception.Response.StatusCode.value__ -ne 401) { throw } }
 $session = Post-Json '/api/auth/session' @{ userId='demo-gosia'; role='GOSIA' }; if (-not $session.authenticated -or -not $session.accessToken) { throw 'Demo session contract failed' }
 $sessionCheck = Invoke-RestMethod -Uri "$Base/api/auth/session" -Method Get -Headers @{ Authorization = "Bearer $($session.accessToken)" }; if (-not $sessionCheck.authenticated -or $sessionCheck.session.role -ne 'GOSIA') { throw 'Authenticated session read failed' }
