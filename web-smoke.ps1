@@ -11,4 +11,15 @@ foreach ($route in $routes) {
   if ($response.StatusCode -ne 200) { throw "$route returned $($response.StatusCode)" }
   Write-Output "PASS $route"
 }
+function Assert-PageContains([string]$route, [string]$expected) {
+  $response = Invoke-WebRequest -Uri "$base/$route" -UseBasicParsing
+  if ($response.Content -notlike "*$expected*") {
+    throw "$route did not contain expected text: $expected"
+  }
+  Write-Output "PASS content $route contains '$expected'"
+}
+Assert-PageContains 'marketing-section.html?section=services&lang=en' 'Services'
+Assert-PageContains 'marketing-section.html?section=services&lang=pl' 'Usługi'
+Assert-PageContains 'crm-modules.html' 'Teleconsultation'
+Assert-PageContains 'crm-modules.html' 'Clinical records'
 Write-Output "PASS: $($routes.Count) application routes returned HTTP 200."
