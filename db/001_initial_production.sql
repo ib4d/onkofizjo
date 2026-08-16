@@ -294,7 +294,9 @@ LANGUAGE sql STABLE SECURITY DEFINER SET search_path = onkofizjo, pg_catalog AS 
 $$;
 
 CREATE OR REPLACE FUNCTION is_gosia() RETURNS BOOLEAN
-LANGUAGE sql STABLE AS $$ SELECT current_role_code() = 'GOSIA' $$;
+LANGUAGE sql STABLE SECURITY DEFINER SET search_path = onkofizjo, pg_catalog AS $$
+    SELECT onkofizjo.current_role_code() = 'GOSIA'
+$$;
 
 CREATE OR REPLACE FUNCTION can_access_patient(target_patient UUID) RETURNS BOOLEAN
 LANGUAGE sql STABLE SECURITY DEFINER SET search_path = onkofizjo, pg_catalog AS $$

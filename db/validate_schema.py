@@ -50,6 +50,7 @@ for trigger in (
 
 require("CREATE EXTENSION IF NOT EXISTS pgcrypto", "hashing extension")
 require("SECURITY DEFINER", "security-definer access functions")
+require("SELECT onkofizjo.current_role_code() = 'GOSIA'", "schema-qualified Gosia role lookup")
 require("ON CONFLICT (code) DO NOTHING", "reference-data idempotency")
 require("BEGIN;", "transaction start")
 require("COMMIT;", "transaction commit")
