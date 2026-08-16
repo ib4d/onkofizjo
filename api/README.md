@@ -50,3 +50,9 @@ The production configuration also refuses to start until the approved RODO
 retention policy, deletion workflow and incident runbook are versioned, and
 encryption has been confirmed for both clinical storage and backups. These are
 operational gates, not a substitute for Polish legal review.
+
+The provider boundary is explicit in `api/production_adapters.py`. Its default
+adapters reject every operation, so the future production service cannot fall
+back to demo sessions, local files or in-memory audit data. Real OIDC, encrypted
+object-storage and external immutable-audit implementations must be registered
+and reviewed before `ProductionAdapters.assert_ready()` can pass.
