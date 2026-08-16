@@ -48,3 +48,18 @@ El guion [`staging_rls_checks.sql`](C:\dev\mis-apps\reha-app\db\staging_rls_chec
 contiene esas comprobaciones. Requiere fixtures sintéticos ya creados, el rol
 de aplicación (no el propietario de la migración), y hace rollback de todos sus
 cambios al finalizar.
+
+## Staging local con Docker
+
+Si Docker Desktop está disponible:
+
+```powershell
+Copy-Item db/staging.env.example db/staging.env
+# Edita ambos passwords locales en db/staging.env
+.\db\staging-bootstrap.ps1 -Reset
+```
+
+El bootstrap publica PostgreSQL solo en `127.0.0.1`, crea un usuario de
+aplicación separado del administrador, aplica la migración, carga únicamente
+fixtures sintéticos y ejecuta el harness con rollback. `-Reset` es explícito y
+elimina únicamente el volumen de este staging local.

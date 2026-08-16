@@ -1,0 +1,22 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    restart: "no"
+    env_file:
+      - staging.env
+    environment:
+      POSTGRES_DB: ${ONKOFIZJO_STAGING_DB_NAME}
+      POSTGRES_USER: ${ONKOFIZJO_STAGING_ADMIN_USER}
+      POSTGRES_PASSWORD: ${ONKOFIZJO_STAGING_ADMIN_PASSWORD}
+    ports:
+      - "127.0.0.1:${ONKOFIZJO_STAGING_HOST_PORT:-55432}:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 2s
+      timeout: 3s
+      retries: 20
+    volumes:
+      - onkofizjo-staging-data:/var/lib/postgresql/data
+
+volumes:
+  onkofizjo-staging-data:

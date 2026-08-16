@@ -43,7 +43,8 @@ desarrollo. Sigue prohibido introducir datos reales: el API local declara
   de ecosistemas y ubicaciones, dietas versionadas, teleconsulta, documentos,
   pagos y auditoría append-only. La validación local es estática porque este
   entorno no tiene PostgreSQL de staging. También existe un guion de pruebas
-  negativas para ejecutar allí con fixtures sintéticos y rollback transaccional.
+  negativas para ejecutar allí con fixtures sintéticos y rollback transaccional,
+  más un bootstrap Docker con roles separados y volumen local aislado.
 - **4.6 Infraestructura clínica de producción:** pendiente y bloqueante. Faltan
   IdP real con MFA, cookies HttpOnly/Secure/SameSite, base de datos cifrada,
   almacenamiento de documentos cifrado, backups y restauración probados,
