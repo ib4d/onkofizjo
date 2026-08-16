@@ -15,11 +15,17 @@ class ProductionIntegrationNotConfigured(RuntimeError):
 
 
 class IdentityVerifier(Protocol):
+    def assert_ready(self) -> None:
+        """Verify provider configuration, key discovery and revocation access."""
+
     def verify(self, authorization_header: str) -> VerifiedIdentity:
         """Verify an OIDC bearer token and return the scoped identity."""
 
 
 class ClinicalObjectStorage(Protocol):
+    def assert_ready(self) -> None:
+        """Verify private-bucket access and encryption configuration."""
+
     def put(self, *, patient_id: str, object_key: str, content: bytes, content_type: str) -> None:
         """Store a private, encrypted clinical object under a patient scope."""
 
@@ -31,16 +37,27 @@ class ClinicalObjectStorage(Protocol):
 
 
 class ClinicalDatabase(Protocol):
+    def assert_ready(self) -> None:
+        """Verify TLS, credentials, schema and RLS connectivity."""
+
     def health_check(self) -> None:
         """Verify that the private PostgreSQL clinical store is reachable."""
 
 
 class ExternalAuditSink(Protocol):
+    def assert_ready(self) -> None:
+        """Verify append-only audit destination and retention configuration."""
+
     def append(self, *, event_hash: str, payload: dict[str, object]) -> str:
         """Append an event to an external immutable audit destination."""
 
 
 class _UnconfiguredIdentityVerifier:
+    def assert_ready(self) -> None:
+        raise ProductionIntegrationNotConfigured(
+            "No production OIDC adapter is configured; demo sessions cannot authenticate production"
+        )
+
     def verify(self, authorization_header: str) -> VerifiedIdentity:
         raise ProductionIntegrationNotConfigured(
             "No production OIDC adapter is configured; demo sessions cannot authenticate production"
@@ -48,6 +65,9 @@ class _UnconfiguredIdentityVerifier:
 
 
 class _UnconfiguredClinicalObjectStorage:
+    def assert_ready(self) -> None:
+        raise ProductionIntegrationNotConfigured("No encrypted clinical object storage adapter is configured")
+
     def put(self, *, patient_id: str, object_key: str, content: bytes, content_type: str) -> None:
         raise ProductionIntegrationNotConfigured("No encrypted clinical object storage adapter is configured")
 
@@ -59,6 +79,11 @@ class _UnconfiguredClinicalObjectStorage:
 
 
 class _UnconfiguredClinicalDatabase:
+    def assert_ready(self) -> None:
+        raise ProductionIntegrationNotConfigured(
+            "No private PostgreSQL clinical database adapter is configured"
+        )
+
     def health_check(self) -> None:
         raise ProductionIntegrationNotConfigured(
             "No private PostgreSQL clinical database adapter is configured"
@@ -66,6 +91,9 @@ class _UnconfiguredClinicalDatabase:
 
 
 class _UnconfiguredExternalAuditSink:
+    def assert_ready(self) -> None:
+        raise ProductionIntegrationNotConfigured("No external immutable audit sink adapter is configured")
+
     def append(self, *, event_hash: str, payload: dict[str, object]) -> str:
         raise ProductionIntegrationNotConfigured("No external immutable audit sink adapter is configured")
 
@@ -89,6 +117,7 @@ class ProductionAdapters:
         )
 
     def assert_ready(self) -> None:
+        adapters = (self.identity, self.database, self.storage, self.audit_sink)
         if any(
             isinstance(
                 adapter,
@@ -99,8 +128,24 @@ class ProductionAdapters:
                     _UnconfiguredExternalAuditSink,
                 ),
             )
-            for adapter in (self.identity, self.database, self.storage, self.audit_sink)
+            for adapter in adapters
         ):
             raise ProductionIntegrationNotConfigured(
                 "Production adapters are incomplete; configure OIDC, private PostgreSQL, encrypted storage and external audit sink"
             )
+
+        names = ("OIDC", "private PostgreSQL", "encrypted storage", "external audit sink")
+        for name, adapter in zip(names, adapters):
+            readiness = getattr(adapter, "assert_ready", None)
+            if not callable(readiness):
+                raise ProductionIntegrationNotConfigured(
+                    f"{name} adapter must implement assert_ready()"
+                )
+            try:
+                readiness()
+            except ProductionIntegrationNotConfigured:
+                raise
+            except Exception as error:
+                raise ProductionIntegrationNotConfigured(
+                    f"{name} adapter readiness check failed"
+                ) from error

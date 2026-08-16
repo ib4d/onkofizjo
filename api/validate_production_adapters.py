@@ -14,9 +14,13 @@ else:
     raise AssertionError("unconfigured production adapters were accepted")
 
 for operation in (
+    lambda: adapters.identity.assert_ready(),
     lambda: adapters.identity.verify("Bearer synthetic"),
+    lambda: adapters.database.assert_ready(),
     lambda: adapters.database.health_check(),
+    lambda: adapters.storage.assert_ready(),
     lambda: adapters.storage.create_download_url(patient_id="patient", object_key="doc", ttl_seconds=60),
+    lambda: adapters.audit_sink.assert_ready(),
     lambda: adapters.audit_sink.append(event_hash="hash", payload={}),
 ):
     try:

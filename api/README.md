@@ -56,7 +56,10 @@ adapters reject every operation, so the future production service cannot fall
 back to demo sessions, local files or in-memory audit data. Real OIDC, private
 PostgreSQL, encrypted object-storage and external immutable-audit
 implementations must be registered and reviewed before
-`ProductionAdapters.assert_ready()` can pass.
+`ProductionAdapters.assert_ready()` can pass. Each implementation must also
+perform its own non-destructive `assert_ready()` check for provider access,
+encryption, key/schema state and retention configuration; merely supplying a
+URL or a non-null object is insufficient.
 
 `api/production_startup.py` combines both gates. A future production entrypoint
 must call `build_production_runtime()` before binding an HTTP listener; it will

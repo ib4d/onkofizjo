@@ -48,31 +48,39 @@ else:
     raise AssertionError("startup gate accepted incomplete production configuration")
 
 
-class FakeIdentity:
-    pass
+class FakeReady:
+    def assert_ready(self):
+        pass
 
 
-class FakeStorage:
-    pass
-
-
-class FakeDatabase:
-    pass
-
-
-class FakeAudit:
+class MissingReadiness:
     pass
 
 
 runtime = build_production_runtime(
     config,
     ProductionAdapters(
-        identity=FakeIdentity(),
-        database=FakeDatabase(),
-        storage=FakeStorage(),
-        audit_sink=FakeAudit(),
+        identity=FakeReady(),
+        database=FakeReady(),
+        storage=FakeReady(),
+        audit_sink=FakeReady(),
     ),
 )
 assert runtime.config.storage_bucket == "onkofizjo-clinical"
+
+try:
+    build_production_runtime(
+        config,
+        ProductionAdapters(
+            identity=MissingReadiness(),
+            database=FakeReady(),
+            storage=FakeReady(),
+            audit_sink=FakeReady(),
+        ),
+    )
+except ProductionIntegrationNotConfigured as error:
+    assert "assert_ready" in str(error)
+else:
+    raise AssertionError("startup gate accepted an adapter without a readiness check")
 
 print("PASS: production startup requires complete config and non-placeholder provider adapters.")
