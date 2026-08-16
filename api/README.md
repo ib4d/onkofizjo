@@ -21,5 +21,9 @@ Endpoints:
 - `GET /api/operations`
 - `POST /api/audit-events`
 
-This is a local demo API only. It has no authentication, encryption, persistence,
-rate limiting or production health-data safeguards.
+This is a local demo API only. It uses verified in-memory demo sessions and
+synthetic records so the frontend can exercise authorization boundaries without
+real patient data. It is not production-ready: it does not provide a real
+identity provider, encrypted clinical storage, rate limiting, managed backups,
+or production health-data safeguards. See `SECURITY_BOUNDARY.md` for the
+mandatory production gates.

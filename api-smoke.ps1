@@ -15,7 +15,9 @@ function Post-Json($Path, $Body, $Headers = $null) {
 Write-Output "Testing Onkofizjo API at $Base"
 $health = Get-Json '/api/health'; if (-not $health.demo -or -not $health.version -or $health.dataMode -ne 'synthetic-only') { throw 'Health contract failed' }
 $cors = Invoke-WebRequest -Uri "$Base/api/health" -Headers @{ Origin='http://127.0.0.1:4182' } -UseBasicParsing; if ($cors.Headers['Access-Control-Allow-Origin'] -ne 'http://127.0.0.1:4182') { throw 'CORS allowlist contract failed' }
-Write-Output 'PASS: CORS responds only with an explicit development origin.'
+$preflight = Invoke-WebRequest -Uri "$Base/api/teleconsultations" -Method Options -Headers @{ Origin='http://127.0.0.1:4182'; 'Access-Control-Request-Method'='POST'; 'Access-Control-Request-Headers'='authorization, content-type' } -UseBasicParsing
+if ($preflight.Headers['Access-Control-Allow-Headers'] -notlike '*Authorization*') { throw 'CORS authorization header contract failed' }
+Write-Output 'PASS: CORS responds only with an explicit development origin and permits authenticated browser requests.'
 try { Invoke-RestMethod -Uri "$Base/api/auth/session" -Method Get -Headers @{Accept='application/json'} | Out-Null; throw 'Unauthenticated session guard failed' } catch { if ($_.Exception.Response.StatusCode.value__ -ne 401) { throw } }
 $session = Post-Json '/api/auth/session' @{ userId='demo-gosia'; role='GOSIA' }; if (-not $session.authenticated -or -not $session.accessToken) { throw 'Demo session contract failed' }
 $sessionCheck = Invoke-RestMethod -Uri "$Base/api/auth/session" -Method Get -Headers @{ Authorization = "Bearer $($session.accessToken)" }; if (-not $sessionCheck.authenticated -or $sessionCheck.session.role -ne 'GOSIA') { throw 'Authenticated session read failed' }
@@ -56,6 +58,7 @@ $tele = Post-Json '/api/teleconsultations' @{ patientId='demo-patient-ewa-dabrow
 $permissions = Get-Json '/api/permissions'; if (-not $permissions.roles.GOSIA.approve_diet -or $permissions.roles.AI_AGENT.approve_diet) { throw 'Permission policy failed' }
 $audit = Get-Json '/api/audit-events'; if ($null -eq $audit.events) { throw 'Audit endpoint failed' }
 if ($audit.events.Count -gt 0 -and (-not $audit.events[0].eventHash -or -not $audit.events[0].prevHash)) { throw 'Audit hash chain contract failed' }
+if (-not $audit.integrity.valid -or $audit.integrity.checked -lt 1) { throw 'Audit integrity verification failed' }
 Write-Output 'PASS: audit events expose chained integrity hashes.'
 try { Post-Json '/api/teleconsultations' @{ patientId='demo-patient-maria-nowak'; appointmentId='appt-001'; mode='PHONE'; role='GOSIA' } | Out-Null; throw 'Mismatch guard failed' } catch { if ($_.Exception.Response.StatusCode.value__ -ne 422) { throw } }
 try { Post-Json '/api/appointments/status' @{ appointmentId='appt-002'; status='INVALID' } | Out-Null; throw 'Appointment status guard failed' } catch { if ($_.Exception.Response.StatusCode.value__ -ne 422) { throw } }

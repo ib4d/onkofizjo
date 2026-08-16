@@ -39,10 +39,20 @@ def audit_db():
     conn = sqlite3.connect(AUDIT_DB)
     conn.execute("CREATE TABLE IF NOT EXISTS audit_events (id INTEGER PRIMARY KEY AUTOINCREMENT, created_at TEXT NOT NULL, payload TEXT NOT NULL, prev_hash TEXT, event_hash TEXT)")
     columns = {row[1] for row in conn.execute("PRAGMA table_info(audit_events)").fetchall()}
+    migrated_hash_columns = False
     if "prev_hash" not in columns:
         conn.execute("ALTER TABLE audit_events ADD COLUMN prev_hash TEXT")
+        migrated_hash_columns = True
     if "event_hash" not in columns:
         conn.execute("ALTER TABLE audit_events ADD COLUMN event_hash TEXT")
+        migrated_hash_columns = True
+    if migrated_hash_columns or conn.execute("SELECT 1 FROM audit_events WHERE prev_hash IS NULL OR event_hash IS NULL LIMIT 1").fetchone():
+        previous = "GENESIS"
+        rows = conn.execute("SELECT id, created_at, payload FROM audit_events ORDER BY id ASC").fetchall()
+        for event_id, created_at, payload_json in rows:
+            event_hash = hashlib.sha256(f"{previous}|{created_at}|{payload_json}".encode("utf-8")).hexdigest()
+            conn.execute("UPDATE audit_events SET prev_hash = ?, event_hash = ? WHERE id = ?", (previous, event_hash, event_id))
+            previous = event_hash
     return conn
 
 def record_audit(payload):
@@ -58,6 +68,18 @@ def read_audits():
     with audit_db() as conn:
         rows = conn.execute("SELECT id, created_at, payload, prev_hash, event_hash FROM audit_events ORDER BY id DESC").fetchall()
     return [{"id": row[0], "createdAt": row[1], "payload": json.loads(row[2]), "prevHash": row[3], "eventHash": row[4]} for row in rows]
+
+def audit_integrity():
+    with audit_db() as conn:
+        rows = conn.execute("SELECT id, created_at, payload, prev_hash, event_hash FROM audit_events ORDER BY id ASC").fetchall()
+    previous = "GENESIS"
+    invalid_ids = []
+    for event_id, created_at, payload_json, prev_hash, event_hash in rows:
+        expected = hashlib.sha256(f"{previous}|{created_at}|{payload_json}".encode("utf-8")).hexdigest()
+        if prev_hash != previous or event_hash != expected:
+            invalid_ids.append(event_id)
+        previous = event_hash or expected
+    return {"valid": not invalid_ids, "checked": len(rows), "invalidEventIds": invalid_ids[:20]}
 
 def read_notes():
     with (DATA / "demo-notes.json").open(encoding="utf-8") as file:
@@ -129,7 +151,7 @@ class Handler(BaseHTTPRequestHandler):
         self.send_header("Access-Control-Allow-Origin", self.cors_origin())
         self.send_header("Vary", "Origin")
         self.send_header("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
-        self.send_header("Access-Control-Allow-Headers", "Content-Type, Accept")
+        self.send_header("Access-Control-Allow-Headers", "Content-Type, Accept, Authorization")
         self.end_headers()
         self.wfile.write(body)
 
@@ -138,7 +160,7 @@ class Handler(BaseHTTPRequestHandler):
         self.send_header("Access-Control-Allow-Origin", self.cors_origin())
         self.send_header("Vary", "Origin")
         self.send_header("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
-        self.send_header("Access-Control-Allow-Headers", "Content-Type, Accept")
+        self.send_header("Access-Control-Allow-Headers", "Content-Type, Accept, Authorization")
         self.end_headers()
 
     def do_GET(self):  # noqa: N802
@@ -156,7 +178,7 @@ class Handler(BaseHTTPRequestHandler):
             if not self.require_session():
                 return
         if route == "/api/audit-events":
-            self._send({"demo": True, "persistent": True, "events": read_audits()})
+            self._send({"demo": True, "persistent": True, "events": read_audits(), "integrity": audit_integrity()})
             return
         target = ROUTES.get(route)
         if target is None:
