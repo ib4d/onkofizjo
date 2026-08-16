@@ -25,6 +25,12 @@ function Assert-PageExcludes([string]$route, [string]$unexpected) {
   }
   Write-Output "PASS content $route excludes '$unexpected'"
 }
+function Assert-Header([string]$route, [string]$header, [string]$expected) {
+  $response = Invoke-WebRequest -Uri "$base/$route" -UseBasicParsing
+  $actual = $response.Headers[$header]
+  if ($actual -notlike "*$expected*") { throw "$route missing $header containing '$expected'" }
+  Write-Output "PASS header $route $header contains '$expected'"
+}
 Assert-PageContains 'marketing-section.html?section=services&lang=en' 'Services'
 Assert-PageContains 'marketing-section.html?section=services&lang=pl' 'Usługi'
 Assert-PageContains 'crm-modules.html' 'Teleconsultation'
@@ -40,4 +46,7 @@ Assert-PageExcludes 'diet-plan.html' 'Anna Kowalska'
 Assert-PageContains 'crm.html' 'data-phase3-responsive'
 Assert-PageContains 'calendar.html' 'data-phase3-responsive'
 Assert-PageContains 'appointment-create.html' 'auth-bridge.js'
+Assert-Header 'crm.html' 'X-Content-Type-Options' 'nosniff'
+Assert-Header 'crm.html' 'Referrer-Policy' 'same-origin'
+Assert-Header 'crm.html' 'Cache-Control' 'no-store'
 Write-Output "PASS: $($routes.Count) application routes returned HTTP 200."

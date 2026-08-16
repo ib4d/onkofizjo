@@ -5,6 +5,9 @@ from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 class Handler(SimpleHTTPRequestHandler):
     def end_headers(self):
         self.send_header("Cache-Control", "no-store")
+        self.send_header("X-Content-Type-Options", "nosniff")
+        self.send_header("Referrer-Policy", "same-origin")
+        self.send_header("Permissions-Policy", "camera=(self), microphone=(self), geolocation=()")
         super().end_headers()
 
     def do_GET(self):  # noqa: N802
