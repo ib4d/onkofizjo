@@ -8,6 +8,18 @@ $health = Get-Json '/api/health'; if (-not $health.demo -or -not $health.version
 $patients = Get-Json '/api/patients'; if ($patients.patients.Count -lt 3) { throw 'Expected at least 3 demo patients' }
 $search = Get-Json '/api/patients?q=maria'; if ($search.patients.Count -ne 1 -or $search.patients[0].id -ne 'demo-patient-maria-nowak') { throw 'Patient search contract failed' }
 $context = Get-Json '/api/patient-context?patientId=demo-patient-ewa-dabrowska'; if (-not $context.profiles.'demo-patient-ewa-dabrowska') { throw 'Ewa context missing' }
+$expectedContexts = @(
+  @{ Id='demo-patient-anna-kowalska'; Record='PAC-2023-089' },
+  @{ Id='demo-patient-maria-nowak'; Record='PAC-2024-014' },
+  @{ Id='demo-patient-ewa-dabrowska'; Record='PAC-2024-027' }
+)
+foreach ($expected in $expectedContexts) {
+  $scoped = Get-Json "/api/patient-context?patientId=$($expected.Id)"
+  $profile = $scoped.profiles.($expected.Id)
+  if ($null -eq $profile -or $profile.recordId -ne $expected.Record) { throw "Patient context mismatch for $($expected.Id)" }
+  if ($scoped.profiles.PSObject.Properties.Name.Count -ne 1) { throw "Patient context was not scoped for $($expected.Id)" }
+}
+Write-Output 'PASS: patient contexts remain scoped and retain distinct record IDs.'
 $assistant = Post-Json '/api/assistant-runs' @{ patientId='demo-patient-ewa-dabrowska'; task='smoke test'; sources=@('patient-context') }; if ($assistant.status -ne 'NEEDS_REVIEW') { throw 'Assistant guardrail failed' }
 $tele = Post-Json '/api/teleconsultations' @{ patientId='demo-patient-ewa-dabrowska'; appointmentId='appt-003'; mode='PHONE'; role='GOSIA' }; if ($tele.status -ne 'INITIATED') { throw 'Teleconsultation flow failed' }
 $permissions = Get-Json '/api/permissions'; if (-not $permissions.roles.GOSIA.approve_diet -or $permissions.roles.AI_AGENT.approve_diet) { throw 'Permission policy failed' }
