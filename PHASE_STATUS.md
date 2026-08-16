@@ -60,8 +60,10 @@ desarrollo. Sigue prohibido introducir datos reales: el API local declara
   hay proveedores conectados ni credenciales de infraestructura real. El mapa
   de datos y los workflows jurídicos están documentados en
   `PRIVACY_DATA_MAP.md`, y la decisión de infraestructura pendiente está
-  documentada en `infra/PROVIDER_DECISION.md`; ambos requieren revisión jurídica
-  polaca antes de conectar datos reales.
+  documentada en `infra/PROVIDER_DECISION.md`. Las interfaces provider-neutral
+  de OIDC, almacenamiento clínico y auditoría externa fallan cerradas en
+  `api/production_adapters.py`; estos artefactos requieren revisión jurídica
+  polaca y proveedores autorizados antes de conectar datos reales.
 
 ## Evidencia ejecutada
 
