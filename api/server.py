@@ -27,6 +27,9 @@ ROUTES = {
     "/api/permissions": {"demo": True, "roles": {"GOSIA": {"approve_diet": True, "edit_notes": True, "export_record": True}, "ASSISTANT": {"approve_diet": False, "edit_notes": False, "export_record": False}, "COLLABORATOR": {"approve_diet": False, "edit_notes": "ASSIGNED", "export_record": False}, "AI_AGENT": {"approve_diet": False, "edit_notes": "DRAFT", "export_record": False}}},
 }
 AUDIT_DB = ROOT / "data" / "dev-audit.sqlite3"
+DEMO_SESSIONS = {
+    "demo-session-gosia": {"userId": "demo-gosia", "role": "GOSIA", "displayName": "Małgorzata Papierz"},
+}
 
 def audit_db():
     conn = sqlite3.connect(AUDIT_DB)
@@ -84,6 +87,11 @@ def append_demo_note(payload):
 
 
 class Handler(BaseHTTPRequestHandler):
+    def session(self):
+        header = self.headers.get("Authorization", "")
+        token = header.removeprefix("Bearer ").strip()
+        return DEMO_SESSIONS.get(token)
+
     def _send(self, value, status=200):
         body = json.dumps(value, ensure_ascii=False).encode("utf-8")
         self.send_response(status)
@@ -107,6 +115,13 @@ class Handler(BaseHTTPRequestHandler):
         parsed = urlparse(self.path)
         route = parsed.path
         query = parse_qs(parsed.query)
+        if route == "/api/auth/session":
+            session = self.session()
+            if not session:
+                self._send({"error": "unauthorized", "demo": True}, 401)
+                return
+            self._send({"demo": True, "authenticated": True, "session": session})
+            return
         if route == "/api/audit-events":
             self._send({"demo": True, "persistent": True, "events": read_audits()})
             return
@@ -147,6 +162,14 @@ class Handler(BaseHTTPRequestHandler):
         route = urlparse(self.path).path
         length = int(self.headers.get("Content-Length", "0"))
         payload = json.loads(self.rfile.read(length) or b"{}")
+        if route == "/api/auth/session":
+            if payload.get("userId") != "demo-gosia" or payload.get("role") != "GOSIA":
+                self._send({"error": "invalid_demo_credentials", "demo": True}, 401)
+                return
+            token = "demo-session-gosia"
+            record_audit({"action": "CREATE_DEMO_SESSION", "resourceId": token, "actor": "demo-gosia"})
+            self._send({"demo": True, "authenticated": True, "accessToken": token, "session": DEMO_SESSIONS[token], "expiresIn": 3600}, 201)
+            return
         if route == "/api/diet-plans":
             if payload.get("patientId") and not known_patient(payload.get("patientId")):
                 self._send({"error": "patient_not_found", "patientId": payload.get("patientId"), "demo": True}, 422)

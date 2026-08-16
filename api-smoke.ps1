@@ -5,6 +5,10 @@ function Get-Json($Path) { Invoke-RestMethod -Uri "$Base$Path" -Method Get -Head
 function Post-Json($Path, $Body) { Invoke-RestMethod -Uri "$Base$Path" -Method Post -ContentType 'application/json' -Body ($Body | ConvertTo-Json -Compress) }
 Write-Output "Testing Onkofizjo API at $Base"
 $health = Get-Json '/api/health'; if (-not $health.demo -or -not $health.version -or $health.dataMode -ne 'synthetic-only') { throw 'Health contract failed' }
+try { Get-Json '/api/auth/session' | Out-Null; throw 'Unauthenticated session guard failed' } catch { if ($_.Exception.Response.StatusCode.value__ -ne 401) { throw } }
+$session = Post-Json '/api/auth/session' @{ userId='demo-gosia'; role='GOSIA' }; if (-not $session.authenticated -or -not $session.accessToken) { throw 'Demo session contract failed' }
+$sessionCheck = Invoke-RestMethod -Uri "$Base/api/auth/session" -Method Get -Headers @{ Authorization = "Bearer $($session.accessToken)" }; if (-not $sessionCheck.authenticated -or $sessionCheck.session.role -ne 'GOSIA') { throw 'Authenticated session read failed' }
+Write-Output 'PASS: unauthenticated requests are rejected and demo Gosia session is verifiable.'
 $patients = Get-Json '/api/patients'; if ($patients.patients.Count -lt 3) { throw 'Expected at least 3 demo patients' }
 $search = Get-Json '/api/patients?q=maria'; if ($search.patients.Count -ne 1 -or $search.patients[0].id -ne 'demo-patient-maria-nowak') { throw 'Patient search contract failed' }
 $context = Get-Json '/api/patient-context?patientId=demo-patient-ewa-dabrowska'; if (-not $context.profiles.'demo-patient-ewa-dabrowska') { throw 'Ewa context missing' }
