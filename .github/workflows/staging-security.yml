@@ -46,6 +46,7 @@ jobs:
           python db/validate_schema.py
           python db/validate_staging_checks.py
           python api/validate_production_config.py
+          python api/validate_identity_contract.py
       - name: Apply production schema to disposable staging
         run: psql --set ON_ERROR_STOP=1 --file=db/001_initial_production.sql
       - name: Create non-owner application role

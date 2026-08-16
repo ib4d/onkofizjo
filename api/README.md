@@ -34,3 +34,14 @@ secrets:
 ```powershell
 python api/validate_production_config.py
 ```
+
+The provider-neutral identity boundary is checked separately:
+
+```powershell
+python api/validate_identity_contract.py
+```
+
+It accepts only claims already verified by a real OIDC adapter, with the exact
+issuer and audience, a non-empty subject, valid time bounds and explicit MFA.
+The application role is intentionally not read from the token; production code
+must resolve it from `app_users.external_subject` after authentication.
