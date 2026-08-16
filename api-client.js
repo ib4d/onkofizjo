@@ -1,5 +1,12 @@
 /* Shared client boundary. Production will add auth headers and request policies here. */
 (function (global) {
+  if (!document.querySelector('link[data-phase3-responsive]')) {
+    const style = document.createElement('link');
+    style.rel = 'stylesheet';
+    style.href = 'responsive-accessibility.css';
+    style.dataset.phase3Responsive = 'true';
+    document.head.appendChild(style);
+  }
   const API_BASE = global.ONKOFIZJO_API_BASE || 'http://127.0.0.1:8797';
   async function get(path, fallbackPath) {
     try {

@@ -1,5 +1,12 @@
 /* Shared navigation layer for the current prototype. */
 (function () {
+  if (!document.querySelector('link[data-phase3-responsive]')) {
+    const style = document.createElement('link');
+    style.rel = 'stylesheet';
+    style.href = 'responsive-accessibility.css';
+    style.dataset.phase3Responsive = 'true';
+    document.head.appendChild(style);
+  }
   if (location.pathname.endsWith('calendar.html')) { const script = document.createElement('script'); script.src = 'calendar-links.js'; document.body.appendChild(script); }
   if (location.pathname.endsWith('patient.html')) { const script = document.createElement('script'); script.src = 'patient-context.js'; document.body.appendChild(script); }
   if (location.pathname.endsWith('stitch-marketing.html')) { const script = document.createElement('script'); script.src = 'marketing-language.js'; document.body.appendChild(script); }
