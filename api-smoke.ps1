@@ -1,4 +1,4 @@
-param([int]$Port = 8797)
+param([int]$Port = 8797, [string]$Origin = 'http://127.0.0.1:4182')
 $ErrorActionPreference = 'Stop'
 $Base = "http://127.0.0.1:$Port"
 function Get-Json($Path) {
@@ -14,8 +14,8 @@ function Post-Json($Path, $Body, $Headers = $null) {
 }
 Write-Output "Testing Onkofizjo API at $Base"
 $health = Get-Json '/api/health'; if (-not $health.demo -or -not $health.version -or $health.dataMode -ne 'synthetic-only') { throw 'Health contract failed' }
-$cors = Invoke-WebRequest -Uri "$Base/api/health" -Headers @{ Origin='http://127.0.0.1:4182' } -UseBasicParsing; if ($cors.Headers['Access-Control-Allow-Origin'] -ne 'http://127.0.0.1:4182') { throw 'CORS allowlist contract failed' }
-$preflight = Invoke-WebRequest -Uri "$Base/api/teleconsultations" -Method Options -Headers @{ Origin='http://127.0.0.1:4182'; 'Access-Control-Request-Method'='POST'; 'Access-Control-Request-Headers'='authorization, content-type' } -UseBasicParsing
+$cors = Invoke-WebRequest -Uri "$Base/api/health" -Headers @{ Origin=$Origin } -UseBasicParsing; if ($cors.Headers['Access-Control-Allow-Origin'] -ne $Origin) { throw 'CORS allowlist contract failed' }
+$preflight = Invoke-WebRequest -Uri "$Base/api/teleconsultations" -Method Options -Headers @{ Origin=$Origin; 'Access-Control-Request-Method'='POST'; 'Access-Control-Request-Headers'='authorization, content-type' } -UseBasicParsing
 if ($preflight.Headers['Access-Control-Allow-Headers'] -notlike '*Authorization*') { throw 'CORS authorization header contract failed' }
 Write-Output 'PASS: CORS responds only with an explicit development origin and permits authenticated browser requests.'
 try { Invoke-RestMethod -Uri "$Base/api/auth/session" -Method Get -Headers @{Accept='application/json'} | Out-Null; throw 'Unauthenticated session guard failed' } catch { if ($_.Exception.Response.StatusCode.value__ -ne 401) { throw } }

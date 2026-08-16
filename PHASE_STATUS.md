@@ -38,7 +38,12 @@ desarrollo. Sigue prohibido introducir datos reales: el API local declara
 - **4.4 Auditoría:** completada para demo. Los eventos tienen cadena hash y el
   endpoint verifica su integridad; los eventos sintéticos históricos se migran
   determinísticamente.
-- **4.5 Infraestructura clínica de producción:** pendiente y bloqueante. Faltan
+- **4.5 Contrato de persistencia:** preparado, no conectado. Existe una
+  migración PostgreSQL sin datos demo con RLS por usuario/paciente, separación
+  de ecosistemas y ubicaciones, dietas versionadas, teleconsulta, documentos,
+  pagos y auditoría append-only. La validación local es estática porque este
+  entorno no tiene PostgreSQL de staging.
+- **4.6 Infraestructura clínica de producción:** pendiente y bloqueante. Faltan
   IdP real con MFA, cookies HttpOnly/Secure/SameSite, base de datos cifrada,
   almacenamiento de documentos cifrado, backups y restauración probados,
   retención/borrado, acuerdos RODO/GDPR, respuesta a incidentes y revisión de
