@@ -11,7 +11,7 @@
   window.fetch = async function (input, init = {}) {
     const url = typeof input === 'string' ? input : input.url;
     const method = (init.method || (typeof input !== 'string' ? input.method : 'GET')).toUpperCase();
-    if (method !== 'POST' || url.endsWith('/api/auth/session')) return originalFetch(input, init);
+    if (!url.includes('/api/') || url.endsWith('/api/auth/session') || url.endsWith('/api/health')) return originalFetch(input, init);
     const headers = new Headers(init.headers || (typeof input !== 'string' ? input.headers : undefined));
     if (!headers.has('Authorization')) headers.set('Authorization', `Bearer ${await token()}`);
     return originalFetch(input, { ...init, headers });

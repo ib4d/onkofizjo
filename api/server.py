@@ -128,6 +128,9 @@ class Handler(BaseHTTPRequestHandler):
                 return
             self._send({"demo": True, "authenticated": True, "session": session})
             return
+        if route in {"/api/patients", "/api/appointments", "/api/patient-context", "/api/notes", "/api/diet-plans", "/api/assistant-runs", "/api/operations", "/api/audit-events"}:
+            if not self.require_session():
+                return
         if route == "/api/audit-events":
             self._send({"demo": True, "persistent": True, "events": read_audits()})
             return

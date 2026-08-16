@@ -16,16 +16,19 @@
     const fallback = await fetch(fallbackPath);
     return { data: await fallback.json(), source: 'local-demo-json' };
   }
+  async function accessToken() {
+    let token = global.sessionStorage.getItem('onkofizjo.demo.accessToken');
+    if (token) return token;
+    const sessionResponse = await fetch(`${API_BASE}/api/auth/session`, { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify({ userId: 'demo-gosia', role: 'GOSIA' }) });
+    if (!sessionResponse.ok) throw new Error('Authentication required');
+    const session = await sessionResponse.json();
+    token = session.accessToken;
+    global.sessionStorage.setItem('onkofizjo.demo.accessToken', token);
+    return token;
+  }
   async function post(path, payload) {
-    let accessToken = global.sessionStorage.getItem('onkofizjo.demo.accessToken');
-    if (!accessToken) {
-      const sessionResponse = await fetch(`${API_BASE}/api/auth/session`, { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify({ userId: 'demo-gosia', role: 'GOSIA' }) });
-      if (!sessionResponse.ok) throw new Error('Authentication required');
-      const session = await sessionResponse.json();
-      accessToken = session.accessToken;
-      global.sessionStorage.setItem('onkofizjo.demo.accessToken', accessToken);
-    }
-    const response = await fetch(`${API_BASE}${path}`, { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json', Authorization: `Bearer ${accessToken}` }, body: JSON.stringify(payload) });
+    const token = await accessToken();
+    const response = await fetch(`${API_BASE}${path}`, { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json', Authorization: `Bearer ${token}` }, body: JSON.stringify(payload) });
     const data = await response.json();
     if (!response.ok) throw new Error(data.error || 'Request failed');
     return { data, source: 'development-api' };

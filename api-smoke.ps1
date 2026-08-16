@@ -1,7 +1,11 @@
 param([int]$Port = 8797)
 $ErrorActionPreference = 'Stop'
 $Base = "http://127.0.0.1:$Port"
-function Get-Json($Path) { Invoke-RestMethod -Uri "$Base$Path" -Method Get -Headers @{Accept='application/json'} }
+function Get-Json($Path) {
+  $headers = @{ Accept='application/json' }
+  if ($Script:AuthHeaders) { $headers.Authorization = $Script:AuthHeaders.Authorization }
+  Invoke-RestMethod -Uri "$Base$Path" -Method Get -Headers $headers
+}
 function Post-Json($Path, $Body, $Headers = $null) {
   if (-not $Headers -and $Script:AuthHeaders) { $Headers = $Script:AuthHeaders }
   $arguments = @{ Uri = "$Base$Path"; Method = 'Post'; ContentType = 'application/json'; Body = ($Body | ConvertTo-Json -Compress) }
@@ -10,12 +14,14 @@ function Post-Json($Path, $Body, $Headers = $null) {
 }
 Write-Output "Testing Onkofizjo API at $Base"
 $health = Get-Json '/api/health'; if (-not $health.demo -or -not $health.version -or $health.dataMode -ne 'synthetic-only') { throw 'Health contract failed' }
-try { Get-Json '/api/auth/session' | Out-Null; throw 'Unauthenticated session guard failed' } catch { if ($_.Exception.Response.StatusCode.value__ -ne 401) { throw } }
+try { Invoke-RestMethod -Uri "$Base/api/auth/session" -Method Get -Headers @{Accept='application/json'} | Out-Null; throw 'Unauthenticated session guard failed' } catch { if ($_.Exception.Response.StatusCode.value__ -ne 401) { throw } }
 $session = Post-Json '/api/auth/session' @{ userId='demo-gosia'; role='GOSIA' }; if (-not $session.authenticated -or -not $session.accessToken) { throw 'Demo session contract failed' }
 $sessionCheck = Invoke-RestMethod -Uri "$Base/api/auth/session" -Method Get -Headers @{ Authorization = "Bearer $($session.accessToken)" }; if (-not $sessionCheck.authenticated -or $sessionCheck.session.role -ne 'GOSIA') { throw 'Authenticated session read failed' }
 Write-Output 'PASS: unauthenticated requests are rejected and demo Gosia session is verifiable.'
 $authHeaders = @{ Authorization = "Bearer $($session.accessToken)" }
 $Script:AuthHeaders = $authHeaders
+try { Invoke-RestMethod -Uri "$Base/api/patients" -Method Get -Headers @{Accept='application/json'} | Out-Null; throw 'Protected read guard failed' } catch { if ($_.Exception.Response.StatusCode.value__ -ne 401) { throw } }
+Write-Output 'PASS: protected clinical reads require the verified session.'
 try { Invoke-RestMethod -Uri "$Base/api/assistant-runs" -Method Post -ContentType 'application/json' -Body (@{ patientId='demo-patient-ewa-dabrowska'; task='unauthenticated guard'; sources=@() } | ConvertTo-Json -Compress) | Out-Null; throw 'Assistant auth guard failed' } catch { if ($_.Exception.Response.StatusCode.value__ -ne 401) { throw } }
 $assistant = Post-Json '/api/assistant-runs' @{ patientId='demo-patient-ewa-dabrowska'; task='smoke test'; sources=@('patient-context') } -Headers $authHeaders; if ($assistant.status -ne 'NEEDS_REVIEW') { throw 'Assistant guardrail failed' }
 $patients = Get-Json '/api/patients'; if ($patients.patients.Count -lt 3) { throw 'Expected at least 3 demo patients' }
