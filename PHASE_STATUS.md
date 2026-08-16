@@ -46,8 +46,10 @@ desarrollo. Sigue prohibido introducir datos reales: el API local declara
   negativas para ejecutar allí con fixtures sintéticos y rollback transaccional,
   un bootstrap Docker con roles separados y volumen local aislado, y un workflow
   de integración continua que ejecuta el mismo contrato en PostgreSQL efímero.
-  El bootstrap y el workflow están preparados, pero su ejecución runtime aún
-  requiere Docker/PostgreSQL o un run disponible de GitHub Actions.
+  El workflow se ejecutó correctamente en GitHub Actions (run
+  `31977665526`, commit `fc9e385`), incluyendo migración, fixtures, auditoría
+  append-only y RLS con rol de aplicación no propietario. El bootstrap local
+  sigue requiriendo Docker/PostgreSQL en la máquina de desarrollo.
 - **4.6 Infraestructura clínica de producción:** pendiente y bloqueante. Faltan
   IdP real con MFA, cookies HttpOnly/Secure/SameSite, base de datos cifrada,
   almacenamiento de documentos cifrado, backups y restauración probados,
