@@ -50,6 +50,8 @@ Write-Output 'PASS: unknown patient context returns HTTP 404 without fallback da
 $tele = Post-Json '/api/teleconsultations' @{ patientId='demo-patient-ewa-dabrowska'; appointmentId='appt-003'; mode='PHONE'; role='GOSIA' }; if ($tele.status -ne 'INITIATED') { throw 'Teleconsultation flow failed' }
 $permissions = Get-Json '/api/permissions'; if (-not $permissions.roles.GOSIA.approve_diet -or $permissions.roles.AI_AGENT.approve_diet) { throw 'Permission policy failed' }
 $audit = Get-Json '/api/audit-events'; if ($null -eq $audit.events) { throw 'Audit endpoint failed' }
+if ($audit.events.Count -gt 0 -and (-not $audit.events[0].eventHash -or -not $audit.events[0].prevHash)) { throw 'Audit hash chain contract failed' }
+Write-Output 'PASS: audit events expose chained integrity hashes.'
 try { Post-Json '/api/teleconsultations' @{ patientId='demo-patient-maria-nowak'; appointmentId='appt-001'; mode='PHONE'; role='GOSIA' } | Out-Null; throw 'Mismatch guard failed' } catch { if ($_.Exception.Response.StatusCode.value__ -ne 422) { throw } }
 try { Post-Json '/api/appointments/status' @{ appointmentId='appt-002'; status='INVALID' } | Out-Null; throw 'Appointment status guard failed' } catch { if ($_.Exception.Response.StatusCode.value__ -ne 422) { throw } }
 try { Post-Json '/api/diet-plans/status' @{ patientId='demo-patient-maria-nowak'; status='APPROVED'; approvedBy='agent' } -Headers $aiHeaders | Out-Null; throw 'Diet approval guard failed' } catch { if ($_.Exception.Response.StatusCode.value__ -ne 403) { throw } }

@@ -6,6 +6,7 @@ replaced by authenticated, encrypted infrastructure before handling real health 
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 import json
+import hashlib
 from urllib.parse import urlparse, parse_qs
 import os
 import sqlite3
@@ -35,17 +36,27 @@ DEMO_SESSIONS = {
 
 def audit_db():
     conn = sqlite3.connect(AUDIT_DB)
-    conn.execute("CREATE TABLE IF NOT EXISTS audit_events (id INTEGER PRIMARY KEY AUTOINCREMENT, created_at TEXT NOT NULL, payload TEXT NOT NULL)")
+    conn.execute("CREATE TABLE IF NOT EXISTS audit_events (id INTEGER PRIMARY KEY AUTOINCREMENT, created_at TEXT NOT NULL, payload TEXT NOT NULL, prev_hash TEXT, event_hash TEXT)")
+    columns = {row[1] for row in conn.execute("PRAGMA table_info(audit_events)").fetchall()}
+    if "prev_hash" not in columns:
+        conn.execute("ALTER TABLE audit_events ADD COLUMN prev_hash TEXT")
+    if "event_hash" not in columns:
+        conn.execute("ALTER TABLE audit_events ADD COLUMN event_hash TEXT")
     return conn
 
 def record_audit(payload):
     with audit_db() as conn:
-        conn.execute("INSERT INTO audit_events(created_at, payload) VALUES (?, ?)", (datetime.now(timezone.utc).isoformat(), json.dumps(payload, ensure_ascii=False)))
+        created_at = datetime.now(timezone.utc).isoformat()
+        payload_json = json.dumps(payload, ensure_ascii=False, sort_keys=True)
+        previous = conn.execute("SELECT event_hash FROM audit_events ORDER BY id DESC LIMIT 1").fetchone()
+        prev_hash = previous[0] if previous and previous[0] else "GENESIS"
+        event_hash = hashlib.sha256(f"{prev_hash}|{created_at}|{payload_json}".encode("utf-8")).hexdigest()
+        conn.execute("INSERT INTO audit_events(created_at, payload, prev_hash, event_hash) VALUES (?, ?, ?, ?)", (created_at, payload_json, prev_hash, event_hash))
 
 def read_audits():
     with audit_db() as conn:
-        rows = conn.execute("SELECT id, created_at, payload FROM audit_events ORDER BY id DESC").fetchall()
-    return [{"id": row[0], "createdAt": row[1], "payload": json.loads(row[2])} for row in rows]
+        rows = conn.execute("SELECT id, created_at, payload, prev_hash, event_hash FROM audit_events ORDER BY id DESC").fetchall()
+    return [{"id": row[0], "createdAt": row[1], "payload": json.loads(row[2]), "prevHash": row[3], "eventHash": row[4]} for row in rows]
 
 def read_notes():
     with (DATA / "demo-notes.json").open(encoding="utf-8") as file:
