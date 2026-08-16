@@ -47,7 +47,7 @@ desarrollo. Sigue prohibido introducir datos reales: el API local declara
   un bootstrap Docker con roles separados y volumen local aislado, y un workflow
   de integración continua que ejecuta el mismo contrato en PostgreSQL efímero.
   El workflow se ejecutó correctamente en GitHub Actions (run
-  `31979075084`, commit `18e0084`), incluyendo migración, fixtures, auditoría
+  `31980296969`, commit `6174df7`), incluyendo migración, fixtures, auditoría
   append-only y RLS con rol de aplicación no propietario. El bootstrap local
   sigue requiriendo Docker/PostgreSQL en la máquina de desarrollo.
 - **4.6 Infraestructura clínica de producción:** pendiente y bloqueante. Faltan
