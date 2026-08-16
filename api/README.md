@@ -45,3 +45,8 @@ It accepts only claims already verified by a real OIDC adapter, with the exact
 issuer and audience, a non-empty subject, valid time bounds and explicit MFA.
 The application role is intentionally not read from the token; production code
 must resolve it from `app_users.external_subject` after authentication.
+
+The production configuration also refuses to start until the approved RODO
+retention policy, deletion workflow and incident runbook are versioned, and
+encryption has been confirmed for both clinical storage and backups. These are
+operational gates, not a substitute for Polish legal review.

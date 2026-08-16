@@ -18,6 +18,9 @@ REQUIRED = (
     "ONKOFIZJO_BACKUP_POLICY_ID",
     "ONKOFIZJO_AUDIT_SINK_URL",
     "ONKOFIZJO_RODO_POLICY_VERSION",
+    "ONKOFIZJO_RETENTION_POLICY_VERSION",
+    "ONKOFIZJO_DELETION_WORKFLOW_ID",
+    "ONKOFIZJO_INCIDENT_RUNBOOK_VERSION",
 )
 
 
@@ -31,6 +34,9 @@ class ProductionConfig:
     backup_policy_id: str
     audit_sink_url: str
     rodo_policy_version: str
+    retention_policy_version: str
+    deletion_workflow_id: str
+    incident_runbook_version: str
 
 
 def _https_url(name: str, value: str, errors: list[str]) -> None:
@@ -62,6 +68,10 @@ def validate_production_environment(values: dict[str, str] | None = None) -> Pro
         errors.append("ONKOFIZJO_DATABASE_SSL_MODE must be require or verify-full")
     if source.get("ONKOFIZJO_BACKUP_RESTORE_TESTED", "").lower() != "true":
         errors.append("ONKOFIZJO_BACKUP_RESTORE_TESTED must be true")
+    if source.get("ONKOFIZJO_BACKUP_ENCRYPTION_CONFIRMED", "").lower() != "true":
+        errors.append("ONKOFIZJO_BACKUP_ENCRYPTION_CONFIRMED must be true")
+    if source.get("ONKOFIZJO_STORAGE_ENCRYPTION_CONFIRMED", "").lower() != "true":
+        errors.append("ONKOFIZJO_STORAGE_ENCRYPTION_CONFIRMED must be true")
 
     for name in ("ONKOFIZJO_OIDC_ISSUER_URL", "ONKOFIZJO_STORAGE_ENDPOINT", "ONKOFIZJO_AUDIT_SINK_URL"):
         if source.get(name):
@@ -83,4 +93,7 @@ def validate_production_environment(values: dict[str, str] | None = None) -> Pro
         backup_policy_id=source["ONKOFIZJO_BACKUP_POLICY_ID"],
         audit_sink_url=source["ONKOFIZJO_AUDIT_SINK_URL"],
         rodo_policy_version=source["ONKOFIZJO_RODO_POLICY_VERSION"],
+        retention_policy_version=source["ONKOFIZJO_RETENTION_POLICY_VERSION"],
+        deletion_workflow_id=source["ONKOFIZJO_DELETION_WORKFLOW_ID"],
+        incident_runbook_version=source["ONKOFIZJO_INCIDENT_RUNBOOK_VERSION"],
     )
