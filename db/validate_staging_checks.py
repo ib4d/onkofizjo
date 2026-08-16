@@ -20,6 +20,7 @@ required = (
     "audit_events",
     "audit update unexpectedly succeeded",
     "audit delete unexpectedly succeeded",
+    "GET DIAGNOSTICS changed = ROW_COUNT;",
     "prev_hash IS NOT NULL AND event_hash IS NOT NULL",
 )
 for token in required:

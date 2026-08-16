@@ -128,12 +128,14 @@ SELECT set_config('onkofizjo.test_audit_sequence', :'audit_sequence', TRUE);
 DO $$
 DECLARE
     succeeded BOOLEAN := FALSE;
+    changed INTEGER := 0;
 BEGIN
     BEGIN
         UPDATE onkofizjo.audit_events
         SET reason = 'tamper attempt'
         WHERE sequence = current_setting('onkofizjo.test_audit_sequence')::bigint;
-        succeeded := TRUE;
+        GET DIAGNOSTICS changed = ROW_COUNT;
+        succeeded := changed > 0;
     EXCEPTION WHEN OTHERS THEN
         NULL;
     END;
@@ -146,11 +148,13 @@ $$;
 DO $$
 DECLARE
     succeeded BOOLEAN := FALSE;
+    changed INTEGER := 0;
 BEGIN
     BEGIN
         DELETE FROM onkofizjo.audit_events
         WHERE sequence = current_setting('onkofizjo.test_audit_sequence')::bigint;
-        succeeded := TRUE;
+        GET DIAGNOSTICS changed = ROW_COUNT;
+        succeeded := changed > 0;
     EXCEPTION WHEN OTHERS THEN
         NULL;
     END;
