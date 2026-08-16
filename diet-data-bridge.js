@@ -1,16 +1,27 @@
 /* Demo-only bridge for the Stitch diet and Hermes screens. */
 (async function () {
+  const requestedPatientId = new URLSearchParams(location.search).get('patientId');
+  if (!requestedPatientId) {
+    document.querySelectorAll('body *').forEach((node) => {
+      if (node.children.length === 0 && (node.textContent.includes('Anna Kowalska') || node.textContent.includes('Paciente seleccionado'))) {
+        node.textContent = node.textContent.replaceAll('Anna Kowalska', 'Selecciona un paciente').replaceAll('Paciente seleccionado', 'Selecciona un paciente');
+      }
+    });
+    const heading = [...document.querySelectorAll('h1,h2,h3')].find((node) => node.textContent.includes('Kreator Planu'));
+    if (heading) heading.insertAdjacentHTML('beforebegin', '<p style="margin:12px 0;color:#79564f;font:600 14px Inter,Arial,sans-serif">Selecciona un paciente desde el CRM para cargar un plan contextualizado.</p>');
+    return;
+  }
   const results = await Promise.all([
-    OnkofizjoApi.get(`/api/diet-plans?patientId=${encodeURIComponent(new URLSearchParams(location.search).get('patientId') || 'demo-patient-anna-kowalska')}`, 'data/demo-diet-plan.json'),
+    OnkofizjoApi.get(`/api/diet-plans?patientId=${encodeURIComponent(requestedPatientId)}`, 'data/demo-diet-plan.json'),
     OnkofizjoApi.get('/api/assistant-runs', 'data/demo-assistant-run.json')
   ]);
   const plan = results[0].data;
   const run = results[1].data;
-  const patientId = new URLSearchParams(location.search).get('patientId') || plan.patientId;
+  const patientId = requestedPatientId;
   try {
     const patientResult = await OnkofizjoApi.get('/api/patients', 'data/demo-patients.json');
     const patient = (patientResult.data.patients || []).find(item => item.id === patientId);
-    if (patient) document.querySelectorAll('body *').forEach(node => { if (node.children.length === 0 && node.textContent.trim() === 'Anna Kowalska') node.textContent = patient.name; });
+    if (patient) document.querySelectorAll('body *').forEach(node => { if (node.children.length === 0 && (node.textContent.includes('Anna Kowalska') || node.textContent.includes('Paciente seleccionado'))) node.textContent = node.textContent.replaceAll('Anna Kowalska', patient.name).replaceAll('Paciente seleccionado', patient.name); });
   } catch (error) { console.warn('Diet patient context unavailable', error); }
   const marker = document.createElement('div');
   marker.textContent = `DEMO DATA · ${results[0].source} · ${plan.status} · HUMAN REVIEW REQUIRED`;
@@ -28,7 +39,6 @@
   document.querySelectorAll('body *').forEach((node) => {
     if (node.children.length !== 0) return;
     const value = node.textContent.trim();
-    if (value === 'Anna Kowalska') node.textContent = 'Anna Kowalska';
     if (value === 'Propozycja') node.textContent = plan.status === 'ASSISTANT_PROPOSED' ? 'Hermes draft · review required' : value;
     if (value.includes('ESPEN 2021')) node.textContent = 'Source placeholder · verify before clinical use';
   });

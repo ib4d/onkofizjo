@@ -18,6 +18,13 @@ function Assert-PageContains([string]$route, [string]$expected) {
   }
   Write-Output "PASS content $route contains '$expected'"
 }
+function Assert-PageExcludes([string]$route, [string]$unexpected) {
+  $response = Invoke-WebRequest -Uri "$base/$route" -UseBasicParsing
+  if ($response.Content -like "*$unexpected*") {
+    throw "$route contained forbidden static text: $unexpected"
+  }
+  Write-Output "PASS content $route excludes '$unexpected'"
+}
 Assert-PageContains 'marketing-section.html?section=services&lang=en' 'Services'
 Assert-PageContains 'marketing-section.html?section=services&lang=pl' 'Usługi'
 Assert-PageContains 'crm-modules.html' 'Teleconsultation'
@@ -29,4 +36,5 @@ Assert-PageContains 'appointment-status.html?appointmentId=appt-002' 'Guardar es
 Assert-PageContains 'teleconsult.html?patientId=demo-patient-ewa-dabrowska&appointmentId=appt-003' 'id="video"'
 Assert-PageContains 'teleconsult.html?patientId=demo-patient-ewa-dabrowska&appointmentId=appt-003' 'id="phone"'
 Assert-PageContains 'note-create.html?patientId=demo-patient-ewa-dabrowska' 'id="submit"'
+Assert-PageExcludes 'diet-plan.html' 'Anna Kowalska'
 Write-Output "PASS: $($routes.Count) application routes returned HTTP 200."
