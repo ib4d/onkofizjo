@@ -1,0 +1,62 @@
+# Onkofizjo · estado global de ejecución
+
+Última verificación: 2026-08-16
+
+## Estado actual
+
+**Fase activa: Fase 4 · persistencia, identidad, permisos y seguridad clínica — en progreso.**
+
+La aplicación dispone de un prototipo navegable y una frontera de seguridad para
+desarrollo. Sigue prohibido introducir datos reales: el API local declara
+`demo: true` y `dataMode: synthetic-only`.
+
+## Fases
+
+| Fase | Estado | Evidencia / alcance |
+|---|---|---|
+| 0. Alcance y requisitos | Completada | Nichos, idiomas, canales de cita, CRM y criterios de teleconsulta definidos. |
+| 1. Fundación técnica | Completada para demo | Rutas web, API local, datos sintéticos, flujo de arranque y smoke tests. |
+| 2. Producto integrado | Completada para prototipo | Marketing PL/EN, CRM, pacientes, calendario, notas, dietas, documentos, Hermes demo y teleconsulta demo. |
+| 3. Responsive y accesibilidad base | Completada para prototipo | Navegación responsive, reducción de ruido durante scroll, cierre de paneles y rutas móviles verificadas. |
+| 4. Persistencia, identidad y seguridad clínica | **En progreso** | Controles de desarrollo implementados; infraestructura real pendiente. |
+| 5. Teleconsulta real y automatización dietética | Pendiente | Proveedor de vídeo/teléfono, consentimiento, almacenamiento y workflow clínico real. |
+| 6. Hermes/LLM y agentes grounded | Pendiente | RAG con fuentes aprobadas, permisos por tarea, trazabilidad y revisión humana en producción. |
+| 7. QA, observabilidad y despliegue | Pendiente | Tests E2E, monitorización, alertas, backups probados y entorno de staging/producción. |
+| 8. Lanzamiento y distribución | Pendiente | Dominio, SEO, analítica consentida, operación y publicación masiva. |
+
+## Fase 4 · subfases verificadas
+
+- **4.1 Sesión de desarrollo:** completada para demo. Las lecturas clínicas y las
+  escrituras operativas exigen una sesión válida; el rol efectivo se deriva en
+  servidor.
+- **4.2 Autorización y consistencia:** completada para demo. Se validan paciente,
+  cita, relación cita-paciente, estados, aprobación humana de dietas y límites
+  del agente AI.
+- **4.3 Frontera web/API:** completada para demo. CORS usa allowlist explícita,
+  permite `Authorization` en preflight y el servidor web envía headers base de
+  seguridad.
+- **4.4 Auditoría:** completada para demo. Los eventos tienen cadena hash y el
+  endpoint verifica su integridad; los eventos sintéticos históricos se migran
+  determinísticamente.
+- **4.5 Infraestructura clínica de producción:** pendiente y bloqueante. Faltan
+  IdP real con MFA, cookies HttpOnly/Secure/SameSite, base de datos cifrada,
+  almacenamiento de documentos cifrado, backups y restauración probados,
+  retención/borrado, acuerdos RODO/GDPR, respuesta a incidentes y revisión de
+  seguridad independiente.
+
+## Evidencia ejecutada
+
+```powershell
+.\api-smoke.ps1 -Port 8809
+.\web-smoke.ps1 -Port 4183
+```
+
+Resultado actual: API smoke completo y 18 rutas web verificadas. El API demo
+rechaza el modo `ONKOFIZJO_ENV=production`; esa negativa es intencional hasta
+que exista un servicio de producción revisado.
+
+## Regla de avance
+
+Una fase solo se marcará como completada cuando exista evidencia reproducible de
+todo su alcance. Las comprobaciones de demo no se presentarán como cumplimiento
+de producción.
