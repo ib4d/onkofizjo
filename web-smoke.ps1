@@ -37,4 +37,6 @@ Assert-PageContains 'teleconsult.html?patientId=demo-patient-ewa-dabrowska&appoi
 Assert-PageContains 'teleconsult.html?patientId=demo-patient-ewa-dabrowska&appointmentId=appt-003' 'id="phone"'
 Assert-PageContains 'note-create.html?patientId=demo-patient-ewa-dabrowska' 'id="submit"'
 Assert-PageExcludes 'diet-plan.html' 'Anna Kowalska'
+Assert-PageContains 'crm.html' 'data-phase3-responsive'
+Assert-PageContains 'calendar.html' 'data-phase3-responsive'
 Write-Output "PASS: $($routes.Count) application routes returned HTTP 200."

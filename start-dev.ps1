@@ -8,7 +8,7 @@ $occupied = Get-NetTCPConnection -State Listen -ErrorAction SilentlyContinue | W
 foreach ($processId in $occupied) {
   if ($processId -and $processId -ne $PID) { Stop-Process -Id $processId -Force -ErrorAction SilentlyContinue }
 }
-Start-Process -FilePath $python -ArgumentList '-m','http.server',"$WebPort" -WorkingDirectory $root -WindowStyle Hidden
+Start-Process -FilePath $python -ArgumentList 'web-server.py',"$WebPort" -WorkingDirectory $root -WindowStyle Hidden
 $env:ONKOFIZJO_API_PORT = "$ApiPort"
 Start-Process -FilePath $python -ArgumentList 'api/server.py' -WorkingDirectory $root -WindowStyle Hidden
 Write-Output "Web: http://127.0.0.1:$WebPort/"
