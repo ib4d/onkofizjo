@@ -74,7 +74,9 @@ desarrollo. Sigue prohibido introducir datos reales: el API local declara
   `api/production_startup.py` impide iniciar el runtime si falta cualquiera de
   esas integraciones; estos artefactos requieren revisión jurídica polaca y
   proveedores autorizados antes de conectar datos reales. El proyecto creado es
-  únicamente staging vacío y no cambia el estado `synthetic-only` del API.
+  únicamente staging vacío y no cambia el estado `synthetic-only` del API. La
+  organización Supabase está actualmente en plan `free`, por lo que el plan y
+  las garantías contractuales deben revisarse antes de cualquier dato clínico.
   La verificación de migraciones y logs de Auth confirma que el servicio está
   operativo, pero también dejó una advertencia interna de deprecación
   `GOTRUE_JWT_*_GROUP_NAME` que debe resolverse o aceptarse formalmente antes

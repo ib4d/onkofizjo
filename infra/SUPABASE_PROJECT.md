@@ -12,6 +12,7 @@ claves publicables, `service_role`, secretos, contraseñas ni datos clínicos.
 - Región: `eu-central-1`
 - URL del proyecto: <https://xhemiwewdbnnnlsoulvz.supabase.co>
 - Estado verificado: `ACTIVE_HEALTHY`
+- Plan de organización verificado: `free` — no aprobado para datos clínicos reales.
 - Uso autorizado: staging vacío, sin datos clínicos reales
 
 ## Migraciones aplicadas
@@ -39,6 +40,9 @@ claves publicables, `service_role`, secretos, contraseñas ni datos clínicos.
   antes del go-live, aunque no afecta al staging vacío.
 - Advertencias de rendimiento: únicamente índices aún no usados en una base
   vacía; deben reevaluarse después de tráfico sintético representativo.
+- El plan actual debe revisarse antes del go-live para confirmar soporte,
+  retención, backups, restauración y condiciones contractuales adecuadas para
+  datos de salud.
 
 ## Pendiente antes de datos reales
 
