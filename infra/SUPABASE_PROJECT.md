@@ -1,0 +1,47 @@
+# Onkofizjo · proyecto clínico UE provisionado
+
+Este registro contiene únicamente metadatos no sensibles. No añadir aquí
+claves publicables, `service_role`, secretos, contraseñas ni datos clínicos.
+
+## Proyecto
+
+- Proveedor: Supabase
+- Organización: `ib4d's Org`
+- Nombre: `Onkofizjo Clinical EU`
+- Referencia: `xhemiwewdbnnnlsoulvz`
+- Región: `eu-central-1`
+- URL del proyecto: <https://xhemiwewdbnnnlsoulvz.supabase.co>
+- Estado verificado: `ACTIVE_HEALTHY`
+- Uso autorizado: staging vacío, sin datos clínicos reales
+
+## Migraciones aplicadas
+
+1. `001_initial_production` — esquema clínico, RLS, políticas y auditoría
+   append-only.
+2. `002_harden_function_search_paths` — endurecimiento de funciones clínicas
+   y de auditoría frente a `search_path` mutable.
+3. `003_index_foreign_keys` — índices de cobertura para claves foráneas.
+4. `004_enable_reference_rls` — RLS también en `ecosystems` y `locations`.
+
+## Verificación posterior
+
+- PostgreSQL: `17.6`.
+- Tablas en `onkofizjo`: `19`.
+- Tablas con RLS activo: `19/19`.
+- Ecosistemas de referencia: `6`.
+- Pacientes: `0`.
+- Eventos de auditoría: `0`.
+- Asesores de seguridad Supabase: `0 lints`.
+- Advertencias de rendimiento: únicamente índices aún no usados en una base
+  vacía; deben reevaluarse después de tráfico sintético representativo.
+
+## Pendiente antes de datos reales
+
+- IdP/OIDC con MFA, revocación y rotación de claves.
+- Storage privado cifrado con URLs temporales.
+- Sink externo de auditoría inmutable.
+- Backups cifrados y restauración con RPO/RTO aprobados.
+- Revisión DPA/RODO, retención, borrado y seguridad independiente.
+
+El API local y el runtime de producción siguen protegidos por el contrato
+`synthetic-only`/fail-closed hasta completar esos puntos.

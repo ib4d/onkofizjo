@@ -76,8 +76,9 @@ desarrollo. Sigue prohibido introducir datos reales: el API local declara
   proveedores autorizados antes de conectar datos reales. El proyecto creado es
   únicamente staging vacío y no cambia el estado `synthetic-only` del API.
   El registro formal de autorización está en
-  `infra/PROVIDER_AUTHORIZATION.md`; todavía no contiene una aprobación ni un
-  identificador de proyecto real.
+  `infra/PROVIDER_AUTHORIZATION.md`; registra la autorización del staging vacío.
+  El registro técnico no sensible del proyecto provisionado está en
+  `infra/SUPABASE_PROJECT.md`.
 
 ## Evidencia ejecutada
 
