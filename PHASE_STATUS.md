@@ -75,6 +75,10 @@ desarrollo. Sigue prohibido introducir datos reales: el API local declara
   esas integraciones; estos artefactos requieren revisión jurídica polaca y
   proveedores autorizados antes de conectar datos reales. El proyecto creado es
   únicamente staging vacío y no cambia el estado `synthetic-only` del API.
+  La verificación de migraciones y logs de Auth confirma que el servicio está
+  operativo, pero también dejó una advertencia interna de deprecación
+  `GOTRUE_JWT_*_GROUP_NAME` que debe resolverse o aceptarse formalmente antes
+  del go-live.
   El registro formal de autorización está en
   `infra/PROVIDER_AUTHORIZATION.md`; registra la autorización del staging vacío.
   El registro técnico no sensible del proyecto provisionado está en

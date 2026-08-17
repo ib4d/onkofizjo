@@ -32,6 +32,11 @@ claves publicables, `service_role`, secretos, contraseñas ni datos clínicos.
 - Pacientes: `0`.
 - Eventos de auditoría: `0`.
 - Asesores de seguridad Supabase: `0 lints`.
+- Migraciones registradas en el proyecto: `4/4`, en el orden documentado arriba.
+- Servicio Auth verificado en logs de inicialización; no hay usuarios clínicos
+  creados. Supabase informa una advertencia interna de deprecación sobre
+  `GOTRUE_JWT_*_GROUP_NAME`; debe eliminarse o confirmarse con el proveedor
+  antes del go-live, aunque no afecta al staging vacío.
 - Advertencias de rendimiento: únicamente índices aún no usados en una base
   vacía; deben reevaluarse después de tráfico sintético representativo.
 
