@@ -21,3 +21,6 @@ La publicación pública solo se considera lista cuando existe evidencia fechada
 para cada casilla y el dominio canónico definitivo coincide en la web, sitemap,
 robots y Search Console. Esta checklist no autoriza datos clínicos ni sustituye
 las puertas de Fase 4.
+
+La puerta automatizada `release-gate.ps1` debe pasar después de sustituir el
+dominio provisional; mientras tanto, su fallo es intencional y seguro.

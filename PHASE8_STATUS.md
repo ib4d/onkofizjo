@@ -15,6 +15,8 @@ activado analítica.
 - `stitch-marketing.html` incluye descripción, canonical, hreflang PL/EN y
   manifest.
 - `SEO_RELEASE_CHECKLIST.md` define la evidencia requerida antes de publicación.
+- `release-gate.ps1` bloquea deliberadamente el release mientras el dominio sea
+  provisional o el sitemap incluya rutas privadas.
 - La sustitución del dominio provisional es una puerta obligatoria antes de
   enviar el sitemap a buscadores.
 
