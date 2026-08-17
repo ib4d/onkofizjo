@@ -36,6 +36,8 @@ claves publicables, `service_role`, secretos, contraseñas ni datos clínicos.
 - Ecosistemas de referencia: `6`.
 - Pacientes: `0`.
 - Eventos de auditoría: `0`.
+- Usuarios Auth: `0`.
+- Buckets Storage: `0` (no existe todavía almacenamiento clínico).
 - Asesores de seguridad Supabase: `0 lints`.
 - Security Advisor revalidado después de las migraciones 005–006: `0 lints`.
 - Migraciones registradas en el proyecto: `4/4`, en el orden documentado arriba.
