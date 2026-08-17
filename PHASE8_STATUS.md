@@ -12,6 +12,9 @@ activado analítica.
 - `sitemap.xml` contiene únicamente páginas públicas y usa el dominio público
   actual `reha.mp` como referencia provisional.
 - `manifest.webmanifest` define instalación básica y metadatos PL.
+- `stitch-marketing.html` incluye descripción, canonical, hreflang PL/EN y
+  manifest.
+- `SEO_RELEASE_CHECKLIST.md` define la evidencia requerida antes de publicación.
 - La sustitución del dominio provisional es una puerta obligatoria antes de
   enviar el sitemap a buscadores.
 

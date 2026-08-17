@@ -8,6 +8,9 @@ $robots = Invoke-WebRequest -Uri "http://127.0.0.1:$Port/robots.txt" -UseBasicPa
 foreach ($blocked in @('/api/','/crm.html','/patient.html')) { if ($robots.Content -notlike "*Disallow: $blocked*") { throw "robots missing $blocked" } }
 $sitemap = Invoke-WebRequest -Uri "http://127.0.0.1:$Port/sitemap.xml" -UseBasicParsing
 if ($sitemap.Content -notlike '*stitch-marketing.html*' -or $sitemap.Content -like '*crm.html*') { throw 'sitemap public-scope contract failed' }
+$marketing = Invoke-WebRequest -Uri "http://127.0.0.1:$Port/stitch-marketing.html" -UseBasicParsing
+foreach ($expected in @('canonical','hreflang="pl"','hreflang="en"','manifest.webmanifest')) { if ($marketing.Content -notlike "*$expected*") { throw "marketing SEO missing $expected" } }
 Write-Output 'PASS: public SEO assets are served.'
 Write-Output 'PASS: robots blocks clinical/private routes.'
 Write-Output 'PASS: sitemap contains marketing only.'
+Write-Output 'PASS: marketing metadata contains canonical, hreflang and manifest.'
