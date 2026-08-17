@@ -83,6 +83,9 @@ desarrollo. Sigue prohibido introducir datos reales: el API local declara
   `infra/PROVIDER_AUTHORIZATION.md`; registra la autorización del staging vacío.
   El registro técnico no sensible del proyecto provisionado está en
   `infra/SUPABASE_PROJECT.md`.
+  La matriz de aceptación, con evidencia exigida para cada puerta restante,
+  está en `infra/PHASE4_ACCEPTANCE.md`; no se cierra la fase por disponibilidad
+  nominal de un proveedor.
 
 ## Evidencia ejecutada
 
