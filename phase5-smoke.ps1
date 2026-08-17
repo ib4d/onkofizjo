@@ -17,7 +17,7 @@ try { Post '/api/teleconsultations' @{ patientId='demo-patient-ewa-dabrowska'; a
 $phone = Post '/api/teleconsultations' @{ patientId='demo-patient-maria-nowak'; appointmentId='appt-002'; mode='PHONE'; state='RINGING' } $headers
 if ($phone.patientId -ne 'demo-patient-maria-nowak' -or $phone.mode -ne 'PHONE' -or $phone.status -ne 'RINGING' -or $phone.phoneAction -notlike 'tel:*') { throw 'Phone fallback contract failed' }
 $diet = Post '/api/diet-plans' @{ patientId='demo-patient-maria-nowak'; goal='regularidad de comidas'; restrictions=@('lactosa') } $headers
-if ($diet.patientId -ne 'demo-patient-maria-nowak' -or $diet.status -ne 'ASSISTANT_PROPOSED' -or $diet.version -ne 1 -or $diet.meals.Count -lt 3 -or $diet.humanApprovalRequired -ne $true) { throw 'Diet proposal contract failed' }
+if ($diet.patientId -ne 'demo-patient-maria-nowak' -or $diet.status -ne 'ASSISTANT_PROPOSED' -or $diet.version -ne 1 -or $diet.meals.Count -lt 3 -or $diet.humanApprovalRequired -ne $true -or $diet.ruleTrace[0].applied -ne $true -or $diet.meals[0].description -notlike '*roślinnym*') { throw 'Diet proposal restriction rule failed' }
 $approved = Post '/api/diet-plans/status' @{ patientId='demo-patient-maria-nowak'; planId=$diet.id; status='APPROVED'; approvedBy='demo-gosia' } $headers
 if ($approved.status -ne 'APPROVED' -or $approved.patientId -ne 'demo-patient-maria-nowak') { throw 'Human approval contract failed' }
 Write-Output 'PASS: video consent and provider boundary.'

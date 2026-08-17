@@ -15,7 +15,7 @@ congelada. No es una autorización para tratar pacientes reales.
 - **5.2 Automatización dietética grounded:** implementada en el endpoint de
   propuestas: perfil contextual por paciente, objetivo, restricciones,
   advertencias, fuentes placeholder verificables, comidas propuestas,
-  versionado y aprobación humana obligatoria.
+  versionado, traza de reglas de restricciones y aprobación humana obligatoria.
 - **5.3 Integración CRM:** completada para demo. El workspace enlaza con
   teleconsulta y dietética; `diet-data-bridge.js` permite generar una propuesta
   contextualizada y registrar aprobación; los contextos se mantienen por

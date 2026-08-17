@@ -236,8 +236,14 @@ class Handler(BaseHTTPRequestHandler):
             if not isinstance(restrictions, list):
                 self._send({"error": "restrictions_must_be_array", "demo": True}, 422)
                 return
+            normalized_restrictions = {str(item).strip().lower() for item in restrictions}
+            breakfast = "Owsianka z jogurtem naturalnym i owocami — propozycja do weryfikacji"
+            if any(item in normalized_restrictions for item in {"lactosa", "laktoza", "dairy", "nabiał"}):
+                breakfast = "Owsianka na napoju roślinnym i owoce — propozycja do weryfikacji"
+            if any(item in normalized_restrictions for item in {"gluten", "gluten-free", "bez glutenu"}):
+                breakfast = "Owsianka certyfikowana bezglutenowa i owoce — propozycja do weryfikacji"
             meals = [
-                {"name": "Śniadanie", "description": "Owsianka z jogurtem naturalnym i owocami — propozycja do weryfikacji", "kcal": 420},
+                {"name": "Śniadanie", "description": breakfast, "kcal": 420},
                 {"name": "Obiad", "description": "Zupa warzywna i źródło białka dobrane po potwierdzeniu tolerancji", "kcal": 620},
                 {"name": "Kolacja", "description": "Lekki posiłek zgodny z potwierdzonym wzorcem żywienia", "kcal": 410},
             ]
@@ -253,6 +259,7 @@ class Handler(BaseHTTPRequestHandler):
                 "version": 1,
                 "profileSnapshot": {"ecosystem": profile.get("tag"), "state": profile.get("state"), "symptom": profile.get("symptom")},
                 "restrictions": restrictions,
+                "ruleTrace": [{"rule": "restriction-aware-breakfast", "applied": bool(normalized_restrictions), "inputs": sorted(normalized_restrictions)}],
                 "goal": payload.get("goal", "Not specified — confirm with patient"),
                 "meals": meals,
                 "warnings": warnings,
