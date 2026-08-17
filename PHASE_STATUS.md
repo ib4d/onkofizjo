@@ -57,7 +57,9 @@ desarrollo. Sigue prohibido introducir datos reales: el API local declara
   retención/borrado, acuerdos RODO/GDPR, respuesta a incidentes y revisión de
   seguridad independiente. Existe un contrato ejecutable que rechaza una
   configuración incompleta o insegura, una frontera OIDC fail-closed con MFA y
-  un runbook operativo versionado en `ops/PRODUCTION_RUNBOOK.md`. Todavía no
+  un runbook operativo versionado en `ops/PRODUCTION_RUNBOOK.md`, además de una
+  plantilla de onboarding sin secretos en `infra/production.env.example`.
+  Todavía no
   hay proveedores conectados ni credenciales de infraestructura real. El mapa
   de datos y los workflows jurídicos están documentados en
   `PRIVACY_DATA_MAP.md`, y la decisión de infraestructura pendiente está
