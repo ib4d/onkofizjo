@@ -22,6 +22,16 @@ SET LOCAL onkofizjo.test_diet_plan = :'diet_plan_id';
 SET LOCAL app.user_subject = :'subject_collaborator_a';
 SET LOCAL app.mfa_aal = 'aal2';
 
+SET LOCAL app.mfa_aal = 'aal1';
+DO $$
+BEGIN
+    IF onkofizjo.current_user_id() IS NOT NULL THEN
+        RAISE EXCEPTION 'aal1 session unexpectedly resolved a clinical user';
+    END IF;
+END
+$$;
+SET LOCAL app.mfa_aal = 'aal2';
+
 DO $$
 DECLARE
     visible_count INTEGER;

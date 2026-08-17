@@ -14,6 +14,7 @@ required = (
     "ROLLBACK;",
     "current_setting('onkofizjo.test_patient_a')",
     "current_setting('onkofizjo.test_patient_b')",
+    "aal1 session unexpectedly resolved a clinical user",
     "clinical_notes",
     "teleconsultations",
     "diet_plans",
