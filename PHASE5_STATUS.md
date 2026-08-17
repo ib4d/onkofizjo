@@ -25,6 +25,10 @@ congelada. No es una autorización para tratar pacientes reales.
   auditoría y grabación desactivada; `web-smoke.ps1` verifica las 18 rutas,
   contratos de pantalla y headers responsive/seguridad.
 
+La prueba específica de fase `phase5-smoke.ps1` también pasa: vídeo con
+consentimiento, rechazo sin consentimiento, fallback telefónico, aislamiento
+por paciente, propuesta dietética versionada y aprobación humana.
+
 ## Frontera honesta
 
 La pantalla prepara una sala local de demostración y registra el contrato de
