@@ -52,8 +52,28 @@ class FakeReady:
     def assert_ready(self):
         pass
 
+    def verify(self, authorization_header):
+        pass
 
-class MissingReadiness:
+    def health_check(self):
+        pass
+
+    def put(self, **kwargs):
+        pass
+
+    def create_download_url(self, **kwargs):
+        pass
+
+    def delete(self, **kwargs):
+        pass
+
+    def append(self, **kwargs):
+        pass
+
+
+class MissingOperation:
+    def assert_ready(self):
+        pass
     pass
 
 
@@ -72,15 +92,15 @@ try:
     build_production_runtime(
         config,
         ProductionAdapters(
-            identity=MissingReadiness(),
+            identity=MissingOperation(),
             database=FakeReady(),
             storage=FakeReady(),
             audit_sink=FakeReady(),
         ),
     )
 except ProductionIntegrationNotConfigured as error:
-    assert "assert_ready" in str(error)
+    assert "verify" in str(error)
 else:
-    raise AssertionError("startup gate accepted an adapter without a readiness check")
+    raise AssertionError("startup gate accepted an adapter without required operations")
 
 print("PASS: production startup requires complete config and non-placeholder provider adapters.")

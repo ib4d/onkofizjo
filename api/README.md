@@ -59,7 +59,8 @@ implementations must be registered and reviewed before
 `ProductionAdapters.assert_ready()` can pass. Each implementation must also
 perform its own non-destructive `assert_ready()` check for provider access,
 encryption, key/schema state and retention configuration; merely supplying a
-URL or a non-null object is insufficient.
+URL or a non-null object is insufficient. The boundary also checks that the
+adapter exposes every required operation before the readiness check runs.
 
 `api/production_startup.py` combines both gates. A future production entrypoint
 must call `build_production_runtime()` before binding an HTTP listener; it will

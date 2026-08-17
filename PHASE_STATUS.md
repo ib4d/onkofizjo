@@ -64,7 +64,8 @@ desarrollo. Sigue prohibido introducir datos reales: el API local declara
   documentada en `infra/PROVIDER_DECISION.md`. Las interfaces provider-neutral
   de OIDC, almacenamiento clínico y auditoría externa fallan cerradas en
   `api/production_adapters.py` (incluye ahora el adaptador privado de
-  PostgreSQL y comprobaciones `assert_ready()` por proveedor), y
+  PostgreSQL, operaciones obligatorias y comprobaciones `assert_ready()` por
+  proveedor), y
   `api/production_startup.py` impide iniciar el runtime si falta cualquiera de
   esas integraciones; estos artefactos requieren revisión jurídica polaca y
   proveedores autorizados antes de conectar datos reales.

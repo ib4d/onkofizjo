@@ -134,15 +134,20 @@ class ProductionAdapters:
                 "Production adapters are incomplete; configure OIDC, private PostgreSQL, encrypted storage and external audit sink"
             )
 
-        names = ("OIDC", "private PostgreSQL", "encrypted storage", "external audit sink")
-        for name, adapter in zip(names, adapters):
-            readiness = getattr(adapter, "assert_ready", None)
-            if not callable(readiness):
+        required_methods = {
+            "OIDC": ("assert_ready", "verify"),
+            "private PostgreSQL": ("assert_ready", "health_check"),
+            "encrypted storage": ("assert_ready", "put", "create_download_url", "delete"),
+            "external audit sink": ("assert_ready", "append"),
+        }
+        for name, adapter in zip(required_methods, adapters):
+            missing = [method for method in required_methods[name] if not callable(getattr(adapter, method, None))]
+            if missing:
                 raise ProductionIntegrationNotConfigured(
-                    f"{name} adapter must implement assert_ready()"
+                    f"{name} adapter is missing required operations: {', '.join(missing)}"
                 )
             try:
-                readiness()
+                adapter.assert_ready()
             except ProductionIntegrationNotConfigured:
                 raise
             except Exception as error:
