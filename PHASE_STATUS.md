@@ -4,7 +4,11 @@
 
 ## Estado actual
 
-**Fase activa: Fase 4 · persistencia, identidad, permisos y seguridad clínica — en progreso.**
+**Fase activa: Fase 5 · teleconsulta y automatización dietética — en ejecución.**
+
+Fase 4 queda congelada por decisión del proyecto. Su infraestructura UE existe
+como staging vacío, pero no se conectarán datos clínicos reales ni proveedores
+externos hasta reanudar y completar sus puertas de producción.
 
 La aplicación dispone de un prototipo navegable y una frontera de seguridad para
 desarrollo. Sigue prohibido introducir datos reales: el API local declara
@@ -18,8 +22,8 @@ desarrollo. Sigue prohibido introducir datos reales: el API local declara
 | 1. Fundación técnica | Completada para demo | Rutas web, API local, datos sintéticos, flujo de arranque y smoke tests. |
 | 2. Producto integrado | Completada para prototipo | Marketing PL/EN, CRM, pacientes, calendario, notas, dietas, documentos, Hermes demo y teleconsulta demo. |
 | 3. Responsive y accesibilidad base | Completada para prototipo | Navegación responsive, reducción de ruido durante scroll, cierre de paneles y rutas móviles verificadas. |
-| 4. Persistencia, identidad y seguridad clínica | **En progreso** | Controles de desarrollo implementados; infraestructura real pendiente. |
-| 5. Teleconsulta real y automatización dietética | Pendiente | Proveedor de vídeo/teléfono, consentimiento, almacenamiento y workflow clínico real. |
+| 4. Persistencia, identidad y seguridad clínica | **Congelada** | Staging UE preparado; quedan puertas externas de producción documentadas. |
+| 5. Teleconsulta real y automatización dietética | **En ejecución** | Flujo proveedor-neutral con consentimiento, vídeo local, teléfono, estados, propuestas dietéticas trazables y revisión humana. |
 | 6. Hermes/LLM y agentes grounded | Pendiente | RAG con fuentes aprobadas, permisos por tarea, trazabilidad y revisión humana en producción. |
 | 7. QA, observabilidad y despliegue | Pendiente | Tests E2E, monitorización, alertas, backups probados y entorno de staging/producción. |
 | 8. Lanzamiento y distribución | Pendiente | Dominio, SEO, analítica consentida, operación y publicación masiva. |

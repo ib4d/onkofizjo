@@ -230,12 +230,33 @@ class Handler(BaseHTTPRequestHandler):
             if payload.get("patientId") and not known_patient(payload.get("patientId")):
                 self._send({"error": "patient_not_found", "patientId": payload.get("patientId"), "demo": True}, 422)
                 return
+            profiles = json.loads((DATA / "demo-clinical-profiles.json").read_text(encoding="utf-8")).get("profiles", {})
+            profile = profiles.get(payload.get("patientId"), {})
+            restrictions = payload.get("restrictions", [])
+            if not isinstance(restrictions, list):
+                self._send({"error": "restrictions_must_be_array", "demo": True}, 422)
+                return
+            meals = [
+                {"name": "Śniadanie", "description": "Owsianka z jogurtem naturalnym i owocami — propozycja do weryfikacji", "kcal": 420},
+                {"name": "Obiad", "description": "Zupa warzywna i źródło białka dobrane po potwierdzeniu tolerancji", "kcal": 620},
+                {"name": "Kolacja", "description": "Lekki posiłek zgodny z potwierdzonym wzorcem żywienia", "kcal": 410},
+            ]
+            warnings = ["Synthetic demo content — not clinical advice", "Human review required before patient delivery"]
+            if restrictions:
+                warnings.append("Restrictions supplied by user require manual verification against the patient's clinical record")
             result = {
                 "demo": True,
-                "id": "demo-plan-created",
+                "id": f"demo-plan-{datetime.now(timezone.utc).strftime('%Y%m%d%H%M%S%f')}",
+                "patientId": payload.get("patientId"),
                 "status": "ASSISTANT_PROPOSED",
                 "humanApprovalRequired": True,
-                "payload": payload,
+                "version": 1,
+                "profileSnapshot": {"ecosystem": profile.get("tag"), "state": profile.get("state"), "symptom": profile.get("symptom")},
+                "restrictions": restrictions,
+                "goal": payload.get("goal", "Not specified — confirm with patient"),
+                "meals": meals,
+                "warnings": warnings,
+                "sources": [{"id": "demo-source-placeholder", "label": "Approved source registry placeholder", "status": "VERIFY_BEFORE_USE"}],
             }
             record_audit({"action": "CREATE_DIET_PROPOSAL", "resourceId": result["id"], "actor": payload.get("requestedBy", "unknown")})
             self._send(result, 201)
@@ -334,7 +355,15 @@ class Handler(BaseHTTPRequestHandler):
             if self.role() == "AI_AGENT":
                 self._send({"error": "forbidden_role", "requiredRole": "GOSIA or COLLABORATOR", "demo": True}, 403)
                 return
-            result = {"demo": True, "id": f"tele-demo-{datetime.now(timezone.utc).strftime('%Y%m%d%H%M%S')}", "patientId": payload.get("patientId"), "appointmentId": payload.get("appointmentId"), "mode": mode, "status": "READY" if mode == "VIDEO" else "INITIATED", "consentRequired": mode == "VIDEO", "recording": False}
+            if mode == "VIDEO" and payload.get("consent") is not True:
+                self._send({"error": "consent_required", "demo": True, "recording": False}, 422)
+                return
+            state = payload.get("state", "READY" if mode == "VIDEO" else "RINGING")
+            allowed_states = {"READY", "RINGING", "ACTIVE", "ENDED", "CANCELLED", "FAILED"}
+            if state not in allowed_states:
+                self._send({"error": "invalid_teleconsult_state", "allowed": sorted(allowed_states), "demo": True}, 422)
+                return
+            result = {"demo": True, "id": payload.get("teleconsultationId") or f"tele-demo-{datetime.now(timezone.utc).strftime('%Y%m%d%H%M%S%f')}", "patientId": payload.get("patientId"), "appointmentId": payload.get("appointmentId"), "mode": mode, "status": state, "consentRequired": mode == "VIDEO", "consentRecorded": payload.get("consent") is True, "recording": False, "provider": "DEMO_PROVIDER_NEUTRAL", "room": f"demo-room-{payload.get('patientId')}-{datetime.now(timezone.utc).strftime('%H%M%S')}" if mode == "VIDEO" else None, "phoneAction": "tel:+48500123456" if mode == "PHONE" else None}
             record_audit({"action": "START_TELECONSULTATION", "resourceId": result["id"], "mode": mode, "actor": payload.get("actor", "demo-gosia")})
             self._send(result, 201)
             return

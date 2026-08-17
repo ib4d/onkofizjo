@@ -43,6 +43,18 @@ SQLite database. Production must not expose unrestricted audit logs to the brows
 It can never create `APPROVED` or `SENT` directly. Production must require an
 authenticated actor, validate patient context and create an audit event.
 
+Fase 5 proposals accept `patientId`, `goal` and `restrictions[]` and return a
+patient-specific `profileSnapshot`, `version`, `meals`, `warnings`, `sources`
+and `humanApprovalRequired: true`. They remain synthetic and must be reviewed
+by GOSIA before delivery.
+
+`POST /api/teleconsultations` accepts `patientId`, optional `appointmentId`,
+`mode` (`VIDEO|PHONE`), `state` (`READY|RINGING|ACTIVE|ENDED|CANCELLED|FAILED`)
+and `consent`. VIDEO rejects requests without explicit consent. Every response
+has `recording: false`. The current provider is `DEMO_PROVIDER_NEUTRAL`: local
+camera/microphone preflight and a `tel:` fallback are implemented, but no
+external video or phone provider is connected yet.
+
 `POST /api/appointments` creates a demo internal appointment with status
 `SCHEDULED` and `humanConfirmationRequired: true`. It is intentionally not a
 public booking endpoint.
