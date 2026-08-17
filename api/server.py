@@ -12,6 +12,7 @@ import os
 import sqlite3
 from datetime import datetime, timezone
 from diet_engine import build_proposal
+from assistant_engine import create_run
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / "data"
@@ -259,7 +260,7 @@ class Handler(BaseHTTPRequestHandler):
             if not known_patient(payload["patientId"]):
                 self._send({"error": "patient_not_found", "patientId": payload["patientId"], "demo": True}, 422)
                 return
-            result = {"demo": True, "id": f"assistant-demo-{datetime.now(timezone.utc).strftime('%Y%m%d%H%M%S')}", "patientId": payload["patientId"], "task": payload["task"], "status": "NEEDS_REVIEW", "answer": "No clinical conclusion generated. Review the linked patient context and approved sources before drafting.", "sources": payload.get("sources", []), "humanReviewRequired": True, "noInferenceWithoutEvidence": True}
+            result = {"demo": True, "id": f"assistant-demo-{datetime.now(timezone.utc).strftime('%Y%m%d%H%M%S%f')}", **create_run(ROOT, payload["patientId"], payload["task"], payload.get("sources", []))}
             record_audit({"action": "CREATE_ASSISTANT_RUN", "resourceId": result["id"], "actor": payload.get("requestedBy", "demo-gosia")})
             self._send(result, 201)
             return
