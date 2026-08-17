@@ -62,6 +62,7 @@ security_values = {
     "ONKOFIZJO_SESSION_COOKIE_HTTPONLY": "true",
     "ONKOFIZJO_SESSION_COOKIE_SAMESITE": "Lax",
     "ONKOFIZJO_MFA_REQUIRED": "true",
+    "ONKOFIZJO_MFA_AAL": "aal2",
 }
 for name, expected_value in security_values.items():
     if assignments[name] != expected_value:

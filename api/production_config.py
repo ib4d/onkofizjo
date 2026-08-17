@@ -21,6 +21,7 @@ REQUIRED = (
     "ONKOFIZJO_RETENTION_POLICY_VERSION",
     "ONKOFIZJO_DELETION_WORKFLOW_ID",
     "ONKOFIZJO_INCIDENT_RUNBOOK_VERSION",
+    "ONKOFIZJO_MFA_AAL",
 )
 
 
@@ -37,6 +38,7 @@ class ProductionConfig:
     retention_policy_version: str
     deletion_workflow_id: str
     incident_runbook_version: str
+    mfa_assurance_level: str
 
 
 def _https_url(name: str, value: str, errors: list[str]) -> None:
@@ -64,6 +66,8 @@ def validate_production_environment(values: dict[str, str] | None = None) -> Pro
         errors.append("ONKOFIZJO_SESSION_COOKIE_SAMESITE must be Lax or Strict")
     if source.get("ONKOFIZJO_MFA_REQUIRED", "").lower() != "true":
         errors.append("ONKOFIZJO_MFA_REQUIRED must be true")
+    if source.get("ONKOFIZJO_MFA_AAL", "") != "aal2":
+        errors.append("ONKOFIZJO_MFA_AAL must be aal2")
     if source.get("ONKOFIZJO_DATABASE_SSL_MODE", "").lower() not in {"require", "verify-full"}:
         errors.append("ONKOFIZJO_DATABASE_SSL_MODE must be require or verify-full")
     if source.get("ONKOFIZJO_BACKUP_RESTORE_TESTED", "").lower() != "true":
@@ -96,4 +100,5 @@ def validate_production_environment(values: dict[str, str] | None = None) -> Pro
         retention_policy_version=source["ONKOFIZJO_RETENTION_POLICY_VERSION"],
         deletion_workflow_id=source["ONKOFIZJO_DELETION_WORKFLOW_ID"],
         incident_runbook_version=source["ONKOFIZJO_INCIDENT_RUNBOOK_VERSION"],
+        mfa_assurance_level=source["ONKOFIZJO_MFA_AAL"],
     )

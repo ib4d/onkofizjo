@@ -21,6 +21,8 @@ evidencia reproducible, fecha, responsable y resultado.
   las puertas.
 - El API permanece `synthetic-only` y el arranque de producción permanece
   fail-closed.
+- La plantilla de producción exige `ONKOFIZJO_MFA_REQUIRED=true` y
+  `ONKOFIZJO_MFA_AAL=aal2`; ambos valores se validan automáticamente.
 - Los secretos, claves publicables y credenciales no se almacenan en Git.
 - No se conectará la UI directamente a la base clínica; el acceso pasará por
   el runtime autenticado y sus políticas RLS.

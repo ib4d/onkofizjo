@@ -24,6 +24,7 @@ def valid_fixture() -> dict[str, str]:
         "ONKOFIZJO_SESSION_COOKIE_HTTPONLY": "true",
         "ONKOFIZJO_SESSION_COOKIE_SAMESITE": "Lax",
         "ONKOFIZJO_MFA_REQUIRED": "true",
+        "ONKOFIZJO_MFA_AAL": "aal2",
         "ONKOFIZJO_DEMO_MODE": "false",
     }
 
