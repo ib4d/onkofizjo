@@ -1,0 +1,12 @@
+User-agent: *
+Allow: /
+Disallow: /crm.html
+Disallow: /patient.html
+Disallow: /calendar.html
+Disallow: /note-create.html
+Disallow: /teleconsult.html
+Disallow: /diet-plan.html
+Disallow: /api/
+
+# Replace the placeholder domain before public launch.
+Sitemap: https://reha.mp/sitemap.xml

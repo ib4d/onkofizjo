@@ -1,0 +1,10 @@
+{
+  "name": "onkofizjo",
+  "short_name": "onkofizjo",
+  "lang": "pl",
+  "start_url": "/stitch-marketing.html",
+  "display": "standalone",
+  "background_color": "#fdf9f5",
+  "theme_color": "#051a0f",
+  "description": "Rehabilitacja onkologiczna, fizjoterapia i dietetyka kliniczna."
+}

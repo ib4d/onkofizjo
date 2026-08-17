@@ -26,7 +26,7 @@ desarrollo. Sigue prohibido introducir datos reales: el API local declara
 | 5. Teleconsulta y automatización dietética | **Completada para demo proveedor-neutral** | Consentimiento, vídeo local, teléfono, estados, propuestas dietéticas trazables, revisión humana, integración CRM y smoke tests. Proveedor real pendiente de Fase 4. |
 | 6. Hermes/LLM y agentes grounded | **En ejecución** | Motor grounded sintético, fuentes aprobadas, rechazo sin evidencia, trazabilidad y revisión humana; LLM externo y RAG productivo pendientes. |
 | 7. QA, observabilidad y despliegue | **En ejecución** | Smoke unificado, health/readiness fail-closed y métricas sin payload clínico; E2E, alertas, backups y staging productivo pendientes. |
-| 8. Lanzamiento y distribución | Pendiente | Dominio, SEO, analítica consentida, operación y publicación masiva. |
+| 8. Lanzamiento y distribución | **En ejecución** | Robots, sitemap y manifest preparados; dominio definitivo, analítica consentida, Search Console y publicación masiva pendientes. |
 
 ## Fase 4 · subfases verificadas
 
