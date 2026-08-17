@@ -36,6 +36,7 @@ DEMO_SESSIONS = {
     "demo-session-ai": {"userId": "demo-agent", "role": "AI_AGENT", "displayName": "Hermes demo agent"},
     "demo-session-collaborator": {"userId": "demo-collaborator", "role": "COLLABORATOR", "displayName": "Collaborator demo"},
 }
+METRICS = {"requests": 0, "errors": 0}
 
 def audit_db():
     conn = sqlite3.connect(AUDIT_DB)
@@ -145,6 +146,9 @@ class Handler(BaseHTTPRequestHandler):
         return session.get("role") if session else None
 
     def _send(self, value, status=200):
+        METRICS["requests"] += 1
+        if status >= 400:
+            METRICS["errors"] += 1
         body = json.dumps(value, ensure_ascii=False).encode("utf-8")
         self.send_response(status)
         self.send_header("Content-Type", "application/json; charset=utf-8")
@@ -175,6 +179,12 @@ class Handler(BaseHTTPRequestHandler):
                 self._send({"error": "unauthorized", "demo": True}, 401)
                 return
             self._send({"demo": True, "authenticated": True, "session": session})
+            return
+        if route == "/api/readiness":
+            self._send({"demo": True, "ready": False, "status": "NOT_READY", "dataMode": "synthetic-only", "blockers": ["production_identity", "clinical_persistence", "authorized_llm_provider", "external_teleconsult_provider"]}, 503)
+            return
+        if route == "/api/metrics":
+            self._send({"demo": True, "dataMode": "synthetic-only", "requests": METRICS["requests"], "errors": METRICS["errors"], "clinicalPayloadsExcluded": True})
             return
         if route in {"/api/patients", "/api/appointments", "/api/patient-context", "/api/notes", "/api/diet-plans", "/api/assistant-runs", "/api/operations", "/api/audit-events"}:
             if not self.require_session():
