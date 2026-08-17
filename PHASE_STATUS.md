@@ -23,7 +23,7 @@ desarrollo. Sigue prohibido introducir datos reales: el API local declara
 | 2. Producto integrado | Completada para prototipo | Marketing PL/EN, CRM, pacientes, calendario, notas, dietas, documentos, Hermes demo y teleconsulta demo. |
 | 3. Responsive y accesibilidad base | Completada para prototipo | Navegación responsive, reducción de ruido durante scroll, cierre de paneles y rutas móviles verificadas. |
 | 4. Persistencia, identidad y seguridad clínica | **Congelada** | Staging UE preparado; quedan puertas externas de producción documentadas. |
-| 5. Teleconsulta real y automatización dietética | **En ejecución** | Flujo proveedor-neutral con consentimiento, vídeo local, teléfono, estados, propuestas dietéticas trazables y revisión humana. |
+| 5. Teleconsulta y automatización dietética | **Completada para demo proveedor-neutral** | Consentimiento, vídeo local, teléfono, estados, propuestas dietéticas trazables, revisión humana, integración CRM y smoke tests. Proveedor real pendiente de Fase 4. |
 | 6. Hermes/LLM y agentes grounded | Pendiente | RAG con fuentes aprobadas, permisos por tarea, trazabilidad y revisión humana en producción. |
 | 7. QA, observabilidad y despliegue | Pendiente | Tests E2E, monitorización, alertas, backups probados y entorno de staging/producción. |
 | 8. Lanzamiento y distribución | Pendiente | Dominio, SEO, analítica consentida, operación y publicación masiva. |

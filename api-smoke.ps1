@@ -54,7 +54,9 @@ try {
   if ($_.Exception.Response.StatusCode.value__ -ne 404) { throw }
 }
 Write-Output 'PASS: unknown patient context returns HTTP 404 without fallback data.'
-$tele = Post-Json '/api/teleconsultations' @{ patientId='demo-patient-ewa-dabrowska'; appointmentId='appt-003'; mode='PHONE'; role='GOSIA' }; if ($tele.status -ne 'INITIATED') { throw 'Teleconsultation flow failed' }
+$tele = Post-Json '/api/teleconsultations' @{ patientId='demo-patient-ewa-dabrowska'; appointmentId='appt-003'; mode='PHONE'; role='GOSIA' }; if ($tele.status -ne 'RINGING' -or $tele.recording) { throw 'Teleconsultation flow failed' }
+$diet = Post-Json '/api/diet-plans' @{ patientId='demo-patient-maria-nowak'; goal='regularidad'; restrictions=@('lactosa') }; if ($diet.patientId -ne 'demo-patient-maria-nowak' -or $diet.status -ne 'ASSISTANT_PROPOSED' -or $diet.version -ne 1 -or $diet.meals.Count -lt 1 -or -not $diet.humanApprovalRequired) { throw 'Diet proposal grounding contract failed' }
+try { Post-Json '/api/teleconsultations' @{ patientId='demo-patient-ewa-dabrowska'; appointmentId='appt-003'; mode='VIDEO'; consent=$false; role='GOSIA' } | Out-Null; throw 'Video consent guard failed' } catch { if ($_.Exception.Response.StatusCode.value__ -ne 422) { throw } }
 $permissions = Get-Json '/api/permissions'; if (-not $permissions.roles.GOSIA.approve_diet -or $permissions.roles.AI_AGENT.approve_diet) { throw 'Permission policy failed' }
 $audit = Get-Json '/api/audit-events'; if ($null -eq $audit.events) { throw 'Audit endpoint failed' }
 if ($audit.events.Count -gt 0 -and (-not $audit.events[0].eventHash -or -not $audit.events[0].prevHash)) { throw 'Audit hash chain contract failed' }

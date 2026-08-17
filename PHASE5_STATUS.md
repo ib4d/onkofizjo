@@ -16,14 +16,20 @@ congelada. No es una autorización para tratar pacientes reales.
   propuestas: perfil contextual por paciente, objetivo, restricciones,
   advertencias, fuentes placeholder verificables, comidas propuestas,
   versionado y aprobación humana obligatoria.
-- **5.3 Integración CRM:** pendiente de validación visual y de flujo en todas las
-  rutas de CRM; no se marca completa por existir solo el endpoint y la pantalla.
-- **5.4 QA y cierre:** pendiente hasta ejecutar pruebas de estado, permisos,
-  pacientes distintos, consentimiento, fallback telefónico y restricciones.
+- **5.3 Integración CRM:** completada para demo. El workspace enlaza con
+  teleconsulta y dietética; `diet-data-bridge.js` permite generar una propuesta
+  contextualizada y registrar aprobación; los contextos se mantienen por
+  `patientId`.
+- **5.4 QA automatizado:** completada para demo. `api-smoke.ps1` verifica
+  consentimiento, permisos, contexto paciente-cita, propuesta dietética,
+  auditoría y grabación desactivada; `web-smoke.ps1` verifica las 18 rutas,
+  contratos de pantalla y headers responsive/seguridad.
 
 ## Frontera honesta
 
 La pantalla prepara una sala local de demostración y registra el contrato de
 sesión. Todavía no existe conexión con un proveedor externo de vídeo/telefonía,
 grabación, almacenamiento clínico ni entrega automática de dietas. Eso requiere
-reanudar Fase 4 y aportar proveedores/autorizaciones.
+reanudar Fase 4 y aportar proveedores/autorizaciones. Por tanto, la Fase 5 queda
+cerrada únicamente en su alcance proveedor-neutral y sintético; no es una
+declaración de disponibilidad clínica o comercial en producción.
