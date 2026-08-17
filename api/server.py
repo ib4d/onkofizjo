@@ -11,6 +11,7 @@ from urllib.parse import urlparse, parse_qs
 import os
 import sqlite3
 from datetime import datetime, timezone
+from diet_engine import build_proposal
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / "data"
@@ -236,20 +237,7 @@ class Handler(BaseHTTPRequestHandler):
             if not isinstance(restrictions, list):
                 self._send({"error": "restrictions_must_be_array", "demo": True}, 422)
                 return
-            normalized_restrictions = {str(item).strip().lower() for item in restrictions}
-            breakfast = "Owsianka z jogurtem naturalnym i owocami — propozycja do weryfikacji"
-            if any(item in normalized_restrictions for item in {"lactosa", "laktoza", "dairy", "nabiał"}):
-                breakfast = "Owsianka na napoju roślinnym i owoce — propozycja do weryfikacji"
-            if any(item in normalized_restrictions for item in {"gluten", "gluten-free", "bez glutenu"}):
-                breakfast = "Owsianka certyfikowana bezglutenowa i owoce — propozycja do weryfikacji"
-            meals = [
-                {"name": "Śniadanie", "description": breakfast, "kcal": 420},
-                {"name": "Obiad", "description": "Zupa warzywna i źródło białka dobrane po potwierdzeniu tolerancji", "kcal": 620},
-                {"name": "Kolacja", "description": "Lekki posiłek zgodny z potwierdzonym wzorcem żywienia", "kcal": 410},
-            ]
-            warnings = ["Synthetic demo content — not clinical advice", "Human review required before patient delivery"]
-            if restrictions:
-                warnings.append("Restrictions supplied by user require manual verification against the patient's clinical record")
+            proposal = build_proposal(profile, payload.get("goal"), restrictions)
             result = {
                 "demo": True,
                 "id": f"demo-plan-{datetime.now(timezone.utc).strftime('%Y%m%d%H%M%S%f')}",
@@ -257,13 +245,7 @@ class Handler(BaseHTTPRequestHandler):
                 "status": "ASSISTANT_PROPOSED",
                 "humanApprovalRequired": True,
                 "version": 1,
-                "profileSnapshot": {"ecosystem": profile.get("tag"), "state": profile.get("state"), "symptom": profile.get("symptom")},
-                "restrictions": restrictions,
-                "ruleTrace": [{"rule": "restriction-aware-breakfast", "applied": bool(normalized_restrictions), "inputs": sorted(normalized_restrictions)}],
-                "goal": payload.get("goal", "Not specified — confirm with patient"),
-                "meals": meals,
-                "warnings": warnings,
-                "sources": [{"id": "demo-source-placeholder", "label": "Approved source registry placeholder", "status": "VERIFY_BEFORE_USE"}],
+                **proposal,
             }
             record_audit({"action": "CREATE_DIET_PROPOSAL", "resourceId": result["id"], "actor": payload.get("requestedBy", "unknown")})
             self._send(result, 201)
