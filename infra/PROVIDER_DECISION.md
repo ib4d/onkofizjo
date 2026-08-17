@@ -1,6 +1,6 @@
 # Onkofizjo · decisión de infraestructura clínica
 
-Estado: **pendiente de selección y autorización del responsable del servicio**.
+Estado: **proyecto UE provisionado para staging vacío; gates de producción pendientes**.
 
 Este documento evita conectar por accidente el prototipo a un proveedor no
 aprobado. No contiene credenciales, datos de pacientes ni una decisión de
@@ -8,7 +8,11 @@ compra.
 
 El registro formal de autorización, responsables y evidencia de provisión está
 en `infra/PROVIDER_AUTHORIZATION.md`. Su existencia no implica que la
-autorización haya sido concedida.
+autorización de producción haya sido concedida.
+
+La autorización recibida permite el proyecto vacío `xhemiwewdbnnnlsoulvz` en
+`eu-central-1`. No autoriza todavía datos reales, conexión del CRM ni puesta en
+producción.
 
 ## Baseline recomendado
 

@@ -8,15 +8,16 @@ la residencia, el tratamiento de datos y el plan de recuperación.
 
 ## Estado
 
-**Pendiente de aprobación.** No se ha autorizado todavía la creación ni la
-conexión de un entorno clínico de producción.
+**Staging vacío provisionado; producción aún no autorizada.** La autorización
+del responsable permitió crear el proyecto, pero todavía no permite conectar
+datos clínicos reales ni declarar el entorno listo para producción.
 
 ## Decisión que debe completar el responsable
 
-- Proveedor y producto: `______________________________________________`
-- Organización/cuenta propietaria: `___________________________________`
-- Región exacta de alojamiento: `______________________________________`
-- Entorno autorizado: `staging sin datos reales / producción` (marcar uno)
+- Proveedor y producto: `Supabase / Onkofizjo Clinical EU`
+- Organización/cuenta propietaria: `ib4d's Org`
+- Región exacta de alojamiento: `eu-central-1`
+- Entorno autorizado: `staging sin datos reales`
 - Dominio público de marketing: `_______________________________________`
 - Dominio privado del CRM/API: `_______________________________________`
 - RPO aprobado: `____________`
@@ -64,7 +65,11 @@ Opción elegida: `__________________________________________________________`
 
 Completar únicamente después de la autorización y sin incluir secretos:
 
-- Identificador no sensible del proyecto: `______________________________`
+- Identificador no sensible del proyecto: `xhemiwewdbnnnlsoulvz`
+- Estado observado tras provisión: `ACTIVE_HEALTHY`
+- Esquema inicial aplicado: `001_initial_production`
+- Endurecimiento aplicado: `002_harden_function_search_paths`, `003_index_foreign_keys`, `004_enable_reference_rls`
+- Asesores de seguridad tras migraciones: `0 lints`
 - Evidencia de región/residencia: `______________________________________`
 - Evidencia de DPA/RODO: `_______________________________________________`
 - Evidencia de prueba de restauración y fecha: `_________________________`
@@ -73,5 +78,6 @@ Completar únicamente después de la autorización y sin incluir secretos:
 - Revisor técnico: `____________________________________________________`
 - Revisor legal/seguridad: `_____________________________________________`
 
-Hasta completar este registro y los gates técnicos, el API debe permanecer en
-modo `synthetic-only` y el runtime de producción debe fallar cerrado.
+Hasta completar el resto de este registro y los gates técnicos, el API debe
+permanecer en modo `synthetic-only` y el runtime de producción debe fallar
+cerrado.

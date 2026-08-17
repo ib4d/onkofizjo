@@ -51,7 +51,9 @@ desarrollo. Sigue prohibido introducir datos reales: el API local declara
   con rol de aplicación no propietario. El bootstrap local sigue requiriendo
   Docker/PostgreSQL en la máquina de desarrollo; la ejecución más reciente se
   debe comprobar en el historial del workflow antes de cada entrega.
-- **4.6 Infraestructura clínica de producción:** pendiente y bloqueante. Faltan
+- **4.6 Infraestructura clínica de producción:** en progreso. Ya existe un
+  proyecto Supabase UE vacío, con el esquema aplicado y los asesores de
+  seguridad sin lints; todavía faltan
   IdP real con MFA, cookies HttpOnly/Secure/SameSite, base de datos cifrada,
   almacenamiento de documentos cifrado, backups y restauración probados,
   retención/borrado, acuerdos RODO/GDPR, respuesta a incidentes y revisión de
@@ -60,7 +62,8 @@ desarrollo. Sigue prohibido introducir datos reales: el API local declara
   un runbook operativo versionado en `ops/PRODUCTION_RUNBOOK.md`, además de una
   plantilla de onboarding sin secretos en `infra/production.env.example`.
   Todavía no
-  hay proveedores conectados ni credenciales de infraestructura real. El mapa
+  hay IdP, almacenamiento clínico, auditoría externa ni credenciales de
+  infraestructura real conectados. El mapa
   de datos y los workflows jurídicos están documentados en
   `PRIVACY_DATA_MAP.md`, y la decisión de infraestructura pendiente está
   documentada en `infra/PROVIDER_DECISION.md`. Las interfaces provider-neutral
@@ -70,7 +73,8 @@ desarrollo. Sigue prohibido introducir datos reales: el API local declara
   proveedor), y
   `api/production_startup.py` impide iniciar el runtime si falta cualquiera de
   esas integraciones; estos artefactos requieren revisión jurídica polaca y
-  proveedores autorizados antes de conectar datos reales.
+  proveedores autorizados antes de conectar datos reales. El proyecto creado es
+  únicamente staging vacío y no cambia el estado `synthetic-only` del API.
   El registro formal de autorización está en
   `infra/PROVIDER_AUTHORIZATION.md`; todavía no contiene una aprobación ni un
   identificador de proyecto real.

@@ -128,7 +128,7 @@ CREATE TABLE clinical_notes (
 );
 
 CREATE OR REPLACE FUNCTION validate_note_appointment_patient() RETURNS TRIGGER
-LANGUAGE plpgsql AS $$
+LANGUAGE plpgsql SET search_path = onkofizjo, pg_catalog AS $$
 DECLARE
     appointment_patient UUID;
 BEGIN
@@ -268,15 +268,41 @@ CREATE TABLE audit_events (
 CREATE INDEX patients_name_idx ON patients (lower(full_name));
 CREATE INDEX appointments_schedule_idx ON appointments (starts_at, status);
 CREATE INDEX appointments_patient_idx ON appointments (patient_id, starts_at DESC);
+CREATE INDEX appointments_created_by_idx ON appointments (created_by);
+CREATE INDEX appointments_ecosystem_idx ON appointments (ecosystem_code);
+CREATE INDEX appointments_location_idx ON appointments (location_id);
 CREATE INDEX clinical_notes_patient_idx ON clinical_notes (patient_id, created_at DESC);
+CREATE INDEX clinical_notes_appointment_idx ON clinical_notes (appointment_id);
+CREATE INDEX clinical_notes_author_idx ON clinical_notes (author_user_id);
+CREATE INDEX clinical_notes_signed_by_idx ON clinical_notes (signed_by);
 CREATE INDEX diet_plans_patient_idx ON diet_plans (patient_id, updated_at DESC);
+CREATE INDEX diet_plans_created_by_idx ON diet_plans (created_by);
+CREATE INDEX diet_plans_approved_by_idx ON diet_plans (approved_by);
+CREATE INDEX diet_plan_versions_created_by_idx ON diet_plan_versions (created_by);
 CREATE INDEX documents_patient_idx ON documents (patient_id, created_at DESC);
+CREATE INDEX documents_appointment_idx ON documents (appointment_id);
+CREATE INDEX documents_created_by_idx ON documents (created_by);
 CREATE INDEX teleconsultations_patient_idx ON teleconsultations (patient_id, created_at DESC);
+CREATE INDEX teleconsultations_appointment_idx ON teleconsultations (appointment_id);
+CREATE INDEX teleconsultations_created_by_idx ON teleconsultations (created_by);
 CREATE INDEX assistant_runs_patient_idx ON assistant_runs (patient_id, created_at DESC);
+CREATE INDEX assistant_runs_requested_by_idx ON assistant_runs (requested_by);
+CREATE INDEX assistant_runs_human_approved_by_idx ON assistant_runs (human_approved_by);
 CREATE INDEX audit_patient_idx ON audit_events (patient_id, sequence DESC);
+CREATE INDEX audit_events_actor_user_idx ON audit_events (actor_user_id);
+CREATE INDEX patient_access_user_idx ON patient_access (user_id);
+CREATE INDEX patient_access_granted_by_idx ON patient_access (granted_by);
+CREATE INDEX patient_consents_patient_idx ON patient_consents (patient_id);
+CREATE INDEX patient_consents_evidence_document_idx ON patient_consents (evidence_document_id);
+CREATE INDEX patient_ecosystems_ecosystem_idx ON patient_ecosystems (ecosystem_code);
+CREATE INDEX payments_appointment_idx ON payments (appointment_id);
+CREATE INDEX payments_created_by_idx ON payments (created_by);
+CREATE INDEX knowledge_items_reviewed_by_idx ON knowledge_items (reviewed_by);
+CREATE INDEX user_ecosystems_ecosystem_idx ON user_ecosystems (ecosystem_code);
+CREATE INDEX user_locations_location_idx ON user_locations (location_id);
 
 CREATE OR REPLACE FUNCTION current_subject() RETURNS TEXT
-LANGUAGE sql STABLE AS $$
+LANGUAGE sql STABLE SET search_path = pg_catalog AS $$
     SELECT COALESCE(
         NULLIF(current_setting('request.jwt.claim.sub', TRUE), ''),
         NULLIF(current_setting('app.user_subject', TRUE), '')
@@ -330,7 +356,7 @@ BEFORE INSERT ON audit_events
 FOR EACH ROW EXECUTE FUNCTION set_audit_hash();
 
 CREATE OR REPLACE FUNCTION prevent_audit_mutation() RETURNS TRIGGER
-LANGUAGE plpgsql AS $$
+LANGUAGE plpgsql SET search_path = onkofizjo, pg_catalog AS $$
 BEGIN
     RAISE EXCEPTION 'audit_events is append-only';
 END
@@ -345,6 +371,8 @@ BEFORE DELETE ON audit_events
 FOR EACH ROW EXECUTE FUNCTION prevent_audit_mutation();
 
 ALTER TABLE patients ENABLE ROW LEVEL SECURITY;
+ALTER TABLE ecosystems ENABLE ROW LEVEL SECURITY;
+ALTER TABLE locations ENABLE ROW LEVEL SECURITY;
 ALTER TABLE patient_ecosystems ENABLE ROW LEVEL SECURITY;
 ALTER TABLE patient_access ENABLE ROW LEVEL SECURITY;
 ALTER TABLE app_users ENABLE ROW LEVEL SECURITY;
@@ -365,6 +393,17 @@ ALTER TABLE audit_events ENABLE ROW LEVEL SECURITY;
 CREATE POLICY patients_select ON patients FOR SELECT USING (can_access_patient(id));
 CREATE POLICY patients_gosia_insert ON patients FOR INSERT WITH CHECK (is_gosia());
 CREATE POLICY patients_gosia_update ON patients FOR UPDATE USING (is_gosia()) WITH CHECK (is_gosia());
+
+CREATE POLICY ecosystems_read ON ecosystems FOR SELECT USING (
+    current_role_code() IN ('GOSIA', 'ASSISTANT', 'COLLABORATOR', 'AI_AGENT')
+);
+CREATE POLICY locations_read ON locations FOR SELECT USING (
+    is_gosia() OR EXISTS (
+        SELECT 1 FROM user_locations
+        WHERE user_locations.location_id = locations.id
+          AND user_locations.user_id = current_user_id()
+    )
+);
 
 CREATE POLICY app_users_self_or_gosia ON app_users FOR SELECT USING (id = current_user_id() OR is_gosia());
 CREATE POLICY user_ecosystems_self_or_gosia ON user_ecosystems FOR SELECT USING (user_id = current_user_id() OR is_gosia());

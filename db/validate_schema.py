@@ -11,12 +11,13 @@ SCHEMA = (ROOT / "001_initial_production.sql").read_text(encoding="utf-8")
 
 REQUIRED_TABLES = (
     "ecosystems", "locations", "app_users", "patients", "patient_access",
-    "patient_consents", "appointments", "clinical_notes", "diet_plans",
+    "patient_ecosystems", "user_ecosystems", "user_locations", "patient_consents", "appointments", "clinical_notes", "diet_plans",
     "diet_plan_versions", "documents", "teleconsultations", "payments",
     "knowledge_items", "assistant_runs", "audit_events",
 )
 REQUIRED_POLICIES = (
-    "patients_select", "app_users_self_or_gosia", "appointments_access", "clinical_notes_access",
+    "patients_select", "app_users_self_or_gosia", "ecosystems_read", "locations_read",
+    "appointments_access", "clinical_notes_access",
     "diet_plans_access", "documents_access", "teleconsultations_access",
     "payments_access", "assistant_runs_access", "knowledge_items_read", "audit_events_insert",
 )
@@ -34,7 +35,7 @@ for policy in REQUIRED_POLICIES:
     require(f"CREATE POLICY {policy} ", f"policy {policy}")
 
 for table in (
-    "patients", "app_users", "user_ecosystems", "user_locations", "patient_access", "patient_consents", "appointments",
+    "ecosystems", "locations", "patients", "app_users", "user_ecosystems", "user_locations", "patient_access", "patient_consents", "appointments",
     "clinical_notes", "diet_plans", "diet_plan_versions", "documents",
     "teleconsultations", "payments", "knowledge_items", "assistant_runs", "audit_events",
 ):
@@ -52,6 +53,14 @@ require("CREATE EXTENSION IF NOT EXISTS pgcrypto", "hashing extension")
 require("SECURITY DEFINER", "security-definer access functions")
 require("SELECT onkofizjo.current_role_code() = 'GOSIA'", "schema-qualified Gosia role lookup")
 require("ON CONFLICT (code) DO NOTHING", "reference-data idempotency")
+for function in ("validate_note_appointment_patient", "current_subject", "prevent_audit_mutation"):
+    require(f"FUNCTION {function}()", f"function {function}")
+    if function == "current_subject":
+        require("SET search_path = pg_catalog", f"fixed search path for {function}")
+    else:
+        require("SET search_path = onkofizjo, pg_catalog", f"fixed search path for {function}")
+for index in ("appointments_created_by_idx", "clinical_notes_author_idx", "patient_access_user_idx"):
+    require(f"CREATE INDEX {index}", f"foreign-key index {index}")
 require("BEGIN;", "transaction start")
 require("COMMIT;", "transaction commit")
 
