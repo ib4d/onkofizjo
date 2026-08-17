@@ -42,6 +42,7 @@ Assert-PageContains 'appointment-status.html?appointmentId=appt-002' 'Guardar es
 Assert-PageContains 'teleconsult.html?patientId=demo-patient-ewa-dabrowska&appointmentId=appt-003' 'id="video"'
 Assert-PageContains 'teleconsult.html?patientId=demo-patient-ewa-dabrowska&appointmentId=appt-003' 'id="phone"'
 Assert-PageContains 'note-create.html?patientId=demo-patient-ewa-dabrowska' 'id="submit"'
+Assert-PageContains 'patient.html?patientId=demo-patient-maria-nowak' 'patient-context.js'
 Assert-PageExcludes 'diet-plan.html' 'Anna Kowalska'
 Assert-PageContains 'crm.html' 'data-phase3-responsive'
 Assert-PageContains 'calendar.html' 'data-phase3-responsive'
