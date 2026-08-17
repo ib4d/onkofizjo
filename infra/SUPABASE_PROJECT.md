@@ -23,6 +23,10 @@ claves publicables, `service_role`, secretos, contraseñas ni datos clínicos.
    y de auditoría frente a `search_path` mutable.
 3. `003_index_foreign_keys` — índices de cobertura para claves foráneas.
 4. `004_enable_reference_rls` — RLS también en `ecosystems` y `locations`.
+5. `005_require_aal2_in_rls` — las funciones de autorización rechazan sesiones
+   sin assurance `aal2` antes de resolver el usuario clínico.
+6. `006_revoke_public_security_definers` — los helpers de autorización no son
+   invocables como RPC por `anon` ni `authenticated`.
 
 ## Verificación posterior
 

@@ -309,9 +309,21 @@ LANGUAGE sql STABLE SET search_path = pg_catalog AS $$
     )
 $$;
 
+CREATE OR REPLACE FUNCTION onkofizjo.clinical_mfa_satisfied() RETURNS BOOLEAN
+LANGUAGE sql STABLE SET search_path = pg_catalog AS $$
+    SELECT COALESCE(
+        NULLIF(current_setting('request.jwt.claim.aal', TRUE), ''),
+        NULLIF(current_setting('app.mfa_aal', TRUE), '')
+    ) = 'aal2'
+$$;
+
 CREATE OR REPLACE FUNCTION current_user_id() RETURNS UUID
 LANGUAGE sql STABLE SECURITY DEFINER SET search_path = onkofizjo, pg_catalog AS $$
-    SELECT id FROM app_users WHERE external_subject = current_subject() AND active = TRUE LIMIT 1
+    SELECT id FROM app_users
+    WHERE onkofizjo.clinical_mfa_satisfied()
+      AND external_subject = current_subject()
+      AND active = TRUE
+    LIMIT 1
 $$;
 
 CREATE OR REPLACE FUNCTION current_role_code() RETURNS TEXT
@@ -326,13 +338,16 @@ $$;
 
 CREATE OR REPLACE FUNCTION can_access_patient(target_patient UUID) RETURNS BOOLEAN
 LANGUAGE sql STABLE SECURITY DEFINER SET search_path = onkofizjo, pg_catalog AS $$
-    SELECT is_gosia() OR EXISTS (
+    SELECT onkofizjo.clinical_mfa_satisfied() AND (is_gosia() OR EXISTS (
         SELECT 1 FROM patient_access
         WHERE patient_id = target_patient
           AND user_id = current_user_id()
           AND revoked_at IS NULL
-    )
+    ))
 $$;
+
+REVOKE EXECUTE ON FUNCTION current_user_id() FROM PUBLIC, anon, authenticated;
+REVOKE EXECUTE ON FUNCTION can_access_patient(UUID) FROM PUBLIC, anon, authenticated;
 
 CREATE OR REPLACE FUNCTION set_audit_hash() RETURNS TRIGGER
 LANGUAGE plpgsql SECURITY DEFINER SET search_path = onkofizjo, public AS $$

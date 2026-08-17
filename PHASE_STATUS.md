@@ -88,6 +88,9 @@ desarrollo. Sigue prohibido introducir datos reales: el API local declara
   La matriz de aceptación, con evidencia exigida para cada puerta restante,
   está en `infra/PHASE4_ACCEPTANCE.md`; no se cierra la fase por disponibilidad
   nominal de un proveedor.
+  La base UE también exige `aal2` dentro de sus helpers RLS y el Security
+  Advisor volvió a quedar en `0 lints` después de revocar los RPC públicos de
+  los helpers `SECURITY DEFINER`.
 
 ## Evidencia ejecutada
 

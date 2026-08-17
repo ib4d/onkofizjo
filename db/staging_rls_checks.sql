@@ -20,6 +20,7 @@ SET LOCAL onkofizjo.test_patient_b = :'patient_b';
 SET LOCAL onkofizjo.test_diet_plan = :'diet_plan_id';
 
 SET LOCAL app.user_subject = :'subject_collaborator_a';
+SET LOCAL app.mfa_aal = 'aal2';
 
 DO $$
 DECLARE
@@ -94,6 +95,7 @@ END
 $$;
 
 SET LOCAL app.user_subject = :'subject_gosia';
+SET LOCAL app.mfa_aal = 'aal2';
 
 DO $$
 DECLARE

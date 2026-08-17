@@ -53,8 +53,9 @@ require("CREATE EXTENSION IF NOT EXISTS pgcrypto", "hashing extension")
 require("SECURITY DEFINER", "security-definer access functions")
 require("SELECT onkofizjo.current_role_code() = 'GOSIA'", "schema-qualified Gosia role lookup")
 require("ON CONFLICT (code) DO NOTHING", "reference-data idempotency")
-for function in ("validate_note_appointment_patient", "current_subject", "prevent_audit_mutation"):
-    require(f"FUNCTION {function}()", f"function {function}")
+for function in ("validate_note_appointment_patient", "current_subject", "clinical_mfa_satisfied", "prevent_audit_mutation"):
+    function_token = f"FUNCTION onkofizjo.{function}()" if function == "clinical_mfa_satisfied" else f"FUNCTION {function}()"
+    require(function_token, f"function {function}")
     if function == "current_subject":
         require("SET search_path = pg_catalog", f"fixed search path for {function}")
     else:
