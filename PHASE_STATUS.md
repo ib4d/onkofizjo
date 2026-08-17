@@ -46,10 +46,11 @@ desarrollo. Sigue prohibido introducir datos reales: el API local declara
   negativas para ejecutar allí con fixtures sintéticos y rollback transaccional,
   un bootstrap Docker con roles separados y volumen local aislado, y un workflow
   de integración continua que ejecuta el mismo contrato en PostgreSQL efímero.
-  El workflow se ejecutó correctamente en GitHub Actions (run
-  `31980296969`, commit `6174df7`), incluyendo migración, fixtures, auditoría
-  append-only y RLS con rol de aplicación no propietario. El bootstrap local
-  sigue requiriendo Docker/PostgreSQL en la máquina de desarrollo.
+  El workflow de integración continua se ha verificado correctamente en
+  GitHub Actions, incluyendo migración, fixtures, auditoría append-only y RLS
+  con rol de aplicación no propietario. El bootstrap local sigue requiriendo
+  Docker/PostgreSQL en la máquina de desarrollo; la ejecución más reciente se
+  debe comprobar en el historial del workflow antes de cada entrega.
 - **4.6 Infraestructura clínica de producción:** pendiente y bloqueante. Faltan
   IdP real con MFA, cookies HttpOnly/Secure/SameSite, base de datos cifrada,
   almacenamiento de documentos cifrado, backups y restauración probados,
@@ -63,9 +64,10 @@ desarrollo. Sigue prohibido introducir datos reales: el API local declara
   documentada en `infra/PROVIDER_DECISION.md`. Las interfaces provider-neutral
   de OIDC, almacenamiento clínico y auditoría externa fallan cerradas en
   `api/production_adapters.py` (incluye ahora el adaptador privado de
-  PostgreSQL), y `api/production_startup.py` impide iniciar el runtime si falta
-  cualquiera de esas integraciones; estos artefactos requieren revisión jurídica
-  polaca y proveedores autorizados antes de conectar datos reales.
+  PostgreSQL y comprobaciones `assert_ready()` por proveedor), y
+  `api/production_startup.py` impide iniciar el runtime si falta cualquiera de
+  esas integraciones; estos artefactos requieren revisión jurídica polaca y
+  proveedores autorizados antes de conectar datos reales.
 
 ## Evidencia ejecutada
 
