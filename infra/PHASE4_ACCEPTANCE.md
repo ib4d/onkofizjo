@@ -9,7 +9,7 @@ evidencia reproducible, fecha, responsable y resultado.
 | Puerta | Estado actual | Evidencia mínima para cerrar | No basta con |
 |---|---|---|---|
 | Proyecto UE y PostgreSQL | `VERIFICADA` para staging vacío | Proyecto `xhemiwewdbnnnlsoulvz` en `eu-central-1`, migraciones 1–4, 19 tablas, 19/19 RLS, 0 pacientes | Tener una URL de proyecto |
-| Identidad y MFA | `PENDIENTE` | IdP aprobado, issuer/audience/JWKS probados, revocación, rotación, MFA AAL2 y pruebas negativas | `MFA_REQUIRED=true` en un `.env` |
+| Identidad y MFA | `CONTRATO VERIFICADO / INTEGRACIÓN PENDIENTE` | IdP aprobado, issuer/audience/JWKS probados, revocación, rotación, MFA AAL2 y pruebas negativas | `MFA_REQUIRED=true` en un `.env` |
 | Storage clínico | `PENDIENTE` | Bucket privado, políticas por paciente/ecosistema, upload/download/delete autorizados, URLs temporales y logs | Un bucket público o escribir en tablas internas de Storage |
 | Backups y restauración | `PENDIENTE` | Backup cifrado, retención aprobada, restore en entorno aislado, RPO/RTO medidos y evidencia de acceso restringido | Que el proveedor diga que hace backups |
 | Auditoría externa | `PENDIENTE` | Sink append-only fuera de la base, recepción de eventos, retención, integridad y recuperación verificadas | Solo la cadena hash interna de PostgreSQL |

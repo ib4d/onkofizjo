@@ -25,6 +25,7 @@ class VerifiedIdentity:
     expires_at: datetime
     issued_at: datetime
     mfa_satisfied: bool
+    assurance_level: str
 
 
 def _timestamp(claims: Mapping[str, object], name: str) -> datetime:
@@ -82,6 +83,8 @@ def validate_verified_identity(
 
     if claims.get("mfa_satisfied") is not True:
         raise IdentityRejected("MFA is required for clinical access")
+    if claims.get("aal") != "aal2":
+        raise IdentityRejected("MFA assurance level aal2 is required for clinical access")
 
     return VerifiedIdentity(
         subject=subject,
@@ -90,4 +93,5 @@ def validate_verified_identity(
         expires_at=expires_at,
         issued_at=issued_at,
         mfa_satisfied=True,
+        assurance_level="aal2",
     )

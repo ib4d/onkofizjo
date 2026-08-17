@@ -42,7 +42,9 @@ python api/validate_identity_contract.py
 ```
 
 It accepts only claims already verified by a real OIDC adapter, with the exact
-issuer and audience, a non-empty subject, valid time bounds and explicit MFA.
+issuer and audience, a non-empty subject, valid time bounds and explicit MFA at
+assurance level `aal2`. A boolean MFA flag without `aal2` is rejected; this
+matches Supabase Auth's documented MFA assurance claim.
 The application role is intentionally not read from the token; production code
 must resolve it from `app_users.external_subject` after authentication.
 

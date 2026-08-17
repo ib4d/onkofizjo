@@ -12,6 +12,7 @@ BASE = {
     "iat": REFERENCE.timestamp() - 30,
     "exp": REFERENCE.timestamp() + 300,
     "mfa_satisfied": True,
+    "aal": "aal2",
 }
 
 
@@ -48,5 +49,6 @@ rejects({"aud": ["different-api"]}, "audience")
 rejects({"sub": ""}, "subject")
 rejects({"exp": REFERENCE.timestamp() - 1}, "expired")
 rejects({"mfa_satisfied": False}, "MFA")
+rejects({"aal": "aal1"}, "aal2")
 
 print("PASS: production identity contract accepts only verified, scoped, unexpired MFA identities.")
