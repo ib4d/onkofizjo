@@ -6,6 +6,10 @@ Este documento evita conectar por accidente el prototipo a un proveedor no
 aprobado. No contiene credenciales, datos de pacientes ni una decisión de
 compra.
 
+El registro formal de autorización, responsables y evidencia de provisión está
+en `infra/PROVIDER_AUTHORIZATION.md`. Su existencia no implica que la
+autorización haya sido concedida.
+
 ## Baseline recomendado
 
 La primera implementación real debe ser un stack gestionado en una región

@@ -71,6 +71,9 @@ desarrollo. Sigue prohibido introducir datos reales: el API local declara
   `api/production_startup.py` impide iniciar el runtime si falta cualquiera de
   esas integraciones; estos artefactos requieren revisión jurídica polaca y
   proveedores autorizados antes de conectar datos reales.
+  El registro formal de autorización está en
+  `infra/PROVIDER_AUTHORIZATION.md`; todavía no contiene una aprobación ni un
+  identificador de proyecto real.
 
 ## Evidencia ejecutada
 
