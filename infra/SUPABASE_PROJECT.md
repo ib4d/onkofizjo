@@ -37,6 +37,7 @@ claves publicables, `service_role`, secretos, contraseñas ni datos clínicos.
 - Pacientes: `0`.
 - Eventos de auditoría: `0`.
 - Asesores de seguridad Supabase: `0 lints`.
+- Security Advisor revalidado después de las migraciones 005–006: `0 lints`.
 - Migraciones registradas en el proyecto: `4/4`, en el orden documentado arriba.
 - Servicio Auth verificado en logs de inicialización; no hay usuarios clínicos
   creados. Supabase informa una advertencia interna de deprecación sobre

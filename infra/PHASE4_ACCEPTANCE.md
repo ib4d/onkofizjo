@@ -8,7 +8,7 @@ evidencia reproducible, fecha, responsable y resultado.
 
 | Puerta | Estado actual | Evidencia mínima para cerrar | No basta con |
 |---|---|---|---|
-| Proyecto UE y PostgreSQL | `VERIFICADA` para staging vacío | Proyecto `xhemiwewdbnnnlsoulvz` en `eu-central-1`, migraciones 1–4, 19 tablas, 19/19 RLS, 0 pacientes | Tener una URL de proyecto |
+| Proyecto UE y PostgreSQL | `VERIFICADA` para staging vacío | Proyecto `xhemiwewdbnnnlsoulvz` en `eu-central-1`, migraciones 1–6, 19 tablas, 19/19 RLS, 0 pacientes | Tener una URL de proyecto |
 | Plan y garantías del proveedor | `PENDIENTE` | Plan contractual aprobado para salud, DPA, backups/restore, retención y soporte verificados | Que el proyecto aparezca `ACTIVE_HEALTHY` |
 | Identidad y MFA | `CONTRATO VERIFICADO / INTEGRACIÓN PENDIENTE` | IdP aprobado, issuer/audience/JWKS probados, revocación, rotación, MFA AAL2 y pruebas negativas | `MFA_REQUIRED=true` en un `.env` |
 | Storage clínico | `PENDIENTE` | Bucket privado, políticas por paciente/ecosistema, upload/download/delete autorizados, URLs temporales y logs | Un bucket público o escribir en tablas internas de Storage |
