@@ -52,6 +52,14 @@ class ExternalAuditSink(Protocol):
         """Append an event to an external immutable audit destination."""
 
 
+class ClinicalBackup(Protocol):
+    def assert_ready(self) -> None:
+        """Verify encrypted backup policy, retention and access controls."""
+
+    def restore_test(self) -> dict[str, object]:
+        """Run or verify an isolated restore test and return its evidence."""
+
+
 class _UnconfiguredIdentityVerifier:
     def assert_ready(self) -> None:
         raise ProductionIntegrationNotConfigured(
@@ -98,6 +106,13 @@ class _UnconfiguredExternalAuditSink:
         raise ProductionIntegrationNotConfigured("No external immutable audit sink adapter is configured")
 
 
+class _UnconfiguredClinicalBackup:
+    def assert_ready(self) -> None:
+        raise ProductionIntegrationNotConfigured("No encrypted clinical backup adapter is configured")
+
+    def restore_test(self) -> dict[str, object]:
+        raise ProductionIntegrationNotConfigured("No encrypted clinical backup adapter is configured")
+
 @dataclass(frozen=True)
 class ProductionAdapters:
     """All provider boundaries required by a clinical production service."""
@@ -106,6 +121,7 @@ class ProductionAdapters:
     database: ClinicalDatabase
     storage: ClinicalObjectStorage
     audit_sink: ExternalAuditSink
+    backup: ClinicalBackup
 
     @classmethod
     def unconfigured(cls) -> "ProductionAdapters":
@@ -114,10 +130,11 @@ class ProductionAdapters:
             database=_UnconfiguredClinicalDatabase(),
             storage=_UnconfiguredClinicalObjectStorage(),
             audit_sink=_UnconfiguredExternalAuditSink(),
+            backup=_UnconfiguredClinicalBackup(),
         )
 
     def assert_ready(self) -> None:
-        adapters = (self.identity, self.database, self.storage, self.audit_sink)
+        adapters = (self.identity, self.database, self.storage, self.audit_sink, self.backup)
         if any(
             isinstance(
                 adapter,
@@ -126,12 +143,13 @@ class ProductionAdapters:
                     _UnconfiguredClinicalDatabase,
                     _UnconfiguredClinicalObjectStorage,
                     _UnconfiguredExternalAuditSink,
+                    _UnconfiguredClinicalBackup,
                 ),
             )
             for adapter in adapters
         ):
             raise ProductionIntegrationNotConfigured(
-                "Production adapters are incomplete; configure OIDC, private PostgreSQL, encrypted storage and external audit sink"
+                "Production adapters are incomplete; configure OIDC, private PostgreSQL, encrypted storage, external audit sink and encrypted backups"
             )
 
         required_methods = {
@@ -139,6 +157,7 @@ class ProductionAdapters:
             "private PostgreSQL": ("assert_ready", "health_check"),
             "encrypted storage": ("assert_ready", "put", "create_download_url", "delete"),
             "external audit sink": ("assert_ready", "append"),
+            "encrypted backups": ("assert_ready", "restore_test"),
         }
         for name, adapter in zip(required_methods, adapters):
             missing = [method for method in required_methods[name] if not callable(getattr(adapter, method, None))]

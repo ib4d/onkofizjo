@@ -71,6 +71,9 @@ class FakeReady:
     def append(self, **kwargs):
         pass
 
+    def restore_test(self):
+        return {"passed": True}
+
 
 class MissingOperation:
     def assert_ready(self):
@@ -85,6 +88,7 @@ runtime = build_production_runtime(
         database=FakeReady(),
         storage=FakeReady(),
         audit_sink=FakeReady(),
+        backup=FakeReady(),
     ),
 )
 assert runtime.config.storage_bucket == "onkofizjo-clinical"
@@ -97,6 +101,7 @@ try:
             database=FakeReady(),
             storage=FakeReady(),
             audit_sink=FakeReady(),
+            backup=FakeReady(),
         ),
     )
 except ProductionIntegrationNotConfigured as error:

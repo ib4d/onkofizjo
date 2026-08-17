@@ -10,6 +10,7 @@ except ProductionIntegrationNotConfigured as error:
     assert "PostgreSQL" in str(error)
     assert "encrypted storage" in str(error)
     assert "external audit sink" in str(error)
+    assert "encrypted backup" in str(error)
 else:
     raise AssertionError("unconfigured production adapters were accepted")
 
@@ -22,6 +23,8 @@ for operation in (
     lambda: adapters.storage.create_download_url(patient_id="patient", object_key="doc", ttl_seconds=60),
     lambda: adapters.audit_sink.assert_ready(),
     lambda: adapters.audit_sink.append(event_hash="hash", payload={}),
+    lambda: adapters.backup.assert_ready(),
+    lambda: adapters.backup.restore_test(),
 ):
     try:
         operation()
